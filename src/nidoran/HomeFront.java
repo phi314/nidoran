@@ -44,7 +44,7 @@ public class HomeFront extends javax.swing.JFrame {
      */
     public HomeFront() {
         initComponents();
-        setLocationRelativeTo(null);    
+        setLocationRelativeTo(null);  
         
         /**
          * Table Buku
@@ -176,13 +176,14 @@ public class HomeFront extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         fieldBukuComboBox2 = new javax.swing.JComboBox<>();
         searchBukuInput2 = new javax.swing.JTextField();
-        resetBukuButton2 = new javax.swing.JButton();
+        resetMemberButton = new javax.swing.JButton();
         searchBukuButton3 = new javax.swing.JButton();
         showInsertMemberButton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableMember = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
@@ -423,10 +424,10 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        resetBukuButton2.setText("Reset");
-        resetBukuButton2.addActionListener(new java.awt.event.ActionListener() {
+        resetMemberButton.setText("Reset");
+        resetMemberButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBukuButton2ActionPerformed(evt);
+                resetMemberButtonActionPerformed(evt);
             }
         });
 
@@ -467,7 +468,7 @@ public class HomeFront extends javax.swing.JFrame {
                             .addComponent(searchBukuInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fieldBukuComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(resetBukuButton2)
+                                .addComponent(resetMemberButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -484,7 +485,7 @@ public class HomeFront extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton3)
-                    .addComponent(resetBukuButton2)
+                    .addComponent(resetMemberButton)
                     .addComponent(showInsertMemberButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -494,6 +495,14 @@ public class HomeFront extends javax.swing.JFrame {
         jTabbedPane1.addTab("Member", jPanel3);
 
         jMenu3.setText("File");
+
+        jMenuItem2.setText("Logout");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
 
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -591,9 +600,10 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldBukuComboBox2ActionPerformed
 
-    private void resetBukuButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBukuButton2ActionPerformed
+    private void resetMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMemberButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resetBukuButton2ActionPerformed
+        loadDataMember();
+    }//GEN-LAST:event_resetMemberButtonActionPerformed
 
     private void searchBukuButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton3ActionPerformed
         // TODO add your handling code here:
@@ -620,6 +630,11 @@ public class HomeFront extends javax.swing.JFrame {
     private void searchBukuButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBukuButton6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -670,6 +685,7 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -681,8 +697,8 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton resetBukuButton;
     private javax.swing.JButton resetBukuButton1;
-    private javax.swing.JButton resetBukuButton2;
     private javax.swing.JButton resetBukuButton3;
+    private javax.swing.JButton resetMemberButton;
     private javax.swing.JButton searchBukuButton;
     private javax.swing.JButton searchBukuButton1;
     private javax.swing.JButton searchBukuButton2;

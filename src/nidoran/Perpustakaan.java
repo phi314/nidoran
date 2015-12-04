@@ -10,6 +10,9 @@ package nidoran;
  * @author phi314
  */
 public class Perpustakaan {
+    
+    public static int id_petugas;
+    public static String nama;
 
     /**
      * @param args the command line arguments
@@ -17,7 +20,7 @@ public class Perpustakaan {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        new HomeFront().setVisible(true);
+        new Login().setVisible(true);
     }
     
 }
