@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -136,7 +137,8 @@ public class Buku extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buku");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         jLabel1.setText("ISBN");
@@ -176,6 +178,7 @@ public class Buku extends javax.swing.JFrame {
 
             }
         ));
+        tableBuku.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane2.setViewportView(tableBuku);
 
         _tahun.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
@@ -316,27 +319,31 @@ public class Buku extends javax.swing.JFrame {
         
         try
         {
-            Connection c = DbConnection.getConnection();
-            
-            String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun) "
-                    + "VALUES(?, ?, ?, ?, ?)";
-            
-            PreparedStatement p = c.prepareStatement(q);
-            
-            p.setString(1, isbn);
-            p.setString(2, judul);
-            p.setString(3, penerbit);
-            p.setString(4, penulis);
-            p.setString(5, tahun);
-            
-            p.executeUpdate();
-            p.close();
-            
-            clearInputData();
-            
-            loadData();
-            JOptionPane.showMessageDialog(null,"Berhasil tambah buku dengan judul: " + judul, "Informasi",JOptionPane.WARNING_MESSAGE);
-            
+            if(isbn.equals("") || judul.equals("") || penerbit.equals("") || penulis.equals("") || tahun.equals("")){
+                JOptionPane.showMessageDialog(null,"Data tidak boleh kosong.", "Informasi",JOptionPane.WARNING_MESSAGE);
+            }
+            else {
+                Connection c = DbConnection.getConnection();
+
+                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun) "
+                        + "VALUES(?, ?, ?, ?, ?)";
+
+                PreparedStatement p = c.prepareStatement(q);
+
+                p.setString(1, isbn);
+                p.setString(2, judul);
+                p.setString(3, penerbit);
+                p.setString(4, penulis);
+                p.setString(5, tahun);
+
+                p.executeUpdate();
+                p.close();
+
+                clearInputData();
+
+                loadData();
+                JOptionPane.showMessageDialog(null,"Berhasil tambah buku dengan judul: " + judul, "Informasi",JOptionPane.WARNING_MESSAGE);
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"Buku dengan ISBN: " + isbn + ", sudah ada sebelumnya", "Kesalahan",JOptionPane.WARNING_MESSAGE);
             System.out.println(e);
@@ -380,8 +387,8 @@ public class Buku extends javax.swing.JFrame {
         
         try {
             int x = tableBuku.getSelectedRow();
-            Object isbn = tableBuku.getValueAt(x, 0);
-            Object judul = tableBuku.getValueAt(x, 1);
+            Object id = tableBuku.getValueAt(x, 0);
+            Object judul = tableBuku.getValueAt(x, 2);
             
             
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus buku dengan judul: " + judul +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
@@ -390,10 +397,10 @@ public class Buku extends javax.swing.JFrame {
             {
                 try {
                     Connection c = DbConnection.getConnection();
-                    String q = "DELETE FROM buku WHERE isbn=?";
+                    String q = "DELETE FROM buku WHERE id=?";
                     PreparedStatement p = c.prepareStatement(q);
                     
-                    p.setString(1, isbn.toString());
+                    p.setString(1, id.toString());
                     p.executeUpdate();
                     p.close();
                     

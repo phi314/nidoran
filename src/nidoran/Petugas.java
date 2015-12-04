@@ -32,7 +32,6 @@ public class Petugas extends javax.swing.JFrame {
     public Petugas() {
         initComponents();
         setLocationRelativeTo(null);
-        .setUndecorated(true);
         
         // Hide Update Button
         cancelUpdateButton.setVisible(false);
@@ -42,15 +41,16 @@ public class Petugas extends javax.swing.JFrame {
         _id.setVisible(false);
                 
         /**
-         * Table Buku
+         * Table Petugas
          */
-        tableBuku.setModel(model);
+        tablePetugas.setModel(model);
         model.addColumn("_id");
         model.addColumn("Nip");
         model.addColumn("Nama");
         model.addColumn("Jenis Kelamin");
         model.addColumn("Telepon");
-        model.addColumn("Tipe Pekerjaan");
+        model.addColumn("Level");
+        model.addColumn("Username");
         
         loadData();
         
@@ -70,13 +70,14 @@ public class Petugas extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
                 o[1] = r.getString("nip");
                 o[2] = r.getString("nama");
                 o[3] = r.getString("jk");
                 o[4] = r.getString("telepon");
-                o[5] = r.getString("tipe");
+                o[5] = r.getString("level");
+                o[6] = r.getString("username");
                 
                 model.addRow(o);
             }
@@ -86,11 +87,11 @@ public class Petugas extends javax.swing.JFrame {
     }
     
     public void clearInputData(){
-        _isbn.setText("");
-        _judul.setText("");
-        _penerbit.setText("");
-        _penulis.setText("");
-        _tahun.setText("");
+        _nip.setText("");
+        _nama.setText("");
+        _telepon.setText("");
+        _username.setText("");
+        _password.setText("");
     }
 
     /**
@@ -104,25 +105,32 @@ public class Petugas extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        nipLabel = new javax.swing.JLabel();
+        namaLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        _isbn = new javax.swing.JTextField();
-        _judul = new javax.swing.JTextField();
-        _penerbit = new javax.swing.JTextField();
-        _penulis = new javax.swing.JTextField();
+        _nip = new javax.swing.JTextField();
+        _nama = new javax.swing.JTextField();
+        _telepon = new javax.swing.JTextField();
         insertButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableBuku = new javax.swing.JTable();
-        _tahun = new javax.swing.JFormattedTextField();
+        tablePetugas = new javax.swing.JTable();
         showUpdateButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         cancelUpdateButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         _id = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        _level = new javax.swing.JComboBox<>();
+        _lakilaki = new javax.swing.JRadioButton();
+        _perempuan = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        _username = new javax.swing.JTextField();
+        _password = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,38 +145,39 @@ public class Petugas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Petugas");
 
-        jLabel1.setText("ISBN");
+        nipLabel.setText("NIP");
 
-        jLabel2.setText("Judul");
+        namaLabel.setText("Nama");
 
-        jLabel3.setText("Penerbit");
+        jLabel3.setText("Jenis Kelamin");
 
-        jLabel4.setText("Penulis");
+        jLabel4.setText("Telepon");
 
-        jLabel5.setText("Tahun");
+        jLabel5.setText("Level");
 
-        _isbn.addActionListener(new java.awt.event.ActionListener() {
+        _nip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _isbnActionPerformed(evt);
+                _nipActionPerformed(evt);
             }
         });
 
-        _penulis.addActionListener(new java.awt.event.ActionListener() {
+        _telepon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _penulisActionPerformed(evt);
+                _teleponActionPerformed(evt);
             }
         });
 
-        insertButton.setText("Tambah Buku");
+        insertButton.setText("Tambah Petugas");
         insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertButtonActionPerformed(evt);
             }
         });
 
-        tableBuku.setModel(new javax.swing.table.DefaultTableModel(
+        tablePetugas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -176,18 +185,16 @@ public class Petugas extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(tableBuku);
+        jScrollPane2.setViewportView(tablePetugas);
 
-        _tahun.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
-
-        showUpdateButton.setText("Ubah Buku");
+        showUpdateButton.setText("Ubah Petugas");
         showUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showUpdateButtonActionPerformed(evt);
             }
         });
 
-        deleteButton.setText("Hapus Buku");
+        deleteButton.setText("Hapus Petugas");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -211,6 +218,21 @@ public class Petugas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("Data Petugas");
 
+        _level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Front Office", "Back Office" }));
+
+        _lakilaki.setText("Laki-laki");
+        _lakilaki.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _lakilakiActionPerformed(evt);
+            }
+        });
+
+        _perempuan.setText("Perempuan");
+
+        jLabel1.setText("Username");
+
+        jLabel2.setText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,7 +240,7 @@ public class Petugas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(showUpdateButton)
@@ -226,26 +248,28 @@ public class Petugas extends javax.swing.JFrame {
                         .addComponent(deleteButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
+                                    .addComponent(nipLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(namaLabel)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(_penulis)
-                                    .addComponent(_isbn)
-                                    .addComponent(_judul)
-                                    .addComponent(_penerbit)
+                                    .addComponent(_telepon)
+                                    .addComponent(_nip)
+                                    .addComponent(_nama)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(cancelUpdateButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(25, 25, 25)
                                                 .addComponent(updateButton))
-                                            .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(_level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
@@ -253,8 +277,13 @@ public class Petugas extends javax.swing.JFrame {
                                                 .addComponent(insertButton))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(_id)
-                                                .addGap(0, 0, Short.MAX_VALUE))))))
-                            .addComponent(jLabel6))
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(_lakilaki)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(_perempuan))
+                                    .addComponent(_username)
+                                    .addComponent(_password))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -265,26 +294,35 @@ public class Petugas extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nipLabel)
+                    .addComponent(_nip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(_judul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namaLabel)
+                    .addComponent(_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(_lakilaki)
+                    .addComponent(_perempuan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_penulis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(10, 10, 10)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_id))
+                    .addComponent(_id)
+                    .addComponent(_level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertButton)
                     .addComponent(cancelUpdateButton)
@@ -295,75 +333,93 @@ public class Petugas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showUpdateButton)
                     .addComponent(deleteButton))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void _isbnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__isbnActionPerformed
+    private void _nipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__nipActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event__isbnActionPerformed
+    }//GEN-LAST:event__nipActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         // TODO add your handling code here:
         
-        String isbn = _isbn.getText();
-        String judul = _judul.getText();
-        String penerbit = _penerbit.getText();
-        String penulis = _penulis.getText();
-        String tahun = _tahun.getText();
+        String nip = _nip.getText().trim();
+        String nama = _nama.getText().trim();
+        String telepon = _telepon.getText().trim();
+        Object level = _level.getSelectedItem();
+        String username = _username.getText().trim();
+        String password = _password.getText().trim();
+        String jk = null;
+        
+        if(_lakilaki.isSelected())
+        {
+            jk = "l";
+        }
+        else
+        {
+            jk = "p";
+        }
         
         try
         {
-            Connection c = DbConnection.getConnection();
+            if(nip.equals("") || nama.equals("") || telepon.equals("") || username.equals("") || password.equals("") || jk == null){
+                JOptionPane.showMessageDialog(null,"Data tidak boleh kosong.", "Informasi",JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+               Connection c = DbConnection.getConnection();
             
-            String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun) "
-                    + "VALUES(?, ?, ?, ?, ?)";
-            
-            PreparedStatement p = c.prepareStatement(q);
-            
-            p.setString(1, isbn);
-            p.setString(2, judul);
-            p.setString(3, penerbit);
-            p.setString(4, penulis);
-            p.setString(5, tahun);
-            
-            p.executeUpdate();
-            p.close();
-            
-            clearInputData();
-            
-            loadData();
-            JOptionPane.showMessageDialog(null,"Berhasil tambah buku dengan judul: " + judul, "Informasi",JOptionPane.WARNING_MESSAGE);
-            
+                String q = "INSERT INTO petugas(nip, nama, jk, telepon, level, username, password) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, SHA1(?))";
+
+                PreparedStatement p = c.prepareStatement(q);
+
+                p.setString(1, nip);
+                p.setString(2, nama);
+                p.setString(3, jk);
+                p.setString(4, telepon);
+                p.setString(5, level.toString());
+                p.setString(6, username);
+                p.setString(7, password);
+
+                p.executeUpdate();
+                p.close();
+
+                clearInputData();
+
+                loadData();
+                JOptionPane.showMessageDialog(null,"Berhasil tambah Petugas dengan nama: " + nama, "Informasi",JOptionPane.WARNING_MESSAGE);
+             
+            }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Buku dengan ISBN: " + isbn + ", sudah ada sebelumnya", "Kesalahan",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Petugas dengan NIP: " + nip + ", sudah ada sebelumnya", "Kesalahan",JOptionPane.WARNING_MESSAGE);
             System.out.println(e);
         }
     }//GEN-LAST:event_insertButtonActionPerformed
 
-    private void _penulisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__penulisActionPerformed
+    private void _teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__teleponActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event__penulisActionPerformed
+    }//GEN-LAST:event__teleponActionPerformed
 
     private void showUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUpdateButtonActionPerformed
         // TODO add your handling code here:
         try {
-            int x = tableBuku.getSelectedRow();
-            Object id = tableBuku.getValueAt(x, 0);
-            Object isbn = tableBuku.getValueAt(x, 1);
-            Object judul = tableBuku.getValueAt(x, 2);
-            Object penerbit = tableBuku.getValueAt(x, 3);
-            Object penulis = tableBuku.getValueAt(x, 4);
-            Object tahun = tableBuku.getValueAt(x, 5);
+            int x = tablePetugas.getSelectedRow();
+            Object id = tablePetugas.getValueAt(x, 0);
+            Object nip = tablePetugas.getValueAt(x, 1);
+            Object nama = tablePetugas.getValueAt(x, 2);
+            Object jk = tablePetugas.getValueAt(x, 3);
+            Object telepon = tablePetugas.getValueAt(x, 4);
+            Object level = tablePetugas.getValueAt(x, 4);
+            Object username = tablePetugas.getValueAt(x, 5);
             
             _id.setText(id.toString());
-            _isbn.setText(isbn.toString());
-            _judul.setText(judul.toString());
-            _penerbit.setText(penerbit.toString());
-            _penulis.setText(penulis.toString());
-            _tahun.setText(tahun.toString());
+            _nip.setText(nip.toString());
+            _nama.setText(nama.toString());
+            _telepon.setText(telepon.toString());
+            _username.setText(username.toString());
             
             insertButton.setVisible(false);
             cancelUpdateButton.setVisible(true);
@@ -374,41 +430,6 @@ public class Petugas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Buku belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
         }        
     }//GEN-LAST:event_showUpdateButtonActionPerformed
-
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here
-        
-        try {
-            int x = tableBuku.getSelectedRow();
-            Object isbn = tableBuku.getValueAt(x, 0);
-            Object judul = tableBuku.getValueAt(x, 1);
-            
-            
-            int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus buku dengan judul: " + judul +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            
-            if(confirm == JOptionPane.YES_OPTION)
-            {
-                try {
-                    Connection c = DbConnection.getConnection();
-                    String q = "DELETE FROM buku WHERE isbn=?";
-                    PreparedStatement p = c.prepareStatement(q);
-                    
-                    p.setString(1, isbn.toString());
-                    p.executeUpdate();
-                    p.close();
-                    
-                    model.removeRow(x);
-                    
-                    JOptionPane.showMessageDialog(this, "Berhasil hapus buku dengan judul: " + judul, "Informasi", JOptionPane.WARNING_MESSAGE);
-                    
-                } catch (SQLException e) {
-                    System.out.println(e);
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Buku belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void cancelUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelUpdateButtonActionPerformed
         // TODO add your handling code here:
@@ -422,11 +443,13 @@ public class Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String id = _id.getText();
-        String isbn = _isbn.getText();
-        String judul = _judul.getText();
-        String penerbit = _penerbit.getText();
-        String penulis = _penulis.getText();
-        String tahun = _tahun.getText();
+        String nip = _nip.getText();
+        String nama = _nama.getText();
+        String telepon = _telepon.getText();
+        String username = _username.getText();
+        String password = _password.getText();
+        
+        String jk = null;
         
         try
         {
@@ -434,21 +457,22 @@ public class Petugas extends javax.swing.JFrame {
             
             String q = "UPDATE buku "
                     + "SET "
-                    + "isbn=?,"
-                    + "judul=?,"
-                    + "penerbit=?,"
-                    + "penulis=?,"
-                    + "tahun=?"
+                    + "nip=?,"
+                    + "nama=?,"
+                    + "jk=?,"
+                    + "telepon=?,"
+                    + "username=?"
                     + "WHERE id=?";
             
             PreparedStatement p = c.prepareStatement(q);
             
-            p.setString(1, isbn);
-            p.setString(2, judul);
-            p.setString(3, penerbit);
-            p.setString(4, penulis);
-            p.setString(5, tahun);
-            p.setString(6, id);
+            p.setString(1, nip);
+            p.setString(2, nama);
+            p.setString(3, nama);
+            p.setString(4, jk);
+            p.setString(5, telepon);
+            p.setString(6, username);
+            p.setString(7, id);
             
             p.executeUpdate();
             p.close();
@@ -459,13 +483,51 @@ public class Petugas extends javax.swing.JFrame {
             updateButton.setVisible(false);
             
             loadData();
-            JOptionPane.showMessageDialog(null,"Berhasil update buku dengan judul: " + judul, "Informasi",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Berhasil update petugas dengan nama: " + nama, "Informasi",JOptionPane.WARNING_MESSAGE);
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Gagal update data buku", "Kesalahan",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Gagal update data petugas", "Kesalahan",JOptionPane.WARNING_MESSAGE);
             System.out.println(e);
         }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void _lakilakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lakilakiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__lakilakiActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here
+
+        try {
+            int x = tablePetugas.getSelectedRow();
+            Object id = tablePetugas.getValueAt(x, 0);
+            Object nama = tablePetugas.getValueAt(x, 2);
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus petugas dengan nama: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if(confirm == JOptionPane.YES_OPTION)
+            {
+                try {
+                    Connection c = DbConnection.getConnection();
+                    String q = "DELETE FROM petugas WHERE id=?";
+                    PreparedStatement p = c.prepareStatement(q);
+
+                    p.setString(1, id.toString());
+                    p.executeUpdate();
+                    p.close();
+
+                    model.removeRow(x);
+
+                    JOptionPane.showMessageDialog(this, "Berhasil hapus petugas dengan nama: " + nama, "Informasi", JOptionPane.WARNING_MESSAGE);
+
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Petugas belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,11 +567,16 @@ public class Petugas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _id;
-    private javax.swing.JTextField _isbn;
-    private javax.swing.JTextField _judul;
-    private javax.swing.JTextField _penerbit;
-    private javax.swing.JTextField _penulis;
-    private javax.swing.JFormattedTextField _tahun;
+    private javax.swing.JRadioButton _lakilaki;
+    private javax.swing.JComboBox<String> _level;
+    private javax.swing.JTextField _nama;
+    private javax.swing.JTextField _nip;
+    private javax.swing.JTextField _password;
+    private javax.swing.JRadioButton _perempuan;
+    private javax.swing.JTextField _telepon;
+    private javax.swing.JTextField _username;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelUpdateButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
@@ -522,8 +589,10 @@ public class Petugas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel namaLabel;
+    private javax.swing.JLabel nipLabel;
     private javax.swing.JButton showUpdateButton;
-    private javax.swing.JTable tableBuku;
+    private javax.swing.JTable tablePetugas;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
