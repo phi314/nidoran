@@ -325,8 +325,8 @@ public class Buku extends javax.swing.JFrame {
             else {
                 Connection c = DbConnection.getConnection();
 
-                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun) "
-                        + "VALUES(?, ?, ?, ?, ?)";
+                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun, id_petugas) "
+                        + "VALUES(?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement p = c.prepareStatement(q);
 
@@ -335,6 +335,7 @@ public class Buku extends javax.swing.JFrame {
                 p.setString(3, penerbit);
                 p.setString(4, penulis);
                 p.setString(5, tahun);
+                p.setString(6, Perpustakaan.id_petugas);
 
                 p.executeUpdate();
                 p.close();
@@ -345,7 +346,7 @@ public class Buku extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Berhasil tambah buku dengan judul: " + judul, "Informasi",JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Buku dengan ISBN: " + isbn + ", sudah ada sebelumnya", "Kesalahan",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Gagal tambah buku.", "Kesalahan",JOptionPane.WARNING_MESSAGE);
             System.out.println(e);
         }
     }//GEN-LAST:event_insertButtonActionPerformed

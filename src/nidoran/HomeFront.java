@@ -5,11 +5,7 @@
  */
 package nidoran;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -164,7 +160,7 @@ public class HomeFront extends javax.swing.JFrame {
         searchBukuButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableBuku1 = new javax.swing.JTable();
-        searchBukuButton2 = new javax.swing.JButton();
+        insertPeminjamanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         fieldBukuComboBox3 = new javax.swing.JComboBox<>();
         searchBukuInput3 = new javax.swing.JTextField();
@@ -294,10 +290,10 @@ public class HomeFront extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tableBuku1);
 
-        searchBukuButton2.setText("Tambah Peminjaman");
-        searchBukuButton2.addActionListener(new java.awt.event.ActionListener() {
+        insertPeminjamanButton.setText("Tambah Peminjaman");
+        insertPeminjamanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBukuButton2ActionPerformed(evt);
+                insertPeminjamanButtonActionPerformed(evt);
             }
         });
 
@@ -318,7 +314,7 @@ public class HomeFront extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchBukuButton2)))
+                        .addComponent(insertPeminjamanButton)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -332,7 +328,7 @@ public class HomeFront extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton1)
                     .addComponent(resetBukuButton1)
-                    .addComponent(searchBukuButton2))
+                    .addComponent(insertPeminjamanButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -592,9 +588,11 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBukuButton1ActionPerformed
 
-    private void searchBukuButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton2ActionPerformed
+    private void insertPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBukuButton2ActionPerformed
+        
+        new Peminjaman().setVisible(true);
+    }//GEN-LAST:event_insertPeminjamanButtonActionPerformed
 
     private void fieldBukuComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox2ActionPerformed
         // TODO add your handling code here:
@@ -633,7 +631,8 @@ public class HomeFront extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-
+        new Login().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
@@ -679,6 +678,7 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fieldBukuComboBox1;
     private javax.swing.JComboBox<String> fieldBukuComboBox2;
     private javax.swing.JComboBox<String> fieldBukuComboBox3;
+    private javax.swing.JButton insertPeminjamanButton;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -701,7 +701,6 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton resetMemberButton;
     private javax.swing.JButton searchBukuButton;
     private javax.swing.JButton searchBukuButton1;
-    private javax.swing.JButton searchBukuButton2;
     private javax.swing.JButton searchBukuButton3;
     private javax.swing.JButton searchBukuButton5;
     private javax.swing.JButton searchBukuButton6;

@@ -27,7 +27,7 @@ public class Petugas extends javax.swing.JFrame {
     };
 
     /**
-     * Creates new form Buku
+     * Creates new form Petugas
      */
     public Petugas() {
         initComponents();
@@ -125,12 +125,11 @@ public class Petugas extends javax.swing.JFrame {
         _id = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         _level = new javax.swing.JComboBox<>();
-        _lakilaki = new javax.swing.JRadioButton();
-        _perempuan = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         _username = new javax.swing.JTextField();
         _password = new javax.swing.JTextField();
+        _jk = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -220,18 +219,11 @@ public class Petugas extends javax.swing.JFrame {
 
         _level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Front Office", "Back Office" }));
 
-        _lakilaki.setText("Laki-laki");
-        _lakilaki.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _lakilakiActionPerformed(evt);
-            }
-        });
-
-        _perempuan.setText("Perempuan");
-
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
+
+        _jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,12 +270,9 @@ public class Petugas extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(_id)
                                                 .addGap(0, 0, Short.MAX_VALUE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(_lakilaki)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(_perempuan))
                                     .addComponent(_username)
-                                    .addComponent(_password))))
+                                    .addComponent(_password)
+                                    .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -303,8 +292,7 @@ public class Petugas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(_lakilaki)
-                    .addComponent(_perempuan))
+                    .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,7 +310,7 @@ public class Petugas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertButton)
                     .addComponent(cancelUpdateButton)
@@ -352,20 +340,16 @@ public class Petugas extends javax.swing.JFrame {
         Object level = _level.getSelectedItem();
         String username = _username.getText().trim();
         String password = _password.getText().trim();
-        String jk = null;
+        String jk = "l";
         
-        if(_lakilaki.isSelected())
-        {
-            jk = "l";
-        }
-        else
+        if(_jk.getSelectedIndex() == 1)
         {
             jk = "p";
         }
         
         try
         {
-            if(nip.equals("") || nama.equals("") || telepon.equals("") || username.equals("") || password.equals("") || jk == null){
+            if(nip.equals("") || nama.equals("") || telepon.equals("") || username.equals("") || password.equals("")){
                 JOptionPane.showMessageDialog(null,"Data tidak boleh kosong.", "Informasi",JOptionPane.WARNING_MESSAGE);
             }
             else{
@@ -412,12 +396,18 @@ public class Petugas extends javax.swing.JFrame {
             Object nama = tablePetugas.getValueAt(x, 2);
             Object jk = tablePetugas.getValueAt(x, 3);
             Object telepon = tablePetugas.getValueAt(x, 4);
-            Object level = tablePetugas.getValueAt(x, 4);
-            Object username = tablePetugas.getValueAt(x, 5);
+            Object level = tablePetugas.getValueAt(x, 5);
+            Object username = tablePetugas.getValueAt(x, 6);
             
             _id.setText(id.toString());
             _nip.setText(nip.toString());
             _nama.setText(nama.toString());
+            
+            _jk.setSelectedIndex(0);
+            if(jk.toString().equals("p")){
+                _jk.setSelectedIndex(1);
+            }
+            
             _telepon.setText(telepon.toString());
             _username.setText(username.toString());
             
@@ -491,10 +481,6 @@ public class Petugas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void _lakilakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lakilakiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event__lakilakiActionPerformed
-
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here
 
@@ -567,12 +553,11 @@ public class Petugas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _id;
-    private javax.swing.JRadioButton _lakilaki;
+    private javax.swing.JComboBox<String> _jk;
     private javax.swing.JComboBox<String> _level;
     private javax.swing.JTextField _nama;
     private javax.swing.JTextField _nip;
     private javax.swing.JTextField _password;
-    private javax.swing.JRadioButton _perempuan;
     private javax.swing.JTextField _telepon;
     private javax.swing.JTextField _username;
     private javax.swing.ButtonGroup buttonGroup1;

@@ -11,7 +11,7 @@ package nidoran;
  */
 public class Perpustakaan {
     
-    public static int id_petugas;
+    public static String id_petugas;
     public static String nama;
 
     /**

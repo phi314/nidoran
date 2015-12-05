@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -110,19 +111,18 @@ public class Login extends javax.swing.JFrame {
             {
                 String level = r.getString("level");
                 Perpustakaan.nama = r.getString("nama");
-                Perpustakaan.id_petugas = r.getInt("id");
+                Perpustakaan.id_petugas = r.getString("id");
                 
-                if(level.equals("Back Office"))
-                {
-                  new HomeBack().setVisible(true);  
-                }
-                else if(level.equals("Front Office"))
-                {
-                  new HomeFront().setVisible(true);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(this, "Kesalahan sistem", "Informasi", JOptionPane.WARNING_MESSAGE);
+                switch (level) {
+                    case "Back Office":
+                        new HomeBack().setVisible(true);
+                        break;
+                    case "Front Office":
+                        new HomeFront().setVisible(true);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Kesalahan sistem", "Informasi", JOptionPane.WARNING_MESSAGE);
+                        break;
                 }
 
                 setVisible(false);
