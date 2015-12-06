@@ -32,9 +32,6 @@ public class HomeFront extends javax.swing.JFrame {
     };
     
     
-
-   
-    
     /**
      * Creates new form Home
      */
@@ -177,6 +174,7 @@ public class HomeFront extends javax.swing.JFrame {
         showInsertMemberButton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableMember = new javax.swing.JTable();
+        insertPeminjamanButton1 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -490,6 +488,13 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Member", jPanel3);
 
+        insertPeminjamanButton1.setText("Tambah Peminjaman");
+        insertPeminjamanButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertPeminjamanButton1ActionPerformed(evt);
+            }
+        });
+
         jMenu3.setText("File");
 
         jMenuItem2.setText("Logout");
@@ -517,11 +522,17 @@ public class HomeFront extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(insertPeminjamanButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 121, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(insertPeminjamanButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -635,6 +646,12 @@ public class HomeFront extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void insertPeminjamanButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        insertPeminjamanButtonActionPerformed(evt);
+    }//GEN-LAST:event_insertPeminjamanButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -679,6 +696,7 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fieldBukuComboBox2;
     private javax.swing.JComboBox<String> fieldBukuComboBox3;
     private javax.swing.JButton insertPeminjamanButton;
+    private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
