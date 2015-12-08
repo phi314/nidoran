@@ -28,12 +28,14 @@ public class Peminjaman extends javax.swing.JFrame {
         }
     };
     
-     private DefaultTableModel modelDetailPeminjaman = new DefaultTableModel() {
+    private DefaultTableModel modelDetailPeminjaman = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
+    
+    public int jumlah_buku = 0;
 
     /**
      * Creates new form Peminjaman
@@ -55,6 +57,7 @@ public class Peminjaman extends javax.swing.JFrame {
         modelBuku.addColumn("Penerbit");
         modelBuku.addColumn("Penulis");
         modelBuku.addColumn("Tahun");
+        modelBuku.addColumn("Status");
         
         /**
          * Table Detail Peminjaman
@@ -77,6 +80,8 @@ public class Peminjaman extends javax.swing.JFrame {
             fixPenerbit.setText(tableBuku.getValueAt(tableBuku.getSelectedRow(), 3).toString());
             fixPenulis.setText(tableBuku.getValueAt(tableBuku.getSelectedRow(), 4).toString());
             fixTahun.setText(tableBuku.getValueAt(tableBuku.getSelectedRow(), 5).toString());
+            fixStatusBuku.setText(tableBuku.getValueAt(tableBuku.getSelectedRow(), 6).toString());
+
         }
     });
     }
@@ -95,7 +100,7 @@ public class Peminjaman extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
@@ -103,11 +108,23 @@ public class Peminjaman extends javax.swing.JFrame {
                 o[4] = r.getString("penulis");
                 o[5] = r.getString("tahun");
                 
+                String status = "Tersedia";
+                if(r.getInt("is_tersedia") == 0){
+                    status = "Dipinjam";
+                }
+                
+                o[6] = status;
+                
                 modelBuku.addRow(o);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+    
+    public void setFixJumlahBuku() {
+        String jumlah_buku = Integer.toString(this.jumlah_buku);
+        fixJumlahBuku.setText(jumlah_buku);
     }
     
     
@@ -153,6 +170,9 @@ public class Peminjaman extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         fixIsbn = new javax.swing.JLabel();
         fixIdMember = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        fixJumlahBuku = new javax.swing.JLabel();
+        fixStatusBuku = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Peminjaman");
@@ -260,6 +280,11 @@ public class Peminjaman extends javax.swing.JFrame {
 
         fixIsbn.setText("-");
 
+        jLabel12.setText("Jumlah Buku");
+
+        fixJumlahBuku.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        fixJumlahBuku.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,6 +293,11 @@ public class Peminjaman extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_searchIsbn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
@@ -275,25 +305,19 @@ public class Peminjaman extends javax.swing.JFrame {
                                     .addComponent(jLabel11)
                                     .addComponent(fixIsbn))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fixIdBuku)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addToDetailButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_searchIsbn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fixIdBuku))
                             .addComponent(fixJudul)
                             .addComponent(jLabel4)
                             .addComponent(fixPenerbit)
                             .addComponent(jLabel5)
                             .addComponent(fixTahun)
                             .addComponent(fixPenulis)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 6, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fixStatusBuku)
+                            .addComponent(addToDetailButton))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(layout.createSequentialGroup()
@@ -319,7 +343,9 @@ public class Peminjaman extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(checkNisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(hapusBukuDetailButton)))))
+                                .addComponent(hapusBukuDetailButton)
+                                .addComponent(jLabel12)
+                                .addComponent(fixJumlahBuku)))))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -354,13 +380,18 @@ public class Peminjaman extends javax.swing.JFrame {
                         .addComponent(fixTelepon))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(_searchIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(_searchIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(hapusBukuDetailButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fixJumlahBuku)))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -376,9 +407,12 @@ public class Peminjaman extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel2)))
                                 .addGap(4, 4, 4)
-                                .addComponent(fixJudul)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(fixJudul)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addComponent(fixStatusBuku))
                                 .addGap(4, 4, 4)
                                 .addComponent(fixPenerbit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -391,7 +425,7 @@ public class Peminjaman extends javax.swing.JFrame {
                                 .addComponent(fixTahun)
                                 .addGap(18, 18, 18)
                                 .addComponent(checkOutButton)))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -422,6 +456,15 @@ public class Peminjaman extends javax.swing.JFrame {
                 o[4] = r.getString("penulis");
                 o[5] = r.getString("tahun");
                 
+                String status = "Tersedia";
+                if(r.getInt("is_tersedia") == 0){
+                    status = "Dipinjam";
+                }
+                
+                o[6] = status;
+                
+                
+                
                 modelBuku.addRow(o);
             }
         } catch (SQLException e) {
@@ -438,13 +481,14 @@ public class Peminjaman extends javax.swing.JFrame {
         }
         else {
             
-            Object[] o = new Object[6];
+            Object[] o = new Object[7];
             o[0] = fixIdBuku.getText();
             o[1] = fixIsbn.getText();
             o[2] = fixJudul.getText();
             o[3] = fixPenerbit.getText();
             o[4] = fixPenulis.getText();
             o[5] = fixTahun.getText();
+            o[6] = fixStatusBuku.getText();
             
             int totalRow = modelDetailPeminjaman.getRowCount();
             Boolean foundRow = false;
@@ -457,7 +501,16 @@ public class Peminjaman extends javax.swing.JFrame {
             }
            
             if(foundRow == false){
-                modelDetailPeminjaman.addRow(o);
+                if(fixStatusBuku.getText().equals("Tersedia")){
+                    modelDetailPeminjaman.addRow(o);
+                
+                    this.jumlah_buku += 1;
+                    setFixJumlahBuku();
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "Buku dengan Judul: "+ o[2]+" sedang dipinjam", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+                }
+                
             }
             else{
                 JOptionPane.showMessageDialog(this, "Buku dengan Judul: "+ o[2]+" sudah disimpan.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
@@ -470,7 +523,10 @@ public class Peminjaman extends javax.swing.JFrame {
         
         try {
             int x = tableDetailPeminjaman.getSelectedRow();
-            modelDetailPeminjaman.removeRow(x);            
+            modelDetailPeminjaman.removeRow(x);  
+            
+            this.jumlah_buku -= 1;
+            setFixJumlahBuku();
         } catch (ArrayIndexOutOfBoundsException e) {
            JOptionPane.showMessageDialog(this, "Belum ada buku yang dipilih.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
         }   
@@ -540,8 +596,8 @@ public class Peminjaman extends javax.swing.JFrame {
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
-                String qInsertPeminjaman = "INSERT INTO peminjaman(id_petugas, id_member, total_harga)"
-                        + " VALUES('"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '" + 2000 + "')";
+                String qInsertPeminjaman = "INSERT INTO peminjaman(id_petugas, id_member, jumlah_buku, total_harga, status)"
+                        + " VALUES('"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '" + 2000 + "', 'pinjam')";
                 
                 int id = 0;
                 s.executeUpdate(qInsertPeminjaman, Statement.RETURN_GENERATED_KEYS);
@@ -555,17 +611,28 @@ public class Peminjaman extends javax.swing.JFrame {
                 // insert into detail peminjaman
                 String qInsertDetailPeminjaman = "INSERT INTO detail_peminjaman(id_peminjaman, id_buku) VALUES(?, ?)";
                 PreparedStatement p = c.prepareStatement(qInsertDetailPeminjaman);
+                String qUpdateBuku = "UPDATE buku SET is_tersedia='0', id_peminjaman=? WHERE id=? ";
+                PreparedStatement pUpdateBuku = c.prepareStatement(qUpdateBuku);
+                
                 for(int i = 0; i < modelDetailPeminjaman.getRowCount(); i++) {
+                    String id_buku = modelDetailPeminjaman.getValueAt(i, 0).toString();
                     p.setInt(1, id);
-                    p.setString(2, modelDetailPeminjaman.getValueAt(i, 0).toString());
+                    p.setString(2, id_buku);
                     p.executeUpdate();
+                    
+                    pUpdateBuku.setInt(1, id);
+                    pUpdateBuku.setString(2, id_buku);
+                    pUpdateBuku.executeUpdate();                    
                 }
 
                 p.close();
+                pUpdateBuku.close();
                 
                 JOptionPane.showMessageDialog(this, "Berhasil Tambah Peminjaman.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
                 setVisible(false);
                 dispose();
+                
+                new HomeFront().loadDataBuku();
                 
             }
             else {
@@ -622,17 +689,20 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixIdMember;
     private javax.swing.JLabel fixIsbn;
     private javax.swing.JLabel fixJudul;
+    private javax.swing.JLabel fixJumlahBuku;
     private javax.swing.JLabel fixKelas;
     private javax.swing.JLabel fixNama;
     private javax.swing.JLabel fixNis;
     private javax.swing.JLabel fixPenerbit;
     private javax.swing.JLabel fixPenulis;
+    private javax.swing.JLabel fixStatusBuku;
     private javax.swing.JLabel fixTahun;
     private javax.swing.JLabel fixTelepon;
     private javax.swing.JButton hapusBukuDetailButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

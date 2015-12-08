@@ -225,13 +225,13 @@
                                   <Component id="searchBukuInput1" alignment="1" min="-2" pref="339" max="-2" attributes="0"/>
                                   <Component id="fieldBukuComboBox1" alignment="1" min="-2" pref="339" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="resetBukuButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="refreshPeminjamanButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="searchBukuButton1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="insertPeminjamanButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="detailPeminjamanButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -248,8 +248,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="searchBukuButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="resetBukuButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="insertPeminjamanButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="refreshPeminjamanButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="detailPeminjamanButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="218" max="-2" attributes="0"/>
@@ -280,12 +280,12 @@
             </Component>
             <Component class="javax.swing.JTextField" name="searchBukuInput1">
             </Component>
-            <Component class="javax.swing.JButton" name="resetBukuButton1">
+            <Component class="javax.swing.JButton" name="refreshPeminjamanButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reset"/>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetBukuButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshPeminjamanButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="searchBukuButton1">
@@ -303,7 +303,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tableBuku1">
+                <Component class="javax.swing.JTable" name="tablePeminjaman">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="0" rowCount="0"/>
@@ -312,12 +312,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="insertPeminjamanButton">
+            <Component class="javax.swing.JButton" name="detailPeminjamanButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tambah Peminjaman"/>
+                <Property name="text" type="java.lang.String" value="Detail Peminjaman"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertPeminjamanButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="detailPeminjamanButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

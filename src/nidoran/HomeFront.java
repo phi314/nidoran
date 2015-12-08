@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +26,13 @@ public class HomeFront extends javax.swing.JFrame {
     };
     
     private DefaultTableModel modelMember = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    private DefaultTableModel modelPeminjaman = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -49,6 +57,7 @@ public class HomeFront extends javax.swing.JFrame {
         modelBuku.addColumn("Penerbit");
         modelBuku.addColumn("Penulis");
         modelBuku.addColumn("Tahun");
+        modelBuku.addColumn("Status");
         
         /**
          * Table Member
@@ -62,8 +71,19 @@ public class HomeFront extends javax.swing.JFrame {
         modelMember.addColumn("Kelas");
         modelMember.addColumn("Telepon");
         
+        /**
+         * Table Peminjaman
+         */
+        tablePeminjaman.setModel(modelPeminjaman);
+        modelPeminjaman.addColumn("_id");
+        modelPeminjaman.addColumn("Nama Peminjam");
+        modelPeminjaman.addColumn("Jumlah Buku");
+        modelPeminjaman.addColumn("Tanggal");
+        modelPeminjaman.addColumn("Denda");
+        
         loadDataBuku();
         loadDataMember();
+        loadDataPeminjaman();
         
     }
     
@@ -81,13 +101,20 @@ public class HomeFront extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
                 o[3] = r.getString("penerbit");
                 o[4] = r.getString("penulis");
                 o[5] = r.getString("tahun");
+                
+                String status = "Tersedia";
+                if(r.getInt("is_tersedia") == 0){
+                    status = "Dipinjam";
+                }
+                
+                o[6] = status;
                 
                 modelBuku.addRow(o);
             }
@@ -129,6 +156,34 @@ public class HomeFront extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    public void loadDataPeminjaman(){
+        modelPeminjaman.getDataVector().removeAllElements();
+        modelPeminjaman.fireTableDataChanged();
+        
+        try
+        {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            String sql = "SELECT peminjaman.*, member.nama as nama_member FROM peminjaman JOIN member ON member.id=peminjaman.id_member ORDER BY peminjaman.tanggal ASC";
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next())
+            {
+                Object[] o = new Object[6];
+                o[0] = r.getString("id");
+                o[1] = r.getString("nama_member");
+                o[2] = r.getString("jumlah_buku");
+                o[3] = r.getString("tanggal");
+                o[4] = r.getString("denda");
+                
+                modelPeminjaman.addRow(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,11 +208,11 @@ public class HomeFront extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         fieldBukuComboBox1 = new javax.swing.JComboBox<>();
         searchBukuInput1 = new javax.swing.JTextField();
-        resetBukuButton1 = new javax.swing.JButton();
+        refreshPeminjamanButton = new javax.swing.JButton();
         searchBukuButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableBuku1 = new javax.swing.JTable();
-        insertPeminjamanButton = new javax.swing.JButton();
+        tablePeminjaman = new javax.swing.JTable();
+        detailPeminjamanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         fieldBukuComboBox3 = new javax.swing.JComboBox<>();
         searchBukuInput3 = new javax.swing.JTextField();
@@ -264,10 +319,10 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        resetBukuButton1.setText("Reset");
-        resetBukuButton1.addActionListener(new java.awt.event.ActionListener() {
+        refreshPeminjamanButton.setText("Refresh");
+        refreshPeminjamanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBukuButton1ActionPerformed(evt);
+                refreshPeminjamanButtonActionPerformed(evt);
             }
         });
 
@@ -278,7 +333,7 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        tableBuku1.setModel(new javax.swing.table.DefaultTableModel(
+        tablePeminjaman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -286,12 +341,12 @@ public class HomeFront extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(tableBuku1);
+        jScrollPane2.setViewportView(tablePeminjaman);
 
-        insertPeminjamanButton.setText("Tambah Peminjaman");
-        insertPeminjamanButton.addActionListener(new java.awt.event.ActionListener() {
+        detailPeminjamanButton.setText("Detail Peminjaman");
+        detailPeminjamanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertPeminjamanButtonActionPerformed(evt);
+                detailPeminjamanButtonActionPerformed(evt);
             }
         });
 
@@ -308,11 +363,11 @@ public class HomeFront extends javax.swing.JFrame {
                             .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(resetBukuButton1)
+                                .addComponent(refreshPeminjamanButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(insertPeminjamanButton)))
+                        .addComponent(detailPeminjamanButton)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -325,8 +380,8 @@ public class HomeFront extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton1)
-                    .addComponent(resetBukuButton1)
-                    .addComponent(insertPeminjamanButton))
+                    .addComponent(refreshPeminjamanButton)
+                    .addComponent(detailPeminjamanButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -591,19 +646,31 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldBukuComboBox1ActionPerformed
 
-    private void resetBukuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBukuButton1ActionPerformed
+    private void refreshPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshPeminjamanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resetBukuButton1ActionPerformed
+        
+        loadDataPeminjaman();
+    }//GEN-LAST:event_refreshPeminjamanButtonActionPerformed
 
     private void searchBukuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBukuButton1ActionPerformed
 
-    private void insertPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButtonActionPerformed
+    private void detailPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailPeminjamanButtonActionPerformed
         // TODO add your handling code here:
         
-        new Peminjaman().setVisible(true);
-    }//GEN-LAST:event_insertPeminjamanButtonActionPerformed
+        try {
+            int x = tablePeminjaman.getSelectedRow();
+            Object id_peminjaman = tablePeminjaman.getValueAt(x, 0);
+            
+            Perpustakaan.id_peminjaman = id_peminjaman.toString();
+            new DetailPeminjaman().setVisible(true);
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+           JOptionPane.showMessageDialog(this, "Belum ada buku yang dipilih.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }   
+
+    }//GEN-LAST:event_detailPeminjamanButtonActionPerformed
 
     private void fieldBukuComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox2ActionPerformed
         // TODO add your handling code here:
@@ -649,7 +716,7 @@ public class HomeFront extends javax.swing.JFrame {
     private void insertPeminjamanButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButton1ActionPerformed
         // TODO add your handling code here:
         
-        insertPeminjamanButtonActionPerformed(evt);
+        new Peminjaman().setVisible(true);
     }//GEN-LAST:event_insertPeminjamanButton1ActionPerformed
 
     /**
@@ -691,11 +758,11 @@ public class HomeFront extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton detailPeminjamanButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldBukuComboBox1;
     private javax.swing.JComboBox<String> fieldBukuComboBox2;
     private javax.swing.JComboBox<String> fieldBukuComboBox3;
-    private javax.swing.JButton insertPeminjamanButton;
     private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -713,8 +780,8 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton refreshPeminjamanButton;
     private javax.swing.JButton resetBukuButton;
-    private javax.swing.JButton resetBukuButton1;
     private javax.swing.JButton resetBukuButton3;
     private javax.swing.JButton resetMemberButton;
     private javax.swing.JButton searchBukuButton;
@@ -728,8 +795,8 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JTextField searchBukuInput3;
     private javax.swing.JButton showInsertMemberButton;
     private javax.swing.JTable tableBuku;
-    private javax.swing.JTable tableBuku1;
     private javax.swing.JTable tableBuku3;
     private javax.swing.JTable tableMember;
+    private javax.swing.JTable tablePeminjaman;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,6 +25,14 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);  
+        
+        Connection c = DbConnection.getConnection();
+        
+        if(c == null)
+        {
+            JOptionPane.showMessageDialog(this, "Gagal Koneksi ke database.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
+        }
     }
 
     /**

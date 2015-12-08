@@ -5,6 +5,9 @@
  */
 package nidoran;
 
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author phi314
@@ -13,6 +16,8 @@ public class Perpustakaan {
     
     public static String id_petugas;
     public static String nama;
+    
+    public static String id_peminjaman;
 
     /**
      * @param args the command line arguments
