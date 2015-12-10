@@ -6,9 +6,12 @@
 package nidoran;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,6 +55,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
             
             if(r.next()){
                 fixTanggalPinjam.setText(r.getString("tanggal"));
+                fixTanggalKembali.setText(r.getString("tanggal_kembali"));
                 fixJumlahBuku.setText(r.getString("jumlah_buku"));
                 fixDenda.setText(r.getString("denda"));
                 fixNis.setText(r.getString("nis"));
@@ -59,6 +63,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 fixKelas.setText(r.getString("kelas"));
                 fixTelepon.setText(r.getString("telepon"));
                 fixStatus.setText(r.getString("status"));
+                
+                if(r.getString("status").equals("kembali")){
+                    tanggalKembaliButton.setVisible(false);
+                }
             }
             else {
                 JOptionPane.showMessageDialog(this, "Tidak ada data ditemukan", "Kesalahan", JOptionPane.WARNING_MESSAGE);
@@ -88,7 +96,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
             while(r.next())
             {
                 Object[] o = new Object[6];
-                o[0] = r.getString("id_detail_peminjaman");
+                o[0] = r.getString("id_buku");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
                 o[3] = r.getString("penerbit");
@@ -132,6 +140,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixJumlahBuku = new javax.swing.JLabel();
         fixDenda = new javax.swing.JLabel();
         fixDenda1 = new javax.swing.JLabel();
+        tanggalKembaliButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -193,13 +202,20 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         fixDenda1.setText("Rp.");
 
+        tanggalKembaliButton.setText("Set Tanggal Kembali");
+        tanggalKembaliButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tanggalKembaliButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addGroup(layout.createSequentialGroup()
@@ -209,7 +225,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(fixTanggalKembali)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fixTanggalKembali)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tanggalKembaliButton))))
                     .addComponent(fixJumlahBuku)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -217,7 +236,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixDenda))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -229,7 +248,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                     .addComponent(fixTelepon)
                     .addComponent(jLabel9)
                     .addComponent(fixStatus))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +285,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fixTanggalKembali)
-                            .addComponent(fixTanggalPinjam))
+                            .addComponent(fixTanggalPinjam)
+                            .addComponent(tanggalKembaliButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,6 +302,45 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tanggalKembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanggalKembaliButtonActionPerformed
+        // TODO add your handling code here:
+        
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin akan menjadikan tanggal: " + timeStamp + ", sebagai tanggal kembali?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        
+        if(confirm == JOptionPane.YES_OPTION)
+        {
+            try {
+                Connection c = DbConnection.getConnection();
+                String q = "UPDATE peminjaman SET tanggal_kembali=?, status='kembali' WHERE id=?";
+                PreparedStatement p = c.prepareStatement(q);
+                
+                p.setString(1, timeStamp);
+                p.setString(2, Perpustakaan.id_peminjaman);
+                
+                p.executeUpdate();   
+                p.close();
+                
+                // update buku
+                String q_buku = "UPDATE buku SET is_tersedia='1', id_peminjaman=NULL WHERE id=?";
+                PreparedStatement pUpdateBuku = c.prepareStatement(q_buku);
+                for(int i = 0; i < modelBuku.getRowCount(); i++) {
+                   String id_buku = modelBuku.getValueAt(i, 0).toString();
+                   pUpdateBuku.setString(1, id_buku);                  
+                   pUpdateBuku.executeUpdate();     
+                }
+                pUpdateBuku.close();
+                
+                tanggalKembaliButton.setVisible(false);
+                fixTanggalKembali.setText(timeStamp);
+                fixStatus.setText("kembali");
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+    }//GEN-LAST:event_tanggalKembaliButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,5 +399,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton tanggalKembaliButton;
     // End of variables declaration//GEN-END:variables
 }

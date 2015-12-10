@@ -51,6 +51,7 @@ public class Buku extends javax.swing.JFrame {
         model.addColumn("Penerbit");
         model.addColumn("Penulis");
         model.addColumn("Tahun");
+        model.addColumn("Buku Paket");
         
         loadData();
         
@@ -70,13 +71,14 @@ public class Buku extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
                 o[3] = r.getString("penerbit");
                 o[4] = r.getString("penulis");
                 o[5] = r.getString("tahun");
+                o[6] = r.getBoolean("is_buku_paket") ? "Y" : "T";
                 
                 model.addRow(o);
             }
@@ -91,6 +93,7 @@ public class Buku extends javax.swing.JFrame {
         _penerbit.setText("");
         _penulis.setText("");
         _tahun.setText("");
+        checkBukuPaket.setSelected(false);
     }
 
     /**
@@ -123,6 +126,7 @@ public class Buku extends javax.swing.JFrame {
         updateButton = new javax.swing.JButton();
         _id = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        checkBukuPaket = new javax.swing.JCheckBox();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -214,6 +218,8 @@ public class Buku extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("Data Buku");
 
+        checkBukuPaket.setText("Buku Paket");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,6 +235,7 @@ public class Buku extends javax.swing.JFrame {
                         .addComponent(deleteButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,8 +263,9 @@ public class Buku extends javax.swing.JFrame {
                                                 .addComponent(insertButton))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(_id)
-                                                .addGap(0, 0, Short.MAX_VALUE))))))
-                            .addComponent(jLabel6))
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBukuPaket)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -269,7 +277,8 @@ public class Buku extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBukuPaket))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -316,6 +325,7 @@ public class Buku extends javax.swing.JFrame {
         String penerbit = _penerbit.getText();
         String penulis = _penulis.getText();
         String tahun = _tahun.getText();
+        Boolean is_buku_paket = checkBukuPaket.isSelected();
         
         try
         {
@@ -325,8 +335,8 @@ public class Buku extends javax.swing.JFrame {
             else {
                 Connection c = DbConnection.getConnection();
 
-                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun, id_petugas) "
-                        + "VALUES(?, ?, ?, ?, ?, ?)";
+                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun, id_petugas, is_buku_paket) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement p = c.prepareStatement(q);
 
@@ -336,6 +346,7 @@ public class Buku extends javax.swing.JFrame {
                 p.setString(4, penulis);
                 p.setString(5, tahun);
                 p.setString(6, Perpustakaan.id_petugas);
+                p.setBoolean(7, is_buku_paket);
 
                 p.executeUpdate();
                 p.close();
@@ -365,6 +376,7 @@ public class Buku extends javax.swing.JFrame {
             Object penerbit = tableBuku.getValueAt(x, 3);
             Object penulis = tableBuku.getValueAt(x, 4);
             Object tahun = tableBuku.getValueAt(x, 5);
+            Object is_buku_paket = tableBuku.getValueAt(x, 6);
             
             _id.setText(id.toString());
             _isbn.setText(isbn.toString());
@@ -372,6 +384,12 @@ public class Buku extends javax.swing.JFrame {
             _penerbit.setText(penerbit.toString());
             _penulis.setText(penulis.toString());
             _tahun.setText(tahun.toString());
+            checkBukuPaket.setSelected(false);
+            
+            if(is_buku_paket.toString() == "Y")
+            {
+                checkBukuPaket.setSelected(true);
+            }         
             
             insertButton.setVisible(false);
             cancelUpdateButton.setVisible(true);
@@ -435,6 +453,7 @@ public class Buku extends javax.swing.JFrame {
         String penerbit = _penerbit.getText();
         String penulis = _penulis.getText();
         String tahun = _tahun.getText();
+        boolean is_buku_paket = checkBukuPaket.isSelected();
         
         try
         {
@@ -446,7 +465,8 @@ public class Buku extends javax.swing.JFrame {
                     + "judul=?,"
                     + "penerbit=?,"
                     + "penulis=?,"
-                    + "tahun=?"
+                    + "tahun=?,"
+                    + "is_buku_paket=? "
                     + "WHERE id=?";
             
             PreparedStatement p = c.prepareStatement(q);
@@ -456,8 +476,9 @@ public class Buku extends javax.swing.JFrame {
             p.setString(3, penerbit);
             p.setString(4, penulis);
             p.setString(5, tahun);
-            p.setString(6, id);
-            
+            p.setBoolean(6, is_buku_paket);
+            p.setString(7, id);
+                      
             p.executeUpdate();
             p.close();
             
@@ -518,6 +539,7 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JTextField _penulis;
     private javax.swing.JFormattedTextField _tahun;
     private javax.swing.JButton cancelUpdateButton;
+    private javax.swing.JCheckBox checkBukuPaket;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;
