@@ -7,6 +7,8 @@ package nidoran;
 
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -18,13 +20,16 @@ public class Perpustakaan {
     public static String nama;
     
     public static String id_peminjaman;
+    public static String id_member;
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws javax.swing.UnsupportedLookAndFeelException
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+                   
         new Login().setVisible(true);
     }
     

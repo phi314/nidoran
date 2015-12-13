@@ -52,6 +52,8 @@ public class Buku extends javax.swing.JFrame {
         model.addColumn("Penulis");
         model.addColumn("Tahun");
         model.addColumn("Buku Paket");
+        model.addColumn("Kode Buku");
+        model.addColumn("Lokasi");
         
         loadData();
         
@@ -71,7 +73,7 @@ public class Buku extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[7];
+                Object[] o = new Object[9];
                 o[0] = r.getString("id");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
@@ -79,6 +81,8 @@ public class Buku extends javax.swing.JFrame {
                 o[4] = r.getString("penulis");
                 o[5] = r.getString("tahun");
                 o[6] = r.getBoolean("is_buku_paket") ? "Y" : "T";
+                o[7] = r.getString("kode_buku");
+                o[8] = r.getString("lokasi");
                 
                 model.addRow(o);
             }
@@ -93,6 +97,8 @@ public class Buku extends javax.swing.JFrame {
         _penerbit.setText("");
         _penulis.setText("");
         _tahun.setText("");
+        _kodeBuku.setText("");
+        _lokasi.setText("");
         checkBukuPaket.setSelected(false);
     }
 
@@ -125,8 +131,13 @@ public class Buku extends javax.swing.JFrame {
         cancelUpdateButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         _id = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         checkBukuPaket = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        _lokasi = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        _kodeBuku = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,10 +226,46 @@ public class Buku extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel6.setText("Data Buku");
-
         checkBukuPaket.setText("Buku Paket");
+
+        jLabel7.setText("Lokasi");
+
+        _lokasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _lokasiActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Kode Buku");
+
+        _kodeBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _kodeBukuActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("DATA BUKU");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,87 +274,110 @@ public class Buku extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(showUpdateButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
+                        .addComponent(deleteButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(_penulis)
-                                    .addComponent(_isbn)
-                                    .addComponent(_judul)
-                                    .addComponent(_penerbit)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(cancelUpdateButton)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(updateButton))
-                                            .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 169, Short.MAX_VALUE)
-                                                .addComponent(insertButton))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(_id)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBukuPaket)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(_id))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(_penulis, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(_penerbit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                                        .addComponent(_judul, javax.swing.GroupLayout.Alignment.LEADING)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkBukuPaket)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(insertButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(_kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(_lokasi, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cancelUpdateButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(14, 14, 14)))
+                .addGap(36, 36, 36))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel6)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkBukuPaket))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(_judul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_penulis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(_id))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(_kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(_judul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(_lokasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(_penulis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_id))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelUpdateButton)
+                            .addComponent(updateButton))
+                        .addGap(72, 72, 72)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertButton)
-                    .addComponent(cancelUpdateButton)
-                    .addComponent(updateButton))
+                    .addComponent(checkBukuPaket))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showUpdateButton)
                     .addComponent(deleteButton))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,18 +395,20 @@ public class Buku extends javax.swing.JFrame {
         String penerbit = _penerbit.getText();
         String penulis = _penulis.getText();
         String tahun = _tahun.getText();
+        String kode_buku = _kodeBuku.getText();
+        String lokasi = _lokasi.getText();
         Boolean is_buku_paket = checkBukuPaket.isSelected();
         
         try
         {
-            if(isbn.equals("") || judul.equals("") || penerbit.equals("") || penulis.equals("") || tahun.equals("")){
+            if(isbn.equals("") || judul.equals("") || penerbit.equals("") || penulis.equals("") || tahun.equals("") || kode_buku.equals("") || lokasi.equals("")){
                 JOptionPane.showMessageDialog(null,"Data tidak boleh kosong.", "Informasi",JOptionPane.WARNING_MESSAGE);
             }
             else {
                 Connection c = DbConnection.getConnection();
 
-                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun, id_petugas, is_buku_paket) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+                String q = "INSERT INTO buku(isbn, judul, penerbit, penulis, tahun, id_petugas, is_buku_paket, kode_buku, lokasi) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement p = c.prepareStatement(q);
 
@@ -347,6 +419,8 @@ public class Buku extends javax.swing.JFrame {
                 p.setString(5, tahun);
                 p.setString(6, Perpustakaan.id_petugas);
                 p.setBoolean(7, is_buku_paket);
+                p.setString(8, kode_buku);
+                p.setString(9, lokasi);
 
                 p.executeUpdate();
                 p.close();
@@ -377,6 +451,8 @@ public class Buku extends javax.swing.JFrame {
             Object penulis = tableBuku.getValueAt(x, 4);
             Object tahun = tableBuku.getValueAt(x, 5);
             Object is_buku_paket = tableBuku.getValueAt(x, 6);
+            Object kode_buku = tableBuku.getValueAt(x, 7);
+            Object lokasi = tableBuku.getValueAt(x, 8);
             
             _id.setText(id.toString());
             _isbn.setText(isbn.toString());
@@ -384,6 +460,8 @@ public class Buku extends javax.swing.JFrame {
             _penerbit.setText(penerbit.toString());
             _penulis.setText(penulis.toString());
             _tahun.setText(tahun.toString());
+            _kodeBuku.setText(kode_buku.toString());
+            _lokasi.setText(lokasi.toString());
             checkBukuPaket.setSelected(false);
             
             if(is_buku_paket.toString() == "Y")
@@ -453,6 +531,8 @@ public class Buku extends javax.swing.JFrame {
         String penerbit = _penerbit.getText();
         String penulis = _penulis.getText();
         String tahun = _tahun.getText();
+        String kode_buku = _kodeBuku.getText();
+        String lokasi = _lokasi.getText();
         boolean is_buku_paket = checkBukuPaket.isSelected();
         
         try
@@ -466,7 +546,9 @@ public class Buku extends javax.swing.JFrame {
                     + "penerbit=?,"
                     + "penulis=?,"
                     + "tahun=?,"
-                    + "is_buku_paket=? "
+                    + "is_buku_paket=?, "
+                    + "kode_buku=?, "
+                    + "lokasi=? "
                     + "WHERE id=?";
             
             PreparedStatement p = c.prepareStatement(q);
@@ -477,7 +559,9 @@ public class Buku extends javax.swing.JFrame {
             p.setString(4, penulis);
             p.setString(5, tahun);
             p.setBoolean(6, is_buku_paket);
-            p.setString(7, id);
+            p.setString(7, kode_buku);
+            p.setString(8, lokasi);
+            p.setString(9, id);
                       
             p.executeUpdate();
             p.close();
@@ -495,6 +579,14 @@ public class Buku extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void _lokasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__lokasiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__lokasiActionPerformed
+
+    private void _kodeBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__kodeBukuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__kodeBukuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,6 +627,8 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JLabel _id;
     private javax.swing.JTextField _isbn;
     private javax.swing.JTextField _judul;
+    private javax.swing.JTextField _kodeBuku;
+    private javax.swing.JTextField _lokasi;
     private javax.swing.JTextField _penerbit;
     private javax.swing.JTextField _penulis;
     private javax.swing.JFormattedTextField _tahun;
@@ -547,7 +641,10 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

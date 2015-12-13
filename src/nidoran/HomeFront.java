@@ -59,6 +59,7 @@ public class HomeFront extends javax.swing.JFrame {
          */
         tableBuku.setModel(modelBuku);
         modelBuku.addColumn("_id");
+        modelBuku.addColumn("Kode");
         modelBuku.addColumn("ISBN");
         modelBuku.addColumn("Judul");
         modelBuku.addColumn("Penerbit");
@@ -98,6 +99,7 @@ public class HomeFront extends javax.swing.JFrame {
         modelPengembalian.addColumn("Tanggal Kembali");
         modelPengembalian.addColumn("Denda");
         
+        
         loadDataBuku();
         loadDataMember();
         loadDataPeminjaman();
@@ -119,20 +121,21 @@ public class HomeFront extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[7];
+                Object[] o = new Object[8];
                 o[0] = r.getString("id");
-                o[1] = r.getString("isbn");
-                o[2] = r.getString("judul");
-                o[3] = r.getString("penerbit");
-                o[4] = r.getString("penulis");
-                o[5] = r.getString("tahun");
+                o[1] = r.getString("kode_buku");
+                o[2] = r.getString("isbn");
+                o[3] = r.getString("judul");
+                o[4] = r.getString("penerbit");
+                o[5] = r.getString("penulis");
+                o[6] = r.getString("tahun");
                 
                 String status = "Tersedia";
                 if(r.getInt("is_tersedia") == 0){
                     status = "Dipinjam";
                 }
                 
-                o[6] = status;
+                o[7] = status;
                 
                 modelBuku.addRow(o);
             }
@@ -186,6 +189,7 @@ public class HomeFront extends javax.swing.JFrame {
             
             String sql = "SELECT peminjaman.*, member.nama as nama_member FROM peminjaman JOIN member ON member.id=peminjaman.id_member WHERE status='pinjam' ORDER BY peminjaman.tanggal ASC";
             ResultSet r = s.executeQuery(sql);
+
             
             while(r.next())
             {
@@ -204,8 +208,8 @@ public class HomeFront extends javax.swing.JFrame {
     }
     
     public void loadDataPengembalian(){
-        modelPeminjaman.getDataVector().removeAllElements();
-        modelPeminjaman.fireTableDataChanged();
+        modelPengembalian.getDataVector().removeAllElements();
+        modelPengembalian.fireTableDataChanged();
         
         try
         {
@@ -266,19 +270,19 @@ public class HomeFront extends javax.swing.JFrame {
         searchBukuButton5 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablePengembalian = new javax.swing.JTable();
+        detailPengembalianButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         fieldBukuComboBox2 = new javax.swing.JComboBox<>();
         searchBukuInput2 = new javax.swing.JTextField();
         resetMemberButton = new javax.swing.JButton();
         searchBukuButton3 = new javax.swing.JButton();
-        showInsertMemberButton = new javax.swing.JButton();
+        detailMember = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableMember = new javax.swing.JTable();
         insertPeminjamanButton1 = new javax.swing.JButton();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        insertMemberButton = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -327,7 +331,7 @@ public class HomeFront extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchBukuInput, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,7 +406,7 @@ public class HomeFront extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,6 +469,13 @@ public class HomeFront extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(tablePengembalian);
 
+        detailPengembalianButton.setText("Detail Pengembalian");
+        detailPengembalianButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detailPengembalianButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -472,7 +483,7 @@ public class HomeFront extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchBukuInput3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -481,7 +492,8 @@ public class HomeFront extends javax.swing.JFrame {
                                 .addComponent(resetBukuButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton5)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(detailPengembalianButton)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -494,7 +506,8 @@ public class HomeFront extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton5)
-                    .addComponent(resetBukuButton3))
+                    .addComponent(resetBukuButton3)
+                    .addComponent(detailPengembalianButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -523,10 +536,10 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        showInsertMemberButton.setText("Tambah Member");
-        showInsertMemberButton.addActionListener(new java.awt.event.ActionListener() {
+        detailMember.setText("Detail Member");
+        detailMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showInsertMemberButtonActionPerformed(evt);
+                detailMemberActionPerformed(evt);
             }
         });
 
@@ -547,7 +560,7 @@ public class HomeFront extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchBukuInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,7 +570,7 @@ public class HomeFront extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(showInsertMemberButton)))
+                        .addComponent(detailMember)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -571,7 +584,7 @@ public class HomeFront extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton3)
                     .addComponent(resetMemberButton)
-                    .addComponent(showInsertMemberButton))
+                    .addComponent(detailMember))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -579,6 +592,7 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Member", jPanel3);
 
+        insertPeminjamanButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nidoran/image/buku.png"))); // NOI18N
         insertPeminjamanButton1.setText("Tambah Peminjaman");
         insertPeminjamanButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -586,54 +600,67 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        jMenu3.setText("File");
+        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
 
-        jMenuItem2.setText("Logout");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("PERPUSTAKAAN SMA NEGERI 1 CIRANJANG");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+
+        insertMemberButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nidoran/image/member.png"))); // NOI18N
+        insertMemberButton.setText("Tambah Member");
+        insertMemberButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                insertMemberButtonActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
-
-        jMenuItem1.setText("Exit");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-
-        jMenuBar2.add(jMenu3);
-
-        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(insertPeminjamanButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(insertMemberButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(insertPeminjamanButton1))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(insertPeminjamanButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(insertPeminjamanButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(insertMemberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void resetBukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBukuButtonActionPerformed
         // TODO add your handling code here:
@@ -721,11 +748,22 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBukuButton3ActionPerformed
 
-    private void showInsertMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showInsertMemberButtonActionPerformed
+    private void detailMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailMemberActionPerformed
         // TODO add your handling code here:
         
-        new Member().setVisible(true);
-    }//GEN-LAST:event_showInsertMemberButtonActionPerformed
+        try {
+            int x = tableMember.getSelectedRow();
+            Object id_member = tableMember.getValueAt(x, 0);
+            
+            Perpustakaan.id_member = id_member.toString();
+            new DetailMember().setVisible(true);
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Data Member Belum Dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_detailMemberActionPerformed
 
     private void fieldBukuComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox3ActionPerformed
         // TODO add your handling code here:
@@ -741,16 +779,32 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBukuButton5ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        new Login().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void insertPeminjamanButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButton1ActionPerformed
         // TODO add your handling code here:
         new Peminjaman().setVisible(true);
+        dispose();
     }//GEN-LAST:event_insertPeminjamanButton1ActionPerformed
+
+    private void detailPengembalianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailPengembalianButtonActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            int x = tablePengembalian.getSelectedRow();
+            Object id_peminjaman = tablePengembalian.getValueAt(x, 0);
+            
+            Perpustakaan.id_peminjaman = id_peminjaman.toString();
+            new DetailPeminjaman().setVisible(true);
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+           JOptionPane.showMessageDialog(this, "Belum ada Pengembalian yang dipilih.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }   
+    }//GEN-LAST:event_detailPengembalianButtonActionPerformed
+
+    private void insertMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertMemberButtonActionPerformed
+        // TODO add your handling code here:
+        
+        new Member().setVisible(true);
+    }//GEN-LAST:event_insertMemberButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -791,23 +845,24 @@ public class HomeFront extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton detailMember;
     private javax.swing.JButton detailPeminjamanButton;
+    private javax.swing.JButton detailPengembalianButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldBukuComboBox1;
     private javax.swing.JComboBox<String> fieldBukuComboBox2;
     private javax.swing.JComboBox<String> fieldBukuComboBox3;
+    private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -825,7 +880,6 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JTextField searchBukuInput1;
     private javax.swing.JTextField searchBukuInput2;
     private javax.swing.JTextField searchBukuInput3;
-    private javax.swing.JButton showInsertMemberButton;
     private javax.swing.JTable tableBuku;
     private javax.swing.JTable tableMember;
     private javax.swing.JTable tablePeminjaman;
