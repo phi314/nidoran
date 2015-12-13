@@ -112,7 +112,7 @@ public class Peminjaman extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        _searchNis = new javax.swing.JTextField();
+        _nomor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         fixTelepon = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -354,7 +354,7 @@ public class Peminjaman extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel9.setText("Kelas");
 
-        jLabel6.setText("NIS");
+        jLabel6.setText("Nomor Member");
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel10.setText("NIS");
@@ -401,24 +401,21 @@ public class Peminjaman extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addGroup(panelPeminjamLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(_searchNis, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(_nomor, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkNisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(25, Short.MAX_VALUE))))
+                        .addContainerGap(62, Short.MAX_VALUE))))
         );
         panelPeminjamLayout.setVerticalGroup(
             panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPeminjamLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPeminjamLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel6))
-                    .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(_searchNis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(checkNisButton)))
-                .addGap(32, 32, 32)
+                .addGap(16, 16, 16)
+                .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(_nomor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkNisButton))
+                .addGap(31, 31, 31)
                 .addComponent(jLabel10)
                 .addGap(4, 4, 4)
                 .addComponent(fixNis)
@@ -434,7 +431,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fixTelepon)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         panelPeminjaman.addTab("Data Peminjam", panelPeminjam);
@@ -580,11 +577,11 @@ public class Peminjaman extends javax.swing.JFrame {
         try {
             Connection c = DbConnection.getConnection();
             
-            String q = "SELECT * FROM member WHERE nis=? LIMIT 1";
+            String q = "SELECT * FROM member WHERE nomor=? LIMIT 1";
             
             PreparedStatement p = c.prepareStatement(q);
             
-            p.setString(1, _searchNis.getText());
+            p.setString(1, _nomor.getText());
             
             ResultSet r = p.executeQuery();
             
@@ -598,7 +595,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 p.close();
             }
             else {
-                _searchNis.setText("");
+                _nomor.setText("");
                 fixIdMember.setText("-");
                 fixNis.setText("-");
                 fixNis.setText("-");
@@ -784,7 +781,7 @@ public class Peminjaman extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField _kodeBuku;
-    private javax.swing.JTextField _searchNis;
+    private javax.swing.JTextField _nomor;
     private javax.swing.JTextField _tanggal_kembali;
     private javax.swing.JTextField _tanggal_pinjam;
     private javax.swing.JButton addToDetailButton;

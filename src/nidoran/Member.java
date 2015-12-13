@@ -46,6 +46,7 @@ public class Member extends javax.swing.JFrame {
          */
         tableBuku.setModel(model);
         model.addColumn("_id");
+        model.addColumn("Nomor Member");
         model.addColumn("Nis");
         model.addColumn("Nama");
         model.addColumn("Jenis Kelamin");
@@ -55,6 +56,7 @@ public class Member extends javax.swing.JFrame {
         model.addColumn("Alamat");
         
         loadData();
+        getNewNomorMember();
         
     }
     
@@ -72,19 +74,20 @@ public class Member extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[8];
+                Object[] o = new Object[9];
                 
                 String tempat_lahir = r.getString("tempat_lahir");
                 String tanggal_lahir = r.getString("tanggal_lahir");
                 
                 o[0] = r.getString("id");
-                o[1] = r.getString("nis");
-                o[2] = r.getString("nama");
-                o[3] = r.getString("jk");
-                o[4] = tempat_lahir + ", " + tanggal_lahir;
-                o[5] = r.getString("kelas");
-                o[6] = r.getString("telepon");
-                o[7] = r.getString("alamat");
+                o[1] = r.getString("nomor");
+                o[2] = r.getString("nis");
+                o[3] = r.getString("nama");
+                o[4] = r.getString("jk");
+                o[5] = tempat_lahir + ", " + tanggal_lahir;
+                o[6] = r.getString("kelas");
+                o[7] = r.getString("telepon");
+                o[8] = r.getString("alamat");
                 
                 model.addRow(o);
             }
@@ -101,6 +104,42 @@ public class Member extends javax.swing.JFrame {
         _tanggallahir.setText("");
         _tempatlahir.setText("");
         _alamat.setText("");
+        
+        getNewNomorMember();
+    }
+    
+    public void getNewNomorMember(){
+        
+        try {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            int count = 1;
+            int number_to_count = 0;
+            String number = "";
+            
+            
+
+            String q = "SELECT nomor FROM member ORDER BY nomor DESC LIMIT 1";
+            ResultSet r = s.executeQuery(q);
+            
+            if(r.next()){
+                number = r.getString("nomor");
+                number = number.substring(number.length() - 3);
+                
+                number_to_count = Integer.parseInt(number) + 1;
+            }
+            
+            String number_format = "AP" + String.format("%03d", number_to_count);
+            
+            _nomor.setText(number_format);
+            
+        } catch(SQLException e){
+             JOptionPane.showMessageDialog(null, e, "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
     }
 
     /**
@@ -145,6 +184,8 @@ public class Member extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cancelUpdateButton1 = new javax.swing.JButton();
+        _nomor = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -282,6 +323,11 @@ public class Member extends javax.swing.JFrame {
             }
         });
 
+        _nomor.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        _nomor.setText("-");
+
+        jLabel12.setText("Nomor Anggota");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,11 +338,13 @@ public class Member extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -311,7 +359,8 @@ public class Member extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11)
                                         .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(_nomor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -348,7 +397,11 @@ public class Member extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_nomor)
+                    .addComponent(jLabel12))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -418,6 +471,7 @@ public class Member extends javax.swing.JFrame {
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         // TODO add your handling code here:
         
+        String nomor = _nomor.getText();
         String nis = _nis.getText();
         String nama = _nama.getText();
         String kelas = _kelas.getText();
@@ -440,8 +494,8 @@ public class Member extends javax.swing.JFrame {
             else {
                 Connection c = DbConnection.getConnection();
 
-                String q = "INSERT INTO member(nis, nama, jk, tempat_lahir, tanggal_lahir, kelas, telepon, alamat, id_petugas) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String q = "INSERT INTO member(nis, nama, jk, tempat_lahir, tanggal_lahir, kelas, telepon, alamat, id_petugas, nomor) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement p = c.prepareStatement(q);
                 
@@ -454,6 +508,7 @@ public class Member extends javax.swing.JFrame {
                 p.setString(7, telepon);
                 p.setString(8, alamat);
                 p.setString(9, Perpustakaan.id_petugas);
+                p.setString(10, nomor);
 
                 p.executeUpdate();
                 p.close();
@@ -622,6 +677,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JTextField _kelas;
     private javax.swing.JTextField _nama;
     private javax.swing.JTextField _nis;
+    private javax.swing.JLabel _nomor;
     private javax.swing.JFormattedTextField _tanggallahir;
     private javax.swing.JTextField _telepon;
     private javax.swing.JTextField _tempatlahir;
@@ -635,6 +691,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

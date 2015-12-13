@@ -72,6 +72,7 @@ public class HomeFront extends javax.swing.JFrame {
          */
         tableMember.setModel(modelMember);
         modelMember.addColumn("_id");
+        modelMember.addColumn("Nomor Member");
         modelMember.addColumn("Nis");
         modelMember.addColumn("Nama");
         modelMember.addColumn("Jenis Kelamin");
@@ -160,18 +161,19 @@ public class HomeFront extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[7];
+                Object[] o = new Object[8];
                 
                 String tempat_lahir = r.getString("tempat_lahir");
                 String tanggal_lahir = r.getString("tanggal_lahir");
                 
                 o[0] = r.getString("id");
-                o[1] = r.getString("nis");
-                o[2] = r.getString("nama");
-                o[3] = r.getString("jk");
-                o[4] = tempat_lahir + ", " + tanggal_lahir;
-                o[5] = r.getString("kelas");
-                o[6] = r.getString("telepon");
+                o[1] = r.getString("nomor");
+                o[2] = r.getString("nis");
+                o[3] = r.getString("nama");
+                o[4] = r.getString("jk");
+                o[5] = tempat_lahir + ", " + tanggal_lahir;
+                o[6] = r.getString("kelas");
+                o[7] = r.getString("telepon");
                 
                 modelMember.addRow(o);
             }
