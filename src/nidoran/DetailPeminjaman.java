@@ -63,6 +63,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 fixKelas.setText(r.getString("kelas"));
                 fixTelepon.setText(r.getString("telepon"));
                 fixStatus.setText(r.getString("status"));
+                fixKode.setText(r.getString("kode"));
                 
                 if(r.getString("status").equals("kembali")){
                     tanggalKembaliButton.setVisible(false);
@@ -144,6 +145,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        fixKode = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -242,6 +245,12 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        fixKode.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        fixKode.setText("-");
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel11.setText("Kode");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -259,32 +268,37 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
+                            .addComponent(fixJumlahBuku)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(fixTanggalPinjam))
+                                    .addComponent(fixTanggalPinjam)
+                                    .addComponent(jLabel6))
                                 .addGap(60, 60, 60)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(fixTanggalKembali)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tanggalKembaliButton))))
-                            .addComponent(fixJumlahBuku)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tanggalKembaliButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(fixKode)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel11))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel1)
                             .addComponent(fixNis)
                             .addComponent(fixNama)
                             .addComponent(fixKelas)
                             .addComponent(fixTelepon)
                             .addComponent(jLabel9)
-                            .addComponent(fixStatus))
+                            .addComponent(fixStatus)
+                            .addComponent(jLabel1))
                         .addGap(0, 158, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -293,10 +307,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -310,9 +324,13 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixJumlahBuku)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel6))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixNis)
@@ -332,12 +350,12 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixStatus)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fixDenda)
                     .addComponent(fixDenda1)
-                    .addComponent(closeButton))
+                    .addComponent(closeButton)
+                    .addComponent(fixKode))
                 .addGap(15, 15, 15))
         );
 
@@ -430,6 +448,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixDenda1;
     private javax.swing.JLabel fixJumlahBuku;
     private javax.swing.JLabel fixKelas;
+    private javax.swing.JLabel fixKode;
     private javax.swing.JLabel fixNama;
     private javax.swing.JLabel fixNis;
     private javax.swing.JLabel fixStatus;
@@ -438,6 +457,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixTelepon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

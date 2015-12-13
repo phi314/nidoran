@@ -84,6 +84,7 @@ public class HomeFront extends javax.swing.JFrame {
          */
         tablePeminjaman.setModel(modelPeminjaman);
         modelPeminjaman.addColumn("_id");
+        modelPeminjaman.addColumn("Kode");
         modelPeminjaman.addColumn("Nama Peminjam");
         modelPeminjaman.addColumn("Tanggal Pinjam");
         modelPeminjaman.addColumn("Tanggal Kembali");
@@ -94,6 +95,7 @@ public class HomeFront extends javax.swing.JFrame {
          */
         tablePengembalian.setModel(modelPengembalian);
         modelPengembalian.addColumn("_id");
+        modelPengembalian.addColumn("Kode");
         modelPengembalian.addColumn("Nama Peminjam");
         modelPengembalian.addColumn("Tanggal Pinjam");
         modelPengembalian.addColumn("Tanggal Kembali");
@@ -193,12 +195,13 @@ public class HomeFront extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
-                o[1] = r.getString("nama_member");
-                o[2] = r.getString("tanggal");
-                o[3] = r.getString("tanggal_kembali");
-                o[4] = r.getString("denda");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("nama_member");
+                o[3] = r.getString("tanggal");
+                o[4] = r.getString("tanggal_kembali");
+                o[5] = r.getString("denda");
                 
                 modelPeminjaman.addRow(o);
             }
@@ -221,12 +224,13 @@ public class HomeFront extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
-                o[1] = r.getString("nama_member");
-                o[2] = r.getString("tanggal");
-                o[3] = r.getString("tanggal_kembali");
-                o[4] = r.getString("denda");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("nama_member");
+                o[3] = r.getString("tanggal");
+                o[4] = r.getString("tanggal_kembali");
+                o[5] = r.getString("denda");
                 
                 modelPengembalian.addRow(o);
             }
@@ -282,6 +286,7 @@ public class HomeFront extends javax.swing.JFrame {
         insertPeminjamanButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         insertMemberButton = new javax.swing.JButton();
 
         jMenu1.setText("File");
@@ -310,7 +315,7 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode", "judul", "isbn", "penerbit", "penulis", "tahun" }));
         fieldBukuComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBoxActionPerformed(evt);
@@ -361,7 +366,7 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buku", jPanel1);
 
-        fieldBukuComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode", "judul", "isbn", "penerbit", "penulis", "tahun" }));
         fieldBukuComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBox1ActionPerformed(evt);
@@ -606,20 +611,28 @@ public class HomeFront extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PERPUSTAKAAN SMA NEGERI 1 CIRANJANG");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("JL Jati Pasirsanta Kec.Ciranjang Kab.Cianjur");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
                 .addContainerGap())
         );
 
@@ -636,22 +649,22 @@ public class HomeFront extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(insertMemberButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(insertPeminjamanButton1))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(insertPeminjamanButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertPeminjamanButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(insertMemberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -855,6 +868,7 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

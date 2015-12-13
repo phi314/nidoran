@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
-import java.util.zip.CRC32;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -22,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author phi314
  */
-public class Peminjaman extends javax.swing.JFrame {
+public class Pengembalian extends javax.swing.JFrame {
        
     private DefaultTableModel modelDetailPeminjaman = new DefaultTableModel() {
         @Override
@@ -36,7 +34,7 @@ public class Peminjaman extends javax.swing.JFrame {
     /**
      * Creates new form Peminjaman
      */
-    public Peminjaman() {
+    public Pengembalian() {
         initComponents();
         setLocationRelativeTo(null);
         
@@ -618,11 +616,6 @@ public class Peminjaman extends javax.swing.JFrame {
         
         try {
 
-            CRC32 crc = new CRC32();
-            Date date = new Date();
-            String stringtohash = "barqa"+ date.getTime();
-            crc.update(stringtohash.getBytes());
-            String kode = Long.toHexString(crc.getValue());
             
             Boolean insert = true;
             String message = null;
@@ -653,12 +646,12 @@ public class Peminjaman extends javax.swing.JFrame {
                 
                 boolean is_peminjaman_kelas_bool = checkboxPeminjamanKelas.isSelected();
                 int is_buku_paket = is_peminjaman_kelas_bool == true ? 1 : 0;
-                                              
+                
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
-                String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, total_harga, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
-                        + " VALUES('"+ kode +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '" + 2000 + "', 'pinjam', '"+ is_buku_paket +"', '"+ _tanggal_pinjam.getText() +"', '"+_tanggal_kembali.getText()+"')";
+                String qInsertPeminjaman = "INSERT INTO peminjaman(id_petugas, id_member, jumlah_buku, total_harga, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
+                        + " VALUES('"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '" + 2000 + "', 'pinjam', '"+ is_buku_paket +"', '"+ _tanggal_pinjam.getText() +"', '"+_tanggal_kembali.getText()+"')";
                 
                 int id = 0;
                 s.executeUpdate(qInsertPeminjaman, Statement.RETURN_GENERATED_KEYS);
@@ -763,20 +756,21 @@ public class Peminjaman extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Peminjaman().setVisible(true);
+                new Pengembalian().setVisible(true);
             }
         });
     }
