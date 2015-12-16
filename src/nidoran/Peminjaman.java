@@ -95,7 +95,7 @@ public class Peminjaman extends javax.swing.JFrame {
         fixTahun = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        fixPenulis1 = new javax.swing.JLabel();
+        fixBukuPaket = new javax.swing.JLabel();
         fixTersedia = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         fixIsbn = new javax.swing.JLabel();
@@ -203,7 +203,7 @@ public class Peminjaman extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel17.setText("Tersedia");
 
-        fixPenulis1.setText("-");
+        fixBukuPaket.setText("-");
 
         fixTersedia.setText("-");
 
@@ -243,7 +243,7 @@ public class Peminjaman extends javax.swing.JFrame {
                                 .addComponent(jLabel16)
                                 .addGap(138, 138, 138))
                             .addComponent(jLabel17)
-                            .addComponent(fixPenulis1)
+                            .addComponent(fixBukuPaket)
                             .addComponent(fixTersedia)
                             .addComponent(jLabel19)
                             .addComponent(fixIsbn)))
@@ -283,7 +283,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fixPenulis)
-                    .addComponent(fixPenulis1))
+                    .addComponent(fixBukuPaket))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -533,13 +533,22 @@ public class Peminjaman extends javax.swing.JFrame {
                     foundRow = true;
                 }
             }
-
+            
             if(foundRow == false){
-                if(i < 2){
-                    modelDetailPeminjaman.addRow(o);
+                if(i < 2)
+                {
+                    if(fixTersedia.getText().equals("Tidak"))
+                    {
+                        JOptionPane.showMessageDialog(this, "Buku dengan judul: " + fixJudul.getText() +", sedang dipinjam", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+                    }
+                    else
+                    {
+                        modelDetailPeminjaman.addRow(o);
 
-                    this.jumlah_buku += 1;
-                    setFixJumlahBuku();
+                        this.jumlah_buku += 1;
+                        setFixJumlahBuku();
+                    }
+                    
                 }
                 else{
                         JOptionPane.showMessageDialog(this, "Maksimal 2 buku.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
@@ -654,8 +663,8 @@ public class Peminjaman extends javax.swing.JFrame {
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
-                String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, total_harga, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
-                        + " VALUES('"+ kode +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '" + 2000 + "', 'pinjam', '"+ is_buku_paket +"', '"+ _tanggal_pinjam.getText() +"', '"+_tanggal_kembali.getText()+"')";
+                String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, subtotal, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
+                        + " VALUES('"+ kode +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '2000', 'pinjam', '"+ is_buku_paket +"', '"+ _tanggal_pinjam.getText() +"', '"+_tanggal_kembali.getText()+"')";
                 
                 int id = 0;
                 s.executeUpdate(qInsertPeminjaman, Statement.RETURN_GENERATED_KEYS);
@@ -720,12 +729,27 @@ public class Peminjaman extends javax.swing.JFrame {
             
             if(r.next())
             {
+                String is_tersedia = "Tidak";
+                String is_buku_paket = "Tidak";
+                
                 fixIdBuku.setText(r.getString("id"));
                 fixIsbn.setText(r.getString("isbn"));
                 fixJudul.setText(r.getString("judul"));
                 fixPenerbit.setText(r.getString("penerbit"));
                 fixPenulis.setText(r.getString("penulis"));
                 fixTahun.setText(r.getString("tahun"));
+                fixBukuPaket.setText(is_buku_paket);
+                fixTersedia.setText(is_tersedia);
+                
+                if(r.getString("is_buku_paket").equals("1")){
+                    fixBukuPaket.setText("Ya");
+                }
+                
+                if(r.getString("is_tersedia").equals("1")){
+                    fixTersedia.setText("Ya");
+                }
+                
+                
             }
             else
             {
@@ -790,6 +814,7 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JButton checkOutButton;
     private javax.swing.JCheckBox checkboxPeminjamanKelas;
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel fixBukuPaket;
     private javax.swing.JLabel fixIdBuku;
     private javax.swing.JLabel fixIdMember;
     private javax.swing.JLabel fixIsbn;
@@ -800,7 +825,6 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixNis;
     private javax.swing.JLabel fixPenerbit;
     private javax.swing.JLabel fixPenulis;
-    private javax.swing.JLabel fixPenulis1;
     private javax.swing.JLabel fixStatusBuku;
     private javax.swing.JLabel fixTahun;
     private javax.swing.JLabel fixTelepon;

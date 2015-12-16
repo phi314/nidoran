@@ -156,7 +156,7 @@
                                       <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fixPenulis1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fixBukuPaket" min="-2" max="-2" attributes="0"/>
                                   <Component id="fixTersedia" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="fixIsbn" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -207,7 +207,7 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fixPenulis" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="fixPenulis1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fixBukuPaket" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -324,7 +324,7 @@
                 <Property name="text" type="java.lang.String" value="Tersedia"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="fixPenulis1">
+            <Component class="javax.swing.JLabel" name="fixBukuPaket">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>

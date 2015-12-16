@@ -5,10 +5,9 @@
  */
 package nidoran;
 
-import java.sql.Connection;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -31,6 +30,48 @@ public class Perpustakaan {
         // TODO code application logic here
                    
         new Login().setVisible(true);
+    }
+    
+    public static int countDenda(String tanggal){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        
+        Date d1 = null;
+        Date d2 = null;
+        
+        int denda = 2000; //denda 2000 per minggu
+        int jumlah_minggu = 0;     
+        
+        try {
+            d1 = format.parse(tanggal);
+            d2 = format.parse(timeStamp);
+
+            //in milliseconds
+            long diff = d2.getTime() - d1.getTime();
+
+            long diffSeconds = diff / 1000 % 60;
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            
+            if(diffDays > 7)
+            {
+                jumlah_minggu = (int) (diffDays / 7);
+                
+                denda = denda * jumlah_minggu;
+            }
+            else
+            {
+                denda = 0;
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return denda;
+        
     }
     
 }

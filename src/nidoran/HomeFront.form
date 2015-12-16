@@ -53,6 +53,8 @@
                       <Component id="insertMemberButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="insertPeminjamanButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="insertPeminjamanButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -68,6 +70,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="insertPeminjamanButton1" alignment="3" max="32767" attributes="0"/>
                   <Component id="insertMemberButton" alignment="3" max="32767" attributes="0"/>
+                  <Component id="insertPeminjamanButton2" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="397" max="-2" attributes="0"/>
@@ -621,6 +624,17 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertMemberButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="insertPeminjamanButton2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/nidoran/image/kembali.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Tambah Pengembalian"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertPeminjamanButton2ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

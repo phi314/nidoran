@@ -290,6 +290,7 @@ public class HomeFront extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         insertMemberButton = new javax.swing.JButton();
+        insertPeminjamanButton2 = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -646,6 +647,14 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
+        insertPeminjamanButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nidoran/image/kembali.png"))); // NOI18N
+        insertPeminjamanButton2.setText("Tambah Pengembalian");
+        insertPeminjamanButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertPeminjamanButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -659,6 +668,8 @@ public class HomeFront extends javax.swing.JFrame {
                         .addComponent(insertMemberButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(insertPeminjamanButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(insertPeminjamanButton2)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -669,7 +680,8 @@ public class HomeFront extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertPeminjamanButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(insertMemberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(insertMemberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(insertPeminjamanButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -821,6 +833,13 @@ public class HomeFront extends javax.swing.JFrame {
         new Member().setVisible(true);
     }//GEN-LAST:event_insertMemberButtonActionPerformed
 
+    private void insertPeminjamanButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        new Pengembalian().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_insertPeminjamanButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -869,6 +888,7 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fieldBukuComboBox3;
     private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
+    private javax.swing.JButton insertPeminjamanButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;

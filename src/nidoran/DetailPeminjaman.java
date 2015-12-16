@@ -67,7 +67,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 fixNomor.setText(r.getString("nomor"));
                 
                 if(r.getString("status").equals("kembali")){
-                    tanggalKembaliButton.setVisible(false);
+                    pengembalianButton.setVisible(false);
                 }
             }
             else {
@@ -142,7 +142,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixJumlahBuku = new javax.swing.JLabel();
         fixDenda = new javax.swing.JLabel();
         fixDenda1 = new javax.swing.JLabel();
-        tanggalKembaliButton = new javax.swing.JButton();
+        pengembalianButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -210,10 +210,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         fixDenda1.setText("Rp.");
 
-        tanggalKembaliButton.setText("Set Tanggal Kembali");
-        tanggalKembaliButton.addActionListener(new java.awt.event.ActionListener() {
+        pengembalianButton.setText("Pengembalian");
+        pengembalianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tanggalKembaliButtonActionPerformed(evt);
+                pengembalianButtonActionPerformed(evt);
             }
         });
 
@@ -269,6 +269,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixDenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pengembalianButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(closeButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -282,16 +284,11 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                                     .addComponent(jLabel6))
                                 .addGap(60, 60, 60)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(fixTanggalKembali)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tanggalKembaliButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(fixKode)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel11))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(fixTanggalKembali)
+                                    .addComponent(fixKode)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -316,7 +313,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -324,8 +321,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fixTanggalKembali)
-                            .addComponent(fixTanggalPinjam)
-                            .addComponent(tanggalKembaliButton))
+                            .addComponent(fixTanggalPinjam))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -363,14 +359,15 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                     .addComponent(fixDenda)
                     .addComponent(fixDenda1)
                     .addComponent(closeButton)
-                    .addComponent(fixKode))
+                    .addComponent(fixKode)
+                    .addComponent(pengembalianButton))
                 .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tanggalKembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanggalKembaliButtonActionPerformed
+    private void pengembalianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pengembalianButtonActionPerformed
         // TODO add your handling code here:
         
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
@@ -399,7 +396,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 }
                 pUpdateBuku.close();
                 
-                tanggalKembaliButton.setVisible(false);
+                pengembalianButton.setVisible(false);
                 fixTanggalKembali.setText(timeStamp);
                 fixStatus.setText("kembali");
 
@@ -407,7 +404,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 System.out.println(e);
             }
         }
-    }//GEN-LAST:event_tanggalKembaliButtonActionPerformed
+    }//GEN-LAST:event_pengembalianButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
@@ -478,6 +475,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton tanggalKembaliButton;
+    private javax.swing.JButton pengembalianButton;
     // End of variables declaration//GEN-END:variables
 }
