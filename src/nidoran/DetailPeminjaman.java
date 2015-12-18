@@ -66,9 +66,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                 fixKode.setText(r.getString("kode"));
                 fixNomor.setText(r.getString("nomor"));
                 
-                if(r.getString("status").equals("kembali")){
-                    pengembalianButton.setVisible(false);
-                }
             }
             else {
                 JOptionPane.showMessageDialog(this, "Tidak ada data ditemukan", "Kesalahan", JOptionPane.WARNING_MESSAGE);
@@ -142,7 +139,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixJumlahBuku = new javax.swing.JLabel();
         fixDenda = new javax.swing.JLabel();
         fixDenda1 = new javax.swing.JLabel();
-        pengembalianButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -210,13 +206,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         fixDenda1.setText("Rp.");
 
-        pengembalianButton.setText("Pengembalian");
-        pengembalianButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pengembalianButtonActionPerformed(evt);
-            }
-        });
-
         closeButton.setText("Tutup");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,11 +258,9 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixDenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pengembalianButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(closeButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(fixJumlahBuku)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,9 +274,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                                     .addComponent(fixTanggalKembali)
                                     .addComponent(fixKode)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel11))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel11))))
+                        .addGap(0, 6, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -302,7 +288,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                             .addComponent(fixStatus)
                             .addComponent(jLabel1)
                             .addComponent(fixNomor))
-                        .addGap(0, 158, Short.MAX_VALUE)))
+                        .addGap(0, 164, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -359,52 +345,12 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                     .addComponent(fixDenda)
                     .addComponent(fixDenda1)
                     .addComponent(closeButton)
-                    .addComponent(fixKode)
-                    .addComponent(pengembalianButton))
+                    .addComponent(fixKode))
                 .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pengembalianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pengembalianButtonActionPerformed
-        // TODO add your handling code here:
-        
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin akan menjadikan tanggal: " + timeStamp + ", sebagai tanggal kembali?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        
-        if(confirm == JOptionPane.YES_OPTION)
-        {
-            try {
-                Connection c = DbConnection.getConnection();
-                String q = "UPDATE peminjaman SET tanggal_kembali=?, status='kembali' WHERE id=?";
-                PreparedStatement p = c.prepareStatement(q);
-                
-                p.setString(1, timeStamp);
-                p.setString(2, Perpustakaan.id_peminjaman);
-                
-                p.executeUpdate();   
-                p.close();
-                
-                // update buku
-                String q_buku = "UPDATE buku SET is_tersedia='1', id_peminjaman=NULL WHERE id=?";
-                PreparedStatement pUpdateBuku = c.prepareStatement(q_buku);
-                for(int i = 0; i < modelBuku.getRowCount(); i++) {
-                   String id_buku = modelBuku.getValueAt(i, 0).toString();
-                   pUpdateBuku.setString(1, id_buku);                  
-                   pUpdateBuku.executeUpdate();     
-                }
-                pUpdateBuku.close();
-                
-                pengembalianButton.setVisible(false);
-                fixTanggalKembali.setText(timeStamp);
-                fixStatus.setText("kembali");
-
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
-    }//GEN-LAST:event_pengembalianButtonActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
@@ -475,6 +421,5 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton pengembalianButton;
     // End of variables declaration//GEN-END:variables
 }

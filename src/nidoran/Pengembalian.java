@@ -152,7 +152,6 @@ public class Pengembalian extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         fixSubtotal = new javax.swing.JTextField();
         fixDenda = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -260,9 +259,6 @@ public class Pengembalian extends javax.swing.JFrame {
 
         jLabel2.setText("Data Peminjaman");
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 8)); // NOI18N
-        jLabel4.setText("(Masukan tanggal kembali untuk menghitung denda)");
-
         fixSubtotal.setText("0");
         fixSubtotal.setEnabled(false);
 
@@ -316,7 +312,6 @@ public class Pengembalian extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel2)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel4)
                     .addComponent(fixTanggalPinjam)
                     .addComponent(jLabel13)
                     .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -328,7 +323,7 @@ public class Pengembalian extends javax.swing.JFrame {
                             .addComponent(jLabel27)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(fixDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                .addGap(65, 65, 65))
         );
         panelPeminjamLayout.setVerticalGroup(
             panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,14 +362,9 @@ public class Pengembalian extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixTanggalPinjam)
-                        .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPeminjamLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel4))
-                            .addGroup(panelPeminjamLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel11)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel11)
+                        .addGap(19, 19, 19)
                         .addGroup(panelPeminjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel27)
                             .addComponent(fixDenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -695,7 +685,6 @@ public class Pengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

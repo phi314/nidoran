@@ -10,12 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
-import java.util.zip.CRC32;
-import javax.swing.JFrame;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -54,11 +50,82 @@ public class Peminjaman extends javax.swing.JFrame {
         modelDetailPeminjaman.addColumn("Penulis");
         modelDetailPeminjaman.addColumn("Tahun");
 
+        String dateFormat = "yyyy-MM-dd";
+        _tanggal_pinjam.setFormats(dateFormat);
+        _tanggal_kembali.setFormats(dateFormat);
+        
+        setKodePeminjaman();
+        
+
     }
     
     public void setFixJumlahBuku() {
         String jumlah_buku = Integer.toString(this.jumlah_buku);
         fixJumlahBuku.setText(jumlah_buku);
+    }
+    
+    public void setKodePeminjaman() {
+    
+        String kodePeminjaman = "";
+        int number = 1;
+        
+        try {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+
+            String typePeminjaman = "PS";
+
+            if(checkboxPeminjamanKelas.isSelected()) {
+                typePeminjaman = "PK";
+            }
+
+            String q = "SELECT kode FROM peminjaman WHERE SUBSTRING(kode, 1, 2)='"+typePeminjaman+"' ORDER BY kode DESC";
+            ResultSet r = s.executeQuery(q);
+            
+            if(r.next()){
+                String kodeBefore = r.getString("kode");
+                String substring = kodeBefore.substring(kodeBefore.length() - 3);
+                number = Integer.parseInt(substring);
+                
+                number = number + 1;
+                          
+            }
+
+            kodePeminjaman = typePeminjaman + String.format("%03d", number);
+            fixKodePeminjaman.setText(kodePeminjaman);
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+    
+    public int totalBukuDipinjamSebelumnya(){
+        
+        int totalBuku = 0;
+        
+        try {
+            
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            String id_member = fixIdMember.getText();
+
+            String q = "SELECT id, jumlah_buku FROM peminjaman WHERE id_member='"+id_member+"' AND status='pinjam'";
+            ResultSet r = s.executeQuery(q);
+            
+            while(r.next())
+            {
+                int jumlah_buku = r.getInt("jumlah_buku");
+                totalBuku = totalBuku + jumlah_buku;
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return totalBuku;
     }
     
     
@@ -103,11 +170,11 @@ public class Peminjaman extends javax.swing.JFrame {
         panelDataPeminjaman = new javax.swing.JPanel();
         checkboxPeminjamanKelas = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        _tanggal_pinjam = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        _tanggal_kembali = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        _tanggal_pinjam = new org.jdesktop.swingx.JXDatePicker();
+        _tanggal_kembali = new org.jdesktop.swingx.JXDatePicker();
+        jLabel20 = new javax.swing.JLabel();
+        fixKodePeminjaman = new javax.swing.JLabel();
         panelPeminjam = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -302,32 +369,41 @@ public class Peminjaman extends javax.swing.JFrame {
         panelPeminjaman.addTab("Buku", panelBuku);
 
         checkboxPeminjamanKelas.setText("Peminjaman Kelas");
+        checkboxPeminjamanKelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxPeminjamanKelasActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Tanggal Pinjam");
 
         jLabel4.setText("Tanggal Kembali");
 
-        jLabel5.setText("(yyyy-mm-dd)");
+        jLabel20.setText("Kode Peminjaman");
 
-        jLabel18.setText("(yyyy-mm-dd)");
+        fixKodePeminjaman.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        fixKodePeminjaman.setText("-");
 
         javax.swing.GroupLayout panelDataPeminjamanLayout = new javax.swing.GroupLayout(panelDataPeminjaman);
         panelDataPeminjaman.setLayout(panelDataPeminjamanLayout);
         panelDataPeminjamanLayout.setHorizontalGroup(
             panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(checkboxPeminjamanKelas)
-                    .addComponent(jLabel2)
-                    .addComponent(_tanggal_pinjam)
-                    .addComponent(jLabel4)
-                    .addComponent(_tanggal_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel18))
-                .addContainerGap(265, Short.MAX_VALUE))
+                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(checkboxPeminjamanKelas)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel4)
+                                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                .addComponent(_tanggal_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(fixKodePeminjaman)))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
         panelDataPeminjamanLayout.setVerticalGroup(
             panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,18 +411,18 @@ public class Peminjaman extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(_tanggal_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(18, 18, 18)
+                .addComponent(_tanggal_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addComponent(checkboxPeminjamanKelas)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fixKodePeminjaman)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         panelPeminjaman.addTab("Peminjaman", panelDataPeminjaman);
@@ -623,12 +699,6 @@ public class Peminjaman extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-
-            CRC32 crc = new CRC32();
-            Date date = new Date();
-            String stringtohash = "barqa"+ date.getTime();
-            crc.update(stringtohash.getBytes());
-            String kode = Long.toHexString(crc.getValue());
             
             Boolean insert = true;
             String message = null;
@@ -643,28 +713,43 @@ public class Peminjaman extends javax.swing.JFrame {
                 message = "Buku yang di akan dipinjam tidak ada.";
             }
             else
-            if(_tanggal_pinjam.getText().equals("")){
+            if(_tanggal_pinjam.getDate() == null){
                 insert = false;
                 message = "Tanggal dipinjam belum diisi.";
                 _tanggal_pinjam.setFocusable(true);
             }
             else
-            if(_tanggal_kembali.getText().equals("")){
+            if(_tanggal_kembali.getDate() == null){
                 insert = false;
                 message = "Tanggal kembali belum diisi.";
                 _tanggal_kembali.setFocusable(true);
             }
+            else
+            if(totalBukuDipinjamSebelumnya() >= 2)
+            {
+                insert = false;
+                message = "Anda sedang meminjam 2 buku";
+            }
+            else
+            if(modelDetailPeminjaman.getRowCount() == 2 && totalBukuDipinjamSebelumnya() == 1)
+            {
+                insert = false;
+                message = "Anda hanya boleh meminjam 1 buku lagi";
+            }
             
-            if(insert) {
+            if(insert.equals(true)) {
                 
                 boolean is_peminjaman_kelas_bool = checkboxPeminjamanKelas.isSelected();
-                int is_buku_paket = is_peminjaman_kelas_bool == true ? 1 : 0;
+                int is_peminjaman_kelas = is_peminjaman_kelas_bool == true ? 1 : 0;
+                
+                String tanggal_pinjam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_tanggal_pinjam.getDate());
+                String tanggal_kembali = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_tanggal_kembali.getDate());
                                               
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
                 String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, subtotal, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
-                        + " VALUES('"+ kode +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '2000', 'pinjam', '"+ is_buku_paket +"', '"+ _tanggal_pinjam.getText() +"', '"+_tanggal_kembali.getText()+"')";
+                        + " VALUES('"+ fixKodePeminjaman.getText() +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '0', 'pinjam', '"+ is_peminjaman_kelas +"', '"+ tanggal_pinjam +"', '"+tanggal_kembali+"')";
                 
                 int id = 0;
                 s.executeUpdate(qInsertPeminjaman, Statement.RETURN_GENERATED_KEYS);
@@ -767,6 +852,12 @@ public class Peminjaman extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void checkboxPeminjamanKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPeminjamanKelasActionPerformed
+        // TODO add your handling code here:
+        
+        setKodePeminjaman();
+    }//GEN-LAST:event_checkboxPeminjamanKelasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -806,8 +897,8 @@ public class Peminjaman extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField _kodeBuku;
     private javax.swing.JTextField _nomor;
-    private javax.swing.JTextField _tanggal_kembali;
-    private javax.swing.JTextField _tanggal_pinjam;
+    private org.jdesktop.swingx.JXDatePicker _tanggal_kembali;
+    private org.jdesktop.swingx.JXDatePicker _tanggal_pinjam;
     private javax.swing.JButton addToDetailButton;
     private javax.swing.JButton cekBukuButton;
     private javax.swing.JButton checkNisButton;
@@ -821,6 +912,7 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixJudul;
     private javax.swing.JLabel fixJumlahBuku;
     private javax.swing.JLabel fixKelas;
+    private javax.swing.JLabel fixKodePeminjaman;
     private javax.swing.JLabel fixNama;
     private javax.swing.JLabel fixNis;
     private javax.swing.JLabel fixPenerbit;
@@ -839,12 +931,11 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
