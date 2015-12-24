@@ -5,12 +5,17 @@
  */
 package nidoran;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRParameter;
+
 
 /**
  *
@@ -269,6 +274,7 @@ public class HomeFront extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablePeminjaman = new javax.swing.JTable();
         detailPeminjamanButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         fieldBukuComboBox3 = new javax.swing.JComboBox<>();
         searchBukuInput3 = new javax.swing.JTextField();
@@ -285,6 +291,12 @@ public class HomeFront extends javax.swing.JFrame {
         detailMember = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableMember = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        _bulan = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        _tahun = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         insertPeminjamanButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -407,6 +419,13 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Report Peminjaman Bulan ini");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -424,14 +443,18 @@ public class HomeFront extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(detailPeminjamanButton)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(detailPeminjamanButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -441,7 +464,7 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(detailPeminjamanButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Peminjaman", jPanel2);
@@ -599,6 +622,54 @@ public class HomeFront extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Member", jPanel3);
+
+        _bulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01 - Januari", "02 - Februari", "03 - Maret", "04 - April", "05 - Mei", "06 - Juni", "07 - Juli", "08 - Agustus", "09 - September", "10 - Oktober", "11 - November", "12 - Desember" }));
+
+        jLabel1.setText("Pilih Bulan");
+
+        jToggleButton1.setText("Laporan Peminjaman");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Tahun");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToggleButton1)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(224, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToggleButton1)
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Laporan", jPanel6);
 
         insertPeminjamanButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nidoran/image/buku.png"))); // NOI18N
         insertPeminjamanButton1.setText("Tambah Peminjaman");
@@ -840,6 +911,51 @@ public class HomeFront extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_insertPeminjamanButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Connection c = DbConnection.getConnection();
+        java.io.File namaFile = new java.io.File("src/nidoran/report/laporan_peminjaman.jasper");
+        try {
+            net.sf.jasperreports.engine.JasperReport jasper;
+            jasper=(net.sf.jasperreports.engine.JasperReport)
+                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+            net.sf.jasperreports.engine.JasperPrint jp;
+            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, null,c);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        String bulan = _bulan.getSelectedItem().toString().substring(0, 2);
+        String tahun = _tahun.getText();
+        
+        // TODO add your handling code here:
+        Connection c = DbConnection.getConnection();
+        java.io.File namaFile = new java.io.File("./report/laporan_peminjaman.jasper");
+        try {
+            net.sf.jasperreports.engine.JasperReport jasper;
+            jasper=(net.sf.jasperreports.engine.JasperReport)
+                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+            net.sf.jasperreports.engine.JasperPrint jp;
+            
+            Map parametersMap = new HashMap();  
+            parametersMap.put("bulan", bulan);
+            parametersMap.put("tahun", tahun);
+
+            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+                        
+            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -879,6 +995,8 @@ public class HomeFront extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> _bulan;
+    private javax.swing.JTextField _tahun;
     private javax.swing.JButton detailMember;
     private javax.swing.JButton detailPeminjamanButton;
     private javax.swing.JButton detailPengembalianButton;
@@ -889,6 +1007,9 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JButton insertPeminjamanButton2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
@@ -899,11 +1020,13 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton refreshPeminjamanButton;
     private javax.swing.JButton resetBukuButton;
     private javax.swing.JButton resetBukuButton3;

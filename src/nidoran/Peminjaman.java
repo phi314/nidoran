@@ -826,7 +826,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 fixBukuPaket.setText(is_buku_paket);
                 fixTersedia.setText(is_tersedia);
                 
-                if(r.getString("is_buku_paket").equals("1")){
+               if(r.getString("is_buku_paket").equals("1")){
                     fixBukuPaket.setText("Ya");
                 }
                 

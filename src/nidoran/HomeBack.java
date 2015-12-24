@@ -5,11 +5,7 @@
  */
 package nidoran;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -155,6 +151,7 @@ public class HomeBack extends javax.swing.JFrame {
         fieldBukuComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         resetBukuButton = new javax.swing.JButton();
+        cetakBukuButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fieldPetugasComboBox = new javax.swing.JComboBox<>();
@@ -171,8 +168,6 @@ public class HomeBack extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         menuBuku = new javax.swing.JMenuItem();
         menuPetugas = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -219,6 +214,13 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
+        cetakBukuButton.setText("Cetak");
+        cetakBukuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakBukuButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -237,7 +239,8 @@ public class HomeBack extends javax.swing.JFrame {
                                 .addComponent(resetBukuButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cetakBukuButton)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -252,7 +255,8 @@ public class HomeBack extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton)
-                    .addComponent(resetBukuButton))
+                    .addComponent(resetBukuButton)
+                    .addComponent(cetakBukuButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -390,18 +394,6 @@ public class HomeBack extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu4);
 
-        jMenu5.setText("Report");
-
-        jMenuItem3.setText("Report Peminjaman");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem3);
-
-        jMenuBar2.add(jMenu5);
-
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -525,11 +517,26 @@ public class HomeBack extends javax.swing.JFrame {
         loadDataPetugas();
     }//GEN-LAST:event_resetPetugasButtonActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void cetakBukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakBukuButtonActionPerformed
         // TODO add your handling code here:
         
-        
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Connection c = DbConnection.getConnection();
+        java.io.File namaFile = new java.io.File("./report/laporan_buku.jasper");
+        try {
+            net.sf.jasperreports.engine.JasperReport jasper;
+            jasper=(net.sf.jasperreports.engine.JasperReport)
+                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+            net.sf.jasperreports.engine.JasperPrint jp;
+           
+
+            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, null, c);
+                        
+            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_cetakBukuButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -568,6 +575,7 @@ public class HomeBack extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cetakBukuButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldPetugasComboBox;
     private javax.swing.JLabel jLabel1;
@@ -577,12 +585,10 @@ public class HomeBack extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;

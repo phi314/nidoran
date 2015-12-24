@@ -20,6 +20,8 @@ public class Perpustakaan {
     
     public static String id_peminjaman;
     public static String id_member;
+    
+    public static String id_cetak_laporan;
 
     /**
      * @param args the command line arguments
