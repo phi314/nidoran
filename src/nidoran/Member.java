@@ -45,7 +45,7 @@ public class Member extends javax.swing.JFrame {
          * Table Member
          */
         tableBuku.setModel(model);
-        model.addColumn("_id");
+        model.addColumn("id Member");
         model.addColumn("Nomor Member");
         model.addColumn("Nis");
         model.addColumn("Nama");

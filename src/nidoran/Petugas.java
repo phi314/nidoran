@@ -44,7 +44,7 @@ public class Petugas extends javax.swing.JFrame {
          * Table Petugas
          */
         tablePetugas.setModel(model);
-        model.addColumn("_id");
+        model.addColumn("id Petugas");
         model.addColumn("Nip");
         model.addColumn("Nama");
         model.addColumn("Jenis Kelamin");

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -141,6 +143,7 @@ public class DetailMember extends javax.swing.JFrame {
         tablePeminjaman = new javax.swing.JTable();
         detailPeminjamanButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -360,6 +363,13 @@ public class DetailMember extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cetak");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,9 +377,12 @@ public class DetailMember extends javax.swing.JFrame {
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -379,7 +392,9 @@ public class DetailMember extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(closeButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(closeButton)
+                    .addComponent(jButton1))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -422,6 +437,29 @@ public class DetailMember extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Belum ada Peminjaman yang dipilih.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_detailPeminjamanButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        // TODO add your handling code here:
+            Connection c = DbConnection.getConnection();
+            java.io.File namaFile = new java.io.File("./report/kartu_member.jasper");
+            try {
+                net.sf.jasperreports.engine.JasperReport jasper;
+                jasper=(net.sf.jasperreports.engine.JasperReport)
+                        net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                net.sf.jasperreports.engine.JasperPrint jp;
+
+                Map parametersMap = new HashMap();  
+                parametersMap.put("id_member", Perpustakaan.id_member);
+
+                jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,6 +509,7 @@ public class DetailMember extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JButton detailPeminjamanButton;
     private javax.swing.JLabel fixNomor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

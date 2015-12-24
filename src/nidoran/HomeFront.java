@@ -63,7 +63,7 @@ public class HomeFront extends javax.swing.JFrame {
          * Table Buku
          */
         tableBuku.setModel(modelBuku);
-        modelBuku.addColumn("_id");
+        modelBuku.addColumn("id Buku");
         modelBuku.addColumn("Kode");
         modelBuku.addColumn("ISBN");
         modelBuku.addColumn("Judul");
@@ -76,7 +76,7 @@ public class HomeFront extends javax.swing.JFrame {
          * Table Member
          */
         tableMember.setModel(modelMember);
-        modelMember.addColumn("_id");
+        modelMember.addColumn("id Member");
         modelMember.addColumn("Nomor Member");
         modelMember.addColumn("Nis");
         modelMember.addColumn("Nama");
@@ -89,7 +89,7 @@ public class HomeFront extends javax.swing.JFrame {
          * Table Peminjaman
          */
         tablePeminjaman.setModel(modelPeminjaman);
-        modelPeminjaman.addColumn("_id");
+        modelPeminjaman.addColumn("id Peminjaman");
         modelPeminjaman.addColumn("Kode");
         modelPeminjaman.addColumn("Nama Peminjam");
         modelPeminjaman.addColumn("Tanggal Pinjam");
@@ -100,7 +100,7 @@ public class HomeFront extends javax.swing.JFrame {
          * Table Pengembalian
          */
         tablePengembalian.setModel(modelPengembalian);
-        modelPengembalian.addColumn("_id");
+        modelPengembalian.addColumn("id Pengembalian");
         modelPengembalian.addColumn("Kode");
         modelPengembalian.addColumn("Nama Peminjam");
         modelPengembalian.addColumn("Tanggal Pinjam");
@@ -297,6 +297,8 @@ public class HomeFront extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         _tahun = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         insertPeminjamanButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -634,7 +636,23 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
+        _tahun.setText("2015");
+
         jLabel2.setText("Tahun");
+
+        jToggleButton2.setText("Laporan Member");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton3.setText("Laporan Pengembalian");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -645,14 +663,19 @@ public class HomeFront extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton1)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(224, Short.MAX_VALUE))
+                    .addComponent(jToggleButton2)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jToggleButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jToggleButton3))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -665,8 +688,12 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(_bulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButton1)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jToggleButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton2)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Laporan", jPanel6);
@@ -931,30 +958,111 @@ public class HomeFront extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+        String bulan = _bulan.getSelectedItem().toString().substring(0, 2);
+        String tahun = _tahun.getText();
+        
+        if(tahun.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Silahkan masukan tahun", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            _tahun.setFocusable(true);
+        }
+        else
+        {
+            // TODO add your handling code here:
+            Connection c = DbConnection.getConnection();
+            java.io.File namaFile = new java.io.File("./report/laporan_peminjaman.jasper");
+            try {
+                net.sf.jasperreports.engine.JasperReport jasper;
+                jasper=(net.sf.jasperreports.engine.JasperReport)
+                        net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                net.sf.jasperreports.engine.JasperPrint jp;
+
+                Map parametersMap = new HashMap();  
+                parametersMap.put("bulan", bulan);
+                parametersMap.put("tahun", tahun);
+
+                jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
         
         String bulan = _bulan.getSelectedItem().toString().substring(0, 2);
         String tahun = _tahun.getText();
         
-        // TODO add your handling code here:
-        Connection c = DbConnection.getConnection();
-        java.io.File namaFile = new java.io.File("./report/laporan_peminjaman.jasper");
-        try {
-            net.sf.jasperreports.engine.JasperReport jasper;
-            jasper=(net.sf.jasperreports.engine.JasperReport)
-                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
-            net.sf.jasperreports.engine.JasperPrint jp;
-            
-            Map parametersMap = new HashMap();  
-            parametersMap.put("bulan", bulan);
-            parametersMap.put("tahun", tahun);
-
-            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
-                        
-            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
-        } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        if(tahun.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Silahkan masukan tahun", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            _tahun.setFocusable(true);
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+        else
+        {
+            // TODO add your handling code here:
+            Connection c = DbConnection.getConnection();
+            java.io.File namaFile = new java.io.File("./report/laporan_member.jasper");
+            try {
+                net.sf.jasperreports.engine.JasperReport jasper;
+                jasper=(net.sf.jasperreports.engine.JasperReport)
+                        net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                net.sf.jasperreports.engine.JasperPrint jp;
+
+                Map parametersMap = new HashMap();  
+                parametersMap.put("bulan", bulan);
+                parametersMap.put("tahun", tahun);
+
+                jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        }
+        
+        
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        // TODO add your handling code here:
+        
+        String bulan = _bulan.getSelectedItem().toString().substring(0, 2);
+        String tahun = _tahun.getText();
+        
+        if(tahun.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Silahkan masukan tahun", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            _tahun.setFocusable(true);
+        }
+        else
+        {
+            // TODO add your handling code here:
+            Connection c = DbConnection.getConnection();
+            java.io.File namaFile = new java.io.File("./report/laporan_pengembalian.jasper");
+            try {
+                net.sf.jasperreports.engine.JasperReport jasper;
+                jasper=(net.sf.jasperreports.engine.JasperReport)
+                        net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                net.sf.jasperreports.engine.JasperPrint jp;
+
+                Map parametersMap = new HashMap();  
+                parametersMap.put("bulan", bulan);
+                parametersMap.put("tahun", tahun);
+
+                jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1027,6 +1135,8 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JButton refreshPeminjamanButton;
     private javax.swing.JButton resetBukuButton;
     private javax.swing.JButton resetBukuButton3;

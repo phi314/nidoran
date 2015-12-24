@@ -45,7 +45,7 @@ public class Buku extends javax.swing.JFrame {
          * Table Buku
          */
         tableBuku.setModel(model);
-        model.addColumn("_id");
+        model.addColumn("id Buku");
         model.addColumn("ISBN");
         model.addColumn("Judul");
         model.addColumn("Penerbit");
@@ -374,7 +374,7 @@ public class Buku extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(showUpdateButton)
                     .addComponent(deleteButton))
                 .addContainerGap(15, Short.MAX_VALUE))

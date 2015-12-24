@@ -92,7 +92,7 @@ ORDER BY peminjaman.kode ASC;]]>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tanggal]]></text>
+				<text><![CDATA[Tgl Pinjam]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="158" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c58dd392-2b4a-4c4e-8c39-910fb6ba3767"/>
