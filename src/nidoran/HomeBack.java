@@ -152,6 +152,7 @@ public class HomeBack extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         resetBukuButton = new javax.swing.JButton();
         cetakBukuButton = new javax.swing.JButton();
+        buttonKategori = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fieldPetugasComboBox = new javax.swing.JComboBox<>();
@@ -221,6 +222,13 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
+        buttonKategori.setText("Kategori");
+        buttonKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonKategoriActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,14 +248,21 @@ public class HomeBack extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cetakBukuButton)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cetakBukuButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(buttonKategori)))
                 .addGap(18, 18, 18)
                 .addComponent(fieldBukuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -538,6 +553,12 @@ public class HomeBack extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cetakBukuButtonActionPerformed
 
+    private void buttonKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKategoriActionPerformed
+        // TODO add your handling code here:
+        
+        new Kategori().setVisible(true);
+    }//GEN-LAST:event_buttonKategoriActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -575,6 +596,7 @@ public class HomeBack extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonKategori;
     private javax.swing.JButton cetakBukuButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldPetugasComboBox;

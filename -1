@@ -1,0 +1,60 @@
+[33mcommit bbb0cae6112ef3a39b97a83d709bf1ea6cfcc609[m
+Author: Arief Wibowo <rriev.wibowo@gmail.com>
+Date:   Fri Dec 25 00:43:04 2015 +0700
+
+    adding cetak kartu member
+
+[1mdiff --git a/build/built-jar.properties b/build/built-jar.properties[m
+[1mindex 3f9b571..d208625 100644[m
+[1m--- a/build/built-jar.properties[m
+[1m+++ b/build/built-jar.properties[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-#Thu, 24 Dec 2015 12:50:50 +0700[m
+[32m+[m[32m#Fri, 25 Dec 2015 00:41:20 +0700[m
+ [m
+ [m
+ /media/phi314/Data/Java\ Development/nidoran=[m
+[1mdiff --git a/build/classes/nidoran/Buku.class b/build/classes/nidoran/Buku.class[m
+[1mindex e9f4e8e..a9ab17f 100644[m
+Binary files a/build/classes/nidoran/Buku.class and b/build/classes/nidoran/Buku.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$1.class b/build/classes/nidoran/DetailMember$1.class[m
+[1mindex 16bdf12..a777585 100644[m
+Binary files a/build/classes/nidoran/DetailMember$1.class and b/build/classes/nidoran/DetailMember$1.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$2.class b/build/classes/nidoran/DetailMember$2.class[m
+[1mindex 03016ab..6992000 100644[m
+Binary files a/build/classes/nidoran/DetailMember$2.class and b/build/classes/nidoran/DetailMember$2.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$3.class b/build/classes/nidoran/DetailMember$3.class[m
+[1mindex d70ce52..d718cc3 100644[m
+Binary files a/build/classes/nidoran/DetailMember$3.class and b/build/classes/nidoran/DetailMember$3.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$4.class b/build/classes/nidoran/DetailMember$4.class[m
+[1mindex ec350aa..6dbbe4e 100644[m
+Binary files a/build/classes/nidoran/DetailMember$4.class and b/build/classes/nidoran/DetailMember$4.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$5.class b/build/classes/nidoran/DetailMember$5.class[m
+[1mindex 8679a48..e57709e 100644[m
+Binary files a/build/classes/nidoran/DetailMember$5.class and b/build/classes/nidoran/DetailMember$5.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$6.class b/build/classes/nidoran/DetailMember$6.class[m
+[1mindex dfca1b8..94e451b 100644[m
+Binary files a/build/classes/nidoran/DetailMember$6.class and b/build/classes/nidoran/DetailMember$6.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$7.class b/build/classes/nidoran/DetailMember$7.class[m
+[1mindex 807d762..ad2f148 100644[m
+Binary files a/build/classes/nidoran/DetailMember$7.class and b/build/classes/nidoran/DetailMember$7.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$8.class b/build/classes/nidoran/DetailMember$8.class[m
+[1mindex befa21f..750d203 100644[m
+Binary files a/build/classes/nidoran/DetailMember$8.class and b/build/classes/nidoran/DetailMember$8.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember$9.class b/build/classes/nidoran/DetailMember$9.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4b6f44a[m
+Binary files /dev/null and b/build/classes/nidoran/DetailMember$9.class differ
+[1mdiff --git a/build/classes/nidoran/DetailMember.class b/build/classes/nidoran/DetailMember.class[m
+[1mindex 19cc7d4..866f9de 100644[m
+Binary files a/build/classes/nidoran/DetailMember.class and b/build/classes/nidoran/DetailMember.class differ
+[1mdiff --git a/build/classes/nidoran/HomeFront$10.class b/build/classes/nidoran/HomeFront$10.class[m
+[1mindex c7f87be..4438eec 100644[m
+Binary files a/build/classes/nidoran/HomeFront$10.class and b/build/classes/nidoran/HomeFront$10.class differ
+[1mdiff --git a/build/classes/nidoran/HomeFront$11.class b/build/classes/nidoran/HomeFront$11.class[m
+[1mindex bf0ef20..3d968c6 100644[m
+Binary files a/build/classes/nidoran/HomeFront$11.class and b/build/classes/nidoran/HomeFront$11.class differ
+[1mdiff --git a/build/classes/nidoran/HomeFront$12.class b/build/classes/nidoran/HomeFront$12.class[m
+[1mindex 36cb7a1..a521f35 100644[m
+Binary files a/build/classes/nidoran/HomeFront$12.class and b/build/classes/nidoran/HomeFront$12.class differ
+[1mdiff --git
