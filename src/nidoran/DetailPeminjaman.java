@@ -38,7 +38,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         /**
          * Table Buku
          */
-        jTable1.setModel(modelBuku);
+        tableBuku.setModel(modelBuku);
         modelBuku.addColumn("_id");
         modelBuku.addColumn("ISBN");
         modelBuku.addColumn("Judul");
@@ -77,6 +77,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         }
         
         loadDataBuku();
+        
+        tableBuku.removeColumn(tableBuku.getColumnModel().getColumn(0));
+        
+        
 
     }
     
@@ -119,7 +123,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableBuku = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -148,7 +152,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableBuku.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -156,7 +160,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableBuku);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("NIS");
@@ -420,6 +424,6 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableBuku;
     // End of variables declaration//GEN-END:variables
 }

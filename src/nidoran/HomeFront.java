@@ -280,7 +280,6 @@ public class HomeFront extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablePeminjaman = new javax.swing.JTable();
         detailPeminjamanButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         fieldBukuComboBox3 = new javax.swing.JComboBox<>();
         searchBukuInput3 = new javax.swing.JTextField();
@@ -434,13 +433,6 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Report Peminjaman Bulan ini");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -458,18 +450,14 @@ public class HomeFront extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(detailPeminjamanButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(detailPeminjamanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -479,7 +467,7 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(detailPeminjamanButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Peminjaman", jPanel2);
@@ -895,7 +883,7 @@ public class HomeFront extends javax.swing.JFrame {
         
         try {
             int x = tablePeminjaman.getSelectedRow();
-            Object id_peminjaman = tablePeminjaman.getValueAt(x, 0);
+            Object id_peminjaman = modelPeminjaman.getValueAt(x, 0);
             
             Perpustakaan.id_peminjaman = id_peminjaman.toString();
             new DetailPeminjaman().setVisible(true);
@@ -924,7 +912,7 @@ public class HomeFront extends javax.swing.JFrame {
         
         try {
             int x = tableMember.getSelectedRow();
-            Object id_member = tableMember.getValueAt(x, 0);
+            Object id_member = modelMember.getValueAt(x, 0);
             
             Perpustakaan.id_member = id_member.toString();
             new DetailMember().setVisible(true);
@@ -961,7 +949,7 @@ public class HomeFront extends javax.swing.JFrame {
         
         try {
             int x = tablePengembalian.getSelectedRow();
-            Object id_peminjaman = tablePengembalian.getValueAt(x, 0);
+            Object id_peminjaman = modelPengembalian.getValueAt(x, 0);
             
             Perpustakaan.id_peminjaman = id_peminjaman.toString();
             new DetailPeminjaman().setVisible(true);
@@ -983,24 +971,6 @@ public class HomeFront extends javax.swing.JFrame {
         new Pengembalian().setVisible(true);
         dispose();
     }//GEN-LAST:event_insertPeminjamanButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Connection c = DbConnection.getConnection();
-        java.io.File namaFile = new java.io.File("src/nidoran/report/laporan_peminjaman.jasper");
-        try {
-            net.sf.jasperreports.engine.JasperReport jasper;
-            jasper=(net.sf.jasperreports.engine.JasperReport)
-                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
-            net.sf.jasperreports.engine.JasperPrint jp;
-            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, null,c);
-            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
-        } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
@@ -1208,7 +1178,6 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JButton insertPeminjamanButton2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
