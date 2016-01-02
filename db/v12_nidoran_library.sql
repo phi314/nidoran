@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2016 at 06:00 
+-- Generation Time: Jan 03, 2016 at 06:49 
 -- Server version: 5.6.21
 -- PHP Version: 5.5.19
 
@@ -45,23 +45,23 @@ CREATE TABLE IF NOT EXISTS `buku` (
   `lokasi` varchar(10) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `buku`
 --
 
 INSERT INTO `buku` (`id`, `kode_buku`, `isbn`, `judul`, `penerbit`, `penulis`, `tahun`, `kategori`, `sumber`, `is_tersedia`, `id_peminjaman`, `id_petugas`, `is_buku_paket`, `lokasi`, `created_at`, `updated_at`) VALUES
-(1, '800/001', '978', 'Dilanku', 'Pastel Books', 'Pidi Baiq', '2009', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 10:45:30', '2016-01-02 21:34:06'),
-(6, '800/002', '413', 'Dilanku Buku kedua', 'Pastel Books', 'Pidi Baiq', '2008', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 11:32:20', '2016-01-02 21:34:46'),
-(8, '233.7/001', '678', 'Pulang', 'Mizan', 'Tara Liye', '2013', '233.7 - Kebebasan Memilih antara yang Baik dan Jahat\r\n', '', 1, NULL, 0, 0, 'IPA', '2015-12-04 12:24:40', '2016-01-02 21:32:31'),
-(9, '010/001', '983', 'Buku Pintar', 'Neo', 'Maman Abdurrahman', '2004', '030 - Ensiklopedia Umum\r\n', '', 0, 26, 0, 1, 'IPA', '2015-12-04 12:27:16', '2016-01-02 21:33:16'),
-(11, '800/004', '435', 'Drunken Monster', 'Pastel Books', 'Pidi Baiq', '2009', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 21:32:47', '2016-01-02 21:35:29'),
-(12, '800/003', '564', 'Drunken Molen', 'Pastel Books', 'Pidi Baiq', '2008', '800 - Kesusasteraan\r\n', '', 1, NULL, 3, 0, 'Bahasa', '2015-12-05 13:05:20', '2016-01-02 21:34:59'),
-(13, '233.5/001', '123', 'Biologi Bersama Komo', 'Yudistira', 'Majapahit', '1999', '233.5 - Hakikat\r\n', '', 1, NULL, 3, 1, 'IPA', '2015-12-10 14:35:40', '2016-01-02 22:19:16'),
-(14, '070/001', '112', 'Kamus Besar Bahasa Sunda', 'Mangle', 'Jajang S', '1991', '070 - Jurnalistik dan Penerbitan\r\n', '', 1, NULL, 3, 0, 'IPA', '2015-12-28 16:32:11', '2016-01-02 21:32:02'),
-(18, '310/002', '333', 'Statistika Dasar 3', 'Binus', 'Adam Sahdan', '2003', '310 - Statistika\r\n', 'sumbangan', 1, NULL, 3, 0, 'IPS', '2016-01-03 04:36:53', '2016-01-02 21:40:00'),
-(20, '330/001', '849', 'Hukum IHSG', 'Mine', 'Marshall Mathers', '2008', '330 - Ekonomi\r\n', 'pembelian', 1, NULL, 3, 0, 'IPS', '2016-01-03 04:39:40', '2016-01-02 21:39:40');
+(1, 'B800/005', '978', 'Dilanku', 'Pastel Books', 'Pidi Baiq', '2009', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 10:45:30', '2016-01-02 23:46:24'),
+(6, 'B800/005', '413', 'Dilanku Buku kedua', 'Pastel Books', 'Pidi Baiq', '2008', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 11:32:20', '2016-01-02 23:46:30'),
+(8, 'B233.7/002', '678', 'Pulang', 'Mizan', 'Tara Liye', '2013', '233.7 - Kebebasan Memilih antara yang Baik dan Jahat\r\n', '', 1, NULL, 0, 0, 'IPA', '2015-12-04 12:24:40', '2016-01-02 23:47:01'),
+(9, 'B030/001', '983', 'Buku Pintar', 'Neo', 'Maman Abdurrahman', '2004', '030 - Ensiklopedia Umum\r\n', '', 0, 26, 0, 1, 'IPA', '2015-12-04 12:27:16', '2016-01-02 23:46:18'),
+(11, 'B800/005', '435', 'Drunken Monster', 'Pastel Books', 'Pidi Baiq', '2009', '800 - Kesusasteraan\r\n', '', 1, NULL, 0, 0, 'Bahasa', '2015-12-04 21:32:47', '2016-01-02 23:46:43'),
+(12, 'B800/005', '564', 'Drunken Molen', 'Pastel Books', 'Pidi Baiq', '2008', '800 - Kesusasteraan\r\n', '', 1, NULL, 3, 0, 'Bahasa', '2015-12-05 13:05:20', '2016-01-02 23:46:35'),
+(13, 'B233.5/003', '123', 'Biologi Bersama Komo', 'Yudistira', 'Majapahit', '1999', '233.5 - Hakikat\r\n', '', 1, NULL, 3, 1, 'IPA', '2015-12-10 14:35:40', '2016-01-02 23:46:12'),
+(14, 'B070/002', '112', 'Kamus Besar Bahasa Sunda', 'Mangle', 'Jajang S', '1991', '070 - Jurnalistik dan Penerbitan\r\n', '', 1, NULL, 3, 0, 'IPA', '2015-12-28 16:32:11', '2016-01-02 23:46:54'),
+(18, 'B310/003', '333', 'Statistika Dasar 3', 'Binus', 'Adam Sahdan', '2003', '310 - Statistika\r\n', 'sumbangan', 1, NULL, 3, 0, 'IPS', '2016-01-03 04:36:53', '2016-01-02 23:47:07'),
+(20, 'B330/002', '849', 'Hukum IHSG', 'Mine', 'Marshall Mathers', '2008', '330 - Ekonomi\r\n', 'pembelian', 1, NULL, 3, 0, 'IPS', '2016-01-03 04:39:40', '2016-01-02 23:46:48');
 
 -- --------------------------------------------------------
 
@@ -529,7 +529,7 @@ ALTER TABLE `petugas`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
 --

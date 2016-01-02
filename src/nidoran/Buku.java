@@ -207,6 +207,7 @@ public class Buku extends javax.swing.JFrame {
         _kodeKategori = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         _kodeNomorBuku = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,6 +374,8 @@ public class Buku extends javax.swing.JFrame {
 
         _kodeNomorBuku.setText("-");
 
+        jLabel12.setText("B");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -422,13 +425,15 @@ public class Buku extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(_lokasi, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(_kodeKategori)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel11)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(_kodeNomorBuku))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(126, 126, 126)
+                                        .addGap(123, 123, 123)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(cancelUpdateButton)
@@ -474,7 +479,8 @@ public class Buku extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(_kodeKategori)
                             .addComponent(jLabel11)
-                            .addComponent(_kodeNomorBuku))
+                            .addComponent(_kodeNomorBuku)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -522,7 +528,7 @@ public class Buku extends javax.swing.JFrame {
                                 .addComponent(_tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(_sumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(27, 27, 27)
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -547,7 +553,7 @@ public class Buku extends javax.swing.JFrame {
         String penerbit = _penerbit.getText();
         String penulis = _penulis.getText();
         String tahun = _tahun.getText();
-        String kode_buku = _kodeKategori.getText() + "/" + _kodeNomorBuku.getText();
+        String kode_buku = "B"+_kodeKategori.getText() + "/" + _kodeNomorBuku.getText();
         String lokasi = _lokasi.getSelectedItem().toString();
         String kategori = _kategori.getSelectedItem().toString();
         Boolean is_buku_paket = checkBukuPaket.isSelected();
@@ -692,7 +698,7 @@ public class Buku extends javax.swing.JFrame {
         String kategori = _kategori.getSelectedItem().toString();
         boolean is_buku_paket = checkBukuPaket.isSelected();
         
-        String kode_buku = _kodeKategori.getText() + "/" + _kodeNomorBuku.getText();
+        String kode_buku = "B"+_kodeKategori.getText() + "/" + _kodeNomorBuku.getText();
         
         try {
             Connection c = DbConnection.getConnection();
@@ -828,6 +834,7 @@ public class Buku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
