@@ -68,7 +68,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[SMK NEGERI 1 Ciranjang]]></text>
+				<text><![CDATA[SMA NEGERI 1 Ciranjang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="92" y="26" width="223" height="20" uuid="00d3c183-5e69-4e8a-9f64-9ef6b49881e8"/>
@@ -129,7 +129,7 @@
 				<reportElement x="33" y="166" width="83" height="87" uuid="d8344598-2733-4485-9a28-ac186ab6cb46"/>
 			</rectangle>
 			<line>
-				<reportElement x="0" y="46" width="392" height="1" uuid="a5dbbb8b-670f-4ea8-b60b-0e34ee6bffeb"/>
+				<reportElement x="-1" y="46" width="392" height="1" uuid="a5dbbb8b-670f-4ea8-b60b-0e34ee6bffeb"/>
 			</line>
 		</band>
 	</title>
