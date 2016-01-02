@@ -56,6 +56,8 @@ public class Pengembalian extends javax.swing.JFrame {
         
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         _tanggal_kembali.setText(timeStamp);
+        
+        TableDetailPeminjaman.removeColumn(TableDetailPeminjaman.getColumnModel().getColumn(0));
 
     }
     

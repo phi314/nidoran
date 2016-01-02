@@ -113,6 +113,11 @@ public class HomeFront extends javax.swing.JFrame {
         loadDataPeminjaman();
         loadDataPengembalian();
         
+        tableBuku.removeColumn(tableBuku.getColumnModel().getColumn(0));
+        tableMember.removeColumn(tableMember.getColumnModel().getColumn(0));
+        tablePeminjaman.removeColumn(tablePeminjaman.getColumnModel().getColumn(0));
+        tablePengembalian.removeColumn(tablePengembalian.getColumnModel().getColumn(0));
+        
     }
     
     public void loadDataBuku(){
@@ -258,6 +263,7 @@ public class HomeFront extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -305,12 +311,18 @@ public class HomeFront extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         insertMemberButton = new javax.swing.JButton();
         insertPeminjamanButton2 = new javax.swing.JButton();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perpustakaan (Front Office)");
@@ -383,7 +395,7 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buku", jPanel1);
 
-        fieldBukuComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode", "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
         fieldBukuComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBox1ActionPerformed(evt);
@@ -471,7 +483,7 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Peminjaman", jPanel2);
 
-        fieldBukuComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
         fieldBukuComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBox3ActionPerformed(evt);
@@ -752,6 +764,28 @@ public class HomeFront extends javax.swing.JFrame {
                 insertPeminjamanButton2ActionPerformed(evt);
             }
         });
+
+        jMenu4.setText("File");
+
+        jMenuItem1.setText("Logout");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1064,6 +1098,17 @@ public class HomeFront extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1122,7 +1167,12 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -44,7 +47,7 @@ public class Member extends javax.swing.JFrame {
         /**
          * Table Member
          */
-        tableBuku.setModel(model);
+        tableMember.setModel(model);
         model.addColumn("id Member");
         model.addColumn("Nomor Member");
         model.addColumn("Nis");
@@ -58,6 +61,8 @@ public class Member extends javax.swing.JFrame {
         loadData();
         getNewNomorMember();
         
+        tableMember.removeColumn(tableMember.getColumnModel().getColumn(0));
+        
     }
     
     public void loadData(){
@@ -69,7 +74,7 @@ public class Member extends javax.swing.JFrame {
             Connection c = DbConnection.getConnection();
             Statement s = c.createStatement();
             
-            String sql = "SELECT * FROM member ORDER BY nama ASC";
+            String sql = "SELECT * FROM member ORDER BY nomor ASC";
             ResultSet r = s.executeQuery(sql);
             
             while(r.next())
@@ -101,7 +106,7 @@ public class Member extends javax.swing.JFrame {
         _nama.setText("");
         _kelas.setText("");
         _telepon.setText("");
-        _tanggallahir.setText("");
+        _tanggallahir.setDate(null);
         _tempatlahir.setText("");
         _alamat.setText("");
         
@@ -166,7 +171,7 @@ public class Member extends javax.swing.JFrame {
         _kelas = new javax.swing.JTextField();
         insertButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableBuku = new javax.swing.JTable();
+        tableMember = new javax.swing.JTable();
         deleteButton = new javax.swing.JButton();
         cancelUpdateButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
@@ -176,16 +181,16 @@ public class Member extends javax.swing.JFrame {
         _alamat = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        _tanggallahir = new javax.swing.JFormattedTextField();
         _tempatlahir = new javax.swing.JTextField();
         _telepon = new javax.swing.JTextField();
         _jk = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         cancelUpdateButton1 = new javax.swing.JButton();
         _nomor = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        cetakMemberButton = new javax.swing.JButton();
+        _tanggallahir = new org.jdesktop.swingx.JXDatePicker();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,7 +238,7 @@ public class Member extends javax.swing.JFrame {
             }
         });
 
-        tableBuku.setModel(new javax.swing.table.DefaultTableModel(
+        tableMember.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -241,8 +246,8 @@ public class Member extends javax.swing.JFrame {
 
             }
         ));
-        tableBuku.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jScrollPane2.setViewportView(tableBuku);
+        tableMember.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane2.setViewportView(tableMember);
 
         deleteButton.setText("Hapus Member");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -274,8 +279,6 @@ public class Member extends javax.swing.JFrame {
         jLabel8.setText("Tempat Lahir");
 
         jLabel9.setText("Tanggal Lahir");
-
-        _tanggallahir.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
         _tempatlahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -314,8 +317,6 @@ public class Member extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel11.setText("(yyyy-mm-dd)");
-
         cancelUpdateButton1.setText("Tutup");
         cancelUpdateButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,6 +328,13 @@ public class Member extends javax.swing.JFrame {
         _nomor.setText("-");
 
         jLabel12.setText("Nomor Anggota");
+
+        cetakMemberButton.setText("Cetak Kartu Member");
+        cetakMemberButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakMemberButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -355,10 +363,8 @@ public class Member extends javax.swing.JFrame {
                                     .addComponent(_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_nomor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -389,6 +395,8 @@ public class Member extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(deleteButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cetakMemberButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cancelUpdateButton1)))
                         .addContainerGap())))
@@ -430,12 +438,9 @@ public class Member extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(_id)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,13 +457,15 @@ public class Member extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deleteButton)
+                        .addComponent(cetakMemberButton))
                     .addComponent(cancelUpdateButton1))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -478,7 +485,7 @@ public class Member extends javax.swing.JFrame {
         String alamat = _alamat.getText();
         String telepon = _telepon.getText();
         String tempat_lahir = _tempatlahir.getText();
-        String tanggal_lahir = _tanggallahir.getText();
+        String tanggal_lahir = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_tanggallahir.getDate());
         String jk = "l";
         
         if(_jk.getSelectedIndex() == 1)
@@ -488,7 +495,7 @@ public class Member extends javax.swing.JFrame {
         
         try
         {
-            if(nis.equals("") || nama.equals("") || kelas.equals("") || telepon.equals("") || alamat.equals("")){
+            if(nis.equals("") || nama.equals("") || kelas.equals("") || telepon.equals("") || alamat.equals("") || _tanggallahir.getDate().equals(null)){
                 JOptionPane.showMessageDialog(null,"Data tidak boleh kosong.", "Informasi",JOptionPane.WARNING_MESSAGE);
             }
             else {
@@ -532,9 +539,9 @@ public class Member extends javax.swing.JFrame {
         // TODO add your handling code here
         
         try {
-            int x = tableBuku.getSelectedRow();
-            Object id = tableBuku.getValueAt(x, 0);
-            Object nama = tableBuku.getValueAt(x, 2);
+            int x = tableMember.getSelectedRow();
+            Object id = model.getValueAt(x, 0);
+            Object nama = model.getValueAt(x, 2);
             
             
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus member dengan nama: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
@@ -559,7 +566,7 @@ public class Member extends javax.swing.JFrame {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Buku belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Member belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -634,6 +641,40 @@ public class Member extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelUpdateButton1ActionPerformed
 
+    private void cetakMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakMemberButtonActionPerformed
+        try {
+            int x = tableMember.getSelectedRow();
+            Object id = model.getValueAt(x, 0);
+            Object nama = model.getValueAt(x, 2);
+            
+            
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin mencetak kartu member dengan nama: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            
+            if(confirm == JOptionPane.YES_OPTION)
+            {
+                Connection c = DbConnection.getConnection();
+                java.io.File namaFile = new java.io.File("./report/kartu_member.jasper");
+                try {
+                    net.sf.jasperreports.engine.JasperReport jasper;
+                    jasper=(net.sf.jasperreports.engine.JasperReport)
+                            net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                    net.sf.jasperreports.engine.JasperPrint jp;
+
+                    Map parametersMap = new HashMap();  
+                    parametersMap.put("id_member", id);
+
+                    jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                    net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+                } catch (Exception ex) {
+                    javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Member belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_cetakMemberButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -678,7 +719,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JTextField _nama;
     private javax.swing.JTextField _nis;
     private javax.swing.JLabel _nomor;
-    private javax.swing.JFormattedTextField _tanggallahir;
+    private org.jdesktop.swingx.JXDatePicker _tanggallahir;
     private javax.swing.JTextField _telepon;
     private javax.swing.JTextField _tempatlahir;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -686,11 +727,11 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton cancelUpdateButton;
     private javax.swing.JButton cancelUpdateButton1;
+    private javax.swing.JButton cetakMemberButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -704,7 +745,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable tableBuku;
+    private javax.swing.JTable tableMember;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }

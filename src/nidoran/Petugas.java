@@ -54,6 +54,8 @@ public class Petugas extends javax.swing.JFrame {
         
         loadData();
         
+        tablePetugas.removeColumn(tablePetugas.getColumnModel().getColumn(0));
+        
     }
     
     public void loadData(){
@@ -130,6 +132,7 @@ public class Petugas extends javax.swing.JFrame {
         _username = new javax.swing.JTextField();
         _password = new javax.swing.JTextField();
         _jk = new javax.swing.JComboBox<>();
+        closeButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -217,13 +220,25 @@ public class Petugas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("Data Petugas");
 
-        _level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Front Office", "Back Office" }));
+        _level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pengolahan", "Sirkulasi" }));
+        _level.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _levelActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
 
         _jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+
+        closeButton.setText("Tutup");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,11 +248,6 @@ public class Petugas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(showUpdateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -273,7 +283,13 @@ public class Petugas extends javax.swing.JFrame {
                                     .addComponent(_username)
                                     .addComponent(_password)
                                     .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(showUpdateButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(closeButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -310,7 +326,7 @@ public class Petugas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertButton)
                     .addComponent(cancelUpdateButton)
@@ -320,7 +336,8 @@ public class Petugas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showUpdateButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deleteButton)
+                    .addComponent(closeButton))
                 .addContainerGap())
         );
 
@@ -391,13 +408,13 @@ public class Petugas extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             int x = tablePetugas.getSelectedRow();
-            Object id = tablePetugas.getValueAt(x, 0);
-            Object nip = tablePetugas.getValueAt(x, 1);
-            Object nama = tablePetugas.getValueAt(x, 2);
-            Object jk = tablePetugas.getValueAt(x, 3);
-            Object telepon = tablePetugas.getValueAt(x, 4);
-            Object level = tablePetugas.getValueAt(x, 5);
-            Object username = tablePetugas.getValueAt(x, 6);
+            Object id = model.getValueAt(x, 0);
+            Object nip = model.getValueAt(x, 1);
+            Object nama = model.getValueAt(x, 2);
+            Object jk = model.getValueAt(x, 3);
+            Object telepon = model.getValueAt(x, 4);
+            Object level = model.getValueAt(x, 5);
+            Object username = model.getValueAt(x, 6);
             
             _id.setText(id.toString());
             _nip.setText(nip.toString());
@@ -407,6 +424,8 @@ public class Petugas extends javax.swing.JFrame {
             if(jk.toString().equals("p")){
                 _jk.setSelectedIndex(1);
             }
+            
+            _level.setSelectedItem(level.toString());
             
             _telepon.setText(telepon.toString());
             _username.setText(username.toString());
@@ -435,20 +454,28 @@ public class Petugas extends javax.swing.JFrame {
         String id = _id.getText();
         String nip = _nip.getText();
         String nama = _nama.getText();
+        String level = _level.getSelectedItem().toString();
         String telepon = _telepon.getText();
         String username = _username.getText();
-        String password = _password.getText();
+        String jk = _jk.getSelectedItem().toString();
         
-        String jk = null;
+        
+        if(jk.equals("Perempuan")){
+            jk = "p";
+        }
+        else{
+            jk = "l";
+        }
         
         try
         {
             Connection c = DbConnection.getConnection();
             
-            String q = "UPDATE buku "
+            String q = "UPDATE petugas "
                     + "SET "
                     + "nip=?,"
                     + "nama=?,"
+                    + "level=?,"
                     + "jk=?,"
                     + "telepon=?,"
                     + "username=?"
@@ -458,7 +485,7 @@ public class Petugas extends javax.swing.JFrame {
             
             p.setString(1, nip);
             p.setString(2, nama);
-            p.setString(3, nama);
+            p.setString(3, level);
             p.setString(4, jk);
             p.setString(5, telepon);
             p.setString(6, username);
@@ -515,6 +542,16 @@ public class Petugas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new HomeBack().setVisible(true);
+    }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void _levelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__levelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__levelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -563,6 +600,7 @@ public class Petugas extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelUpdateButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;

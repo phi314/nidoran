@@ -56,6 +56,8 @@ public class Peminjaman extends javax.swing.JFrame {
         
         setKodePeminjaman();
         
+        tableDetailPeminjaman.removeColumn(tableDetailPeminjaman.getColumnModel().getColumn(0));
+        
 
     }
     
@@ -378,6 +380,12 @@ public class Peminjaman extends javax.swing.JFrame {
         jLabel2.setText("Tanggal Pinjam");
 
         jLabel4.setText("Tanggal Kembali");
+
+        _tanggal_pinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _tanggal_pinjamActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("Kode Peminjaman");
 
@@ -857,6 +865,10 @@ public class Peminjaman extends javax.swing.JFrame {
         
         setKodePeminjaman();
     }//GEN-LAST:event_checkboxPeminjamanKelasActionPerformed
+
+    private void _tanggal_pinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__tanggal_pinjamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__tanggal_pinjamActionPerformed
 
     /**
      * @param args the command line arguments

@@ -51,6 +51,8 @@ public class Kategori extends javax.swing.JFrame {
         
         loadData();
         
+        tableKategori.removeColumn(tableKategori.getColumnModel().getColumn(0));
+        
     }
     
     public void loadData(){
@@ -287,8 +289,8 @@ public class Kategori extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             int x = tableKategori.getSelectedRow();
-            Object id = tableKategori.getValueAt(x, 0);
-            Object nama = tableKategori.getValueAt(x, 1);
+            Object id = model.getValueAt(x, 0);
+            Object nama = model.getValueAt(x, 1);
             
             _id.setText(id.toString());
             _nama.setText(nama.toString());
@@ -308,8 +310,8 @@ public class Kategori extends javax.swing.JFrame {
         
         try {
             int x = tableKategori.getSelectedRow();
-            Object id = tableKategori.getValueAt(x, 0);
-            Object nama = tableKategori.getValueAt(x, 1);
+            Object id = model.getValueAt(x, 0);
+            Object nama = model.getValueAt(x, 1);
             
             
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus buku dengan judul: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);

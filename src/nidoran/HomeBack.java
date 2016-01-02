@@ -67,7 +67,9 @@ public class HomeBack extends javax.swing.JFrame {
         
         loadDataBuku();
         loadDataPetugas();
-        
+                
+        tableBuku.removeColumn(tableBuku.getColumnModel().getColumn(0));
+        tablePetugas.removeColumn(tablePetugas.getColumnModel().getColumn(0));
     }
     
     public void loadDataBuku(){
@@ -153,6 +155,7 @@ public class HomeBack extends javax.swing.JFrame {
         resetBukuButton = new javax.swing.JButton();
         cetakBukuButton = new javax.swing.JButton();
         buttonKategori = new javax.swing.JButton();
+        bukuButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         fieldPetugasComboBox = new javax.swing.JComboBox<>();
@@ -161,14 +164,13 @@ public class HomeBack extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tablePetugas = new javax.swing.JTable();
         resetPetugasButton = new javax.swing.JButton();
+        bukuButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        menuBuku = new javax.swing.JMenuItem();
-        menuPetugas = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -229,6 +231,13 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
+        bukuButton.setText("Tambah Buku");
+        bukuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bukuButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -236,7 +245,7 @@ public class HomeBack extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchBukuInput, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,10 +256,11 @@ public class HomeBack extends javax.swing.JFrame {
                                 .addComponent(resetBukuButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cetakBukuButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(buttonKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bukuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -259,14 +269,16 @@ public class HomeBack extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(fieldBukuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchBukuInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(bukuButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonKategori)))
-                .addGap(18, 18, 18)
-                .addComponent(fieldBukuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchBukuInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton)
@@ -313,6 +325,13 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
+        bukuButton1.setText("Tambah Petugas");
+        bukuButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bukuButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -320,7 +339,7 @@ public class HomeBack extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(searchPetugasInput, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,14 +350,20 @@ public class HomeBack extends javax.swing.JFrame {
                                 .addComponent(resetPetugasButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchPetugasButton)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bukuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bukuButton1)))
                 .addGap(18, 18, 18)
                 .addComponent(fieldPetugasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -379,6 +404,14 @@ public class HomeBack extends javax.swing.JFrame {
 
         jMenu3.setText("File");
 
+        jMenuItem3.setText("Logout");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,26 +421,6 @@ public class HomeBack extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Master Data");
-
-        menuBuku.setText("Data Buku");
-        menuBuku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuBukuActionPerformed(evt);
-            }
-        });
-        jMenu4.add(menuBuku);
-
-        menuPetugas.setText("Data Petugas");
-        menuPetugas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuPetugasActionPerformed(evt);
-            }
-        });
-        jMenu4.add(menuPetugas);
-
-        jMenuBar2.add(jMenu4);
 
         setJMenuBar(jMenuBar2);
 
@@ -428,16 +441,6 @@ public class HomeBack extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPetugasActionPerformed
-        // TODO add your handling code here:
-            new Petugas().setVisible(true);
-    }//GEN-LAST:event_menuPetugasActionPerformed
-
-    private void menuBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBukuActionPerformed
-        // TODO add your handling code here:
-        new Buku().setVisible(true);
-    }//GEN-LAST:event_menuBukuActionPerformed
 
     private void fieldBukuComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBoxActionPerformed
         // TODO add your handling code here:
@@ -555,9 +558,27 @@ public class HomeBack extends javax.swing.JFrame {
 
     private void buttonKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKategoriActionPerformed
         // TODO add your handling code here:
-        
         new Kategori().setVisible(true);
+        dispose();
     }//GEN-LAST:event_buttonKategoriActionPerformed
+
+    private void bukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukuButtonActionPerformed
+        // TODO add your handling code here:
+        new Buku().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bukuButtonActionPerformed
+
+    private void bukuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukuButton1ActionPerformed
+        // TODO add your handling code here:
+        new Petugas().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bukuButton1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -596,6 +617,8 @@ public class HomeBack extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bukuButton;
+    private javax.swing.JButton bukuButton1;
     private javax.swing.JButton buttonKategori;
     private javax.swing.JButton cetakBukuButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
@@ -606,19 +629,17 @@ public class HomeBack extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JMenuItem menuBuku;
-    private javax.swing.JMenuItem menuPetugas;
     private javax.swing.JButton resetBukuButton;
     private javax.swing.JButton resetPetugasButton;
     private javax.swing.JButton searchBukuButton;

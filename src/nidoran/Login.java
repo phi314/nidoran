@@ -152,10 +152,10 @@ public class Login extends javax.swing.JFrame {
                 Perpustakaan.id_petugas = r.getString("id");
                 
                 switch (level) {
-                    case "Back Office":
+                    case "Pengolahan":
                         new HomeBack().setVisible(true);
                         break;
-                    case "Front Office":
+                    case "Sirkulasi":
                         new HomeFront().setVisible(true);
                         break;
                     default:
