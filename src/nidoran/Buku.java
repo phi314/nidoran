@@ -55,6 +55,7 @@ public class Buku extends javax.swing.JFrame {
         model.addColumn("Kode Buku");
         model.addColumn("Lokasi");
         model.addColumn("Kategori");
+        model.addColumn("Sumber");
         
         loadData();
         loadDataKategori();
@@ -98,7 +99,7 @@ public class Buku extends javax.swing.JFrame {
             ResultSet r = s.executeQuery(sql);
             
             while (r.next()) {
-                Object[] o = new Object[10];
+                Object[] o = new Object[11];
                 o[0] = r.getString("id");
                 o[1] = r.getString("isbn");
                 o[2] = r.getString("judul");
@@ -109,6 +110,7 @@ public class Buku extends javax.swing.JFrame {
                 o[7] = r.getString("kode_buku");
                 o[8] = r.getString("lokasi");
                 o[9] = r.getString("kategori");
+                o[10] = r.getString("sumber");
                 
                 model.addRow(o);
             }
@@ -614,6 +616,7 @@ public class Buku extends javax.swing.JFrame {
             Object kode_buku = model.getValueAt(x, 7);
             Object lokasi = model.getValueAt(x, 8);
             Object kategori = model.getValueAt(x, 9);
+            Object sumber = model.getValueAt(x, 10);
             
             _id.setText(id.toString());
             _isbn.setText(isbn.toString());
@@ -624,6 +627,7 @@ public class Buku extends javax.swing.JFrame {
             _lokasi.setSelectedItem(lokasi);
             checkBukuPaket.setSelected(false);
             _kategori.setSelectedItem(kategori);
+            _sumber.setSelectedItem(sumber);
             
             String[] split = kode_buku.toString().split("/");
             _kodeKategori.setText(split[0]);
@@ -696,6 +700,7 @@ public class Buku extends javax.swing.JFrame {
         String tahun = _tahun.getText();
         String lokasi = _lokasi.getSelectedItem().toString();
         String kategori = _kategori.getSelectedItem().toString();
+        String sumber = _sumber.getSelectedItem().toString();
         boolean is_buku_paket = checkBukuPaket.isSelected();
         
         String kode_buku = "B"+_kodeKategori.getText() + "/" + _kodeNomorBuku.getText();
@@ -713,6 +718,7 @@ public class Buku extends javax.swing.JFrame {
                     + "is_buku_paket=?, "
                     + "kode_buku=?, "
                     + "kategori=?, "
+                    + "sumber=?, "
                     + "lokasi=? "
                     + "WHERE id=?";
             
@@ -726,8 +732,9 @@ public class Buku extends javax.swing.JFrame {
             p.setBoolean(6, is_buku_paket);
             p.setString(7, kode_buku);
             p.setString(8, kategori);
-            p.setString(9, lokasi);
-            p.setString(10, id);
+            p.setString(9, sumber);
+            p.setString(10, lokasi);
+            p.setString(11, id);
             
             p.executeUpdate();
             p.close();

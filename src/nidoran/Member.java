@@ -645,7 +645,7 @@ public class Member extends javax.swing.JFrame {
         try {
             int x = tableMember.getSelectedRow();
             Object id = model.getValueAt(x, 0);
-            Object nama = model.getValueAt(x, 2);
+            Object nama = model.getValueAt(x, 3);
             
             
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin mencetak kartu member dengan nama: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);

@@ -71,9 +71,9 @@ ORDER BY peminjaman.kode ASC;]]>
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="25211a53-e30e-44ec-9d98-6d739059acd3"/>
+				<reportElement mode="Opaque" x="-20" y="-21" width="595" height="92" backcolor="#006699" uuid="25211a53-e30e-44ec-9d98-6d739059acd3"/>
 				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="37b6b5d8-8f2c-45a2-ba88-c1d35fbdf05e"/>
+					<reportElement x="94" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="37b6b5d8-8f2c-45a2-ba88-c1d35fbdf05e"/>
 					<textElement>
 						<font size="18" isBold="true"/>
 					</textElement>
@@ -87,19 +87,23 @@ ORDER BY peminjaman.kode ASC;]]>
 					<textFieldExpression><![CDATA[$P{bulan} +"."+$P{tahun}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="20" y="39" width="379" height="27" forecolor="#FFFFFF" uuid="2ceb706f-446f-4d75-bb0a-8bd91855ff37"/>
+					<reportElement x="94" y="39" width="379" height="27" forecolor="#FFFFFF" uuid="2ceb706f-446f-4d75-bb0a-8bd91855ff37"/>
 					<textElement>
 						<font size="15" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Perpustakaan SMA Negeri 1 Ciranjang]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="20" y="56" width="379" height="16" forecolor="#FFFFFF" uuid="0c890925-a85a-4bcf-894c-8630c890423e"/>
+					<reportElement x="94" y="56" width="379" height="16" forecolor="#FFFFFF" uuid="0c890925-a85a-4bcf-894c-8630c890423e"/>
 					<textElement>
 						<font size="10" isBold="false"/>
 					</textElement>
 					<text><![CDATA[JL Jati Pasirsanta Kec.Ciranjang Kab.Cianjur]]></text>
 				</staticText>
+				<image>
+					<reportElement x="18" y="11" width="72" height="69" uuid="a52ef5e2-ef7d-4607-bb73-d56ccae76d93"/>
+					<imageExpression><![CDATA["/media/phi314/Data/Java Development/nidoran/report/ic_launcher_m.png"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>

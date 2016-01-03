@@ -46,6 +46,7 @@ public class Kategori extends javax.swing.JFrame {
          */
         tableKategori.setModel(model);
         model.addColumn("id Kategori");
+        model.addColumn("Kode");
         model.addColumn("Nama");
         
         
@@ -71,7 +72,8 @@ public class Kategori extends javax.swing.JFrame {
             {
                 Object[] o = new Object[9];
                 o[0] = r.getString("id");
-                o[1] = r.getString("nama");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("nama");
                 
                 model.addRow(o);
             }
@@ -81,6 +83,7 @@ public class Kategori extends javax.swing.JFrame {
     }
     
     public void clearInputData(){
+        _kode.setText("");
         _nama.setText("");
 
     }
@@ -108,6 +111,9 @@ public class Kategori extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cancelUpdateButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        _kode = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +131,7 @@ public class Kategori extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buku");
 
-        jLabel2.setText("Kategori");
+        jLabel2.setText("Nama");
 
         insertButton.setText("Tambah Kategori");
         insertButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +202,15 @@ public class Kategori extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setText("Tutup");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Kode");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,34 +219,45 @@ public class Kategori extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(14, 14, 14)
-                        .addComponent(_nama))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(insertButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cancelUpdateButton))
+                            .addComponent(insertButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(showUpdateButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteButton)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                        .addComponent(closeButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_kode, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(cancelUpdateButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(_nama))
+                                .addGap(43, 43, 43)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel2))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(_kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,7 +269,8 @@ public class Kategori extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showUpdateButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deleteButton)
+                    .addComponent(closeButton))
                 .addGap(4, 4, 4))
         );
 
@@ -253,6 +280,7 @@ public class Kategori extends javax.swing.JFrame {
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         // TODO add your handling code here:
         
+        String kode = _kode.getText();
         String nama = _nama.getText();
         
         try
@@ -263,13 +291,14 @@ public class Kategori extends javax.swing.JFrame {
             else {
                 Connection c = DbConnection.getConnection();
 
-                String q = "INSERT INTO kategori(nama, id_petugas) "
-                        + "VALUES(?, ?)";
+                String q = "INSERT INTO kategori(kode, nama, id_petugas) "
+                        + "VALUES(?, ?, ?)";
 
                 PreparedStatement p = c.prepareStatement(q);
 
-                p.setString(1, nama);
-                p.setString(2, Perpustakaan.id_petugas);
+                p.setString(1, kode);
+                p.setString(2, nama);
+                p.setString(3, Perpustakaan.id_petugas);
 
                 p.executeUpdate();
                 p.close();
@@ -290,9 +319,11 @@ public class Kategori extends javax.swing.JFrame {
         try {
             int x = tableKategori.getSelectedRow();
             Object id = model.getValueAt(x, 0);
-            Object nama = model.getValueAt(x, 1);
+            Object kode = model.getValueAt(x, 1);
+            Object nama = model.getValueAt(x, 2);
             
             _id.setText(id.toString());
+            _kode.setText(kode.toString());
             _nama.setText(nama.toString());
             
             insertButton.setVisible(false);
@@ -301,7 +332,7 @@ public class Kategori extends javax.swing.JFrame {
             
             
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Buku belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Kategori belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);
         }        
     }//GEN-LAST:event_showUpdateButtonActionPerformed
 
@@ -311,7 +342,7 @@ public class Kategori extends javax.swing.JFrame {
         try {
             int x = tableKategori.getSelectedRow();
             Object id = model.getValueAt(x, 0);
-            Object nama = model.getValueAt(x, 1);
+            Object nama = model.getValueAt(x, 2);
             
             
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin menghapus buku dengan judul: " + nama +" ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
@@ -352,6 +383,7 @@ public class Kategori extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String id = _id.getText();
+        String kode = _kode.getText();
         String nama = _nama.getText();
 
         try
@@ -360,13 +392,15 @@ public class Kategori extends javax.swing.JFrame {
 
             String q = "UPDATE kategori "
             + "SET "
+            + "kode=?, "
             + "nama=?"
             + "WHERE id=?";
 
             PreparedStatement p = c.prepareStatement(q);
 
-            p.setString(1, nama);
-            p.setString(2, id);
+            p.setString(1, kode);
+            p.setString(2, nama);
+            p.setString(3, id);
 
             p.executeUpdate();
             p.close();
@@ -384,6 +418,13 @@ public class Kategori extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        // TODO add your handling code here:
+        new HomeBack().setVisible(true);
+        setVisible(false);
+        
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,10 +464,13 @@ public class Kategori extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _id;
+    private javax.swing.JTextField _kode;
     private javax.swing.JTextField _nama;
     private javax.swing.JButton cancelUpdateButton;
+    private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton insertButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;

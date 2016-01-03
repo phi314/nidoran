@@ -49,6 +49,7 @@ ORDER BY buku.judul ASC]]>
 	<field name="updated_at" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="sumber" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -57,26 +58,30 @@ ORDER BY buku.judul ASC]]>
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#009943" uuid="9b954349-957f-4bfd-8247-7aee879df2ea"/>
 				<staticText>
-					<reportElement x="10" y="19" width="234" height="43" forecolor="#FFFFFF" uuid="8cb54699-7201-4ece-aebc-4ae495c93590"/>
+					<reportElement x="98" y="19" width="234" height="43" forecolor="#FFFFFF" uuid="8cb54699-7201-4ece-aebc-4ae495c93590"/>
 					<textElement>
 						<font size="18" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Buku]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="10" y="38" width="379" height="27" forecolor="#FFFFFF" uuid="6a264dc0-dc47-449d-853d-adee1f163c52"/>
+					<reportElement x="98" y="38" width="379" height="27" forecolor="#FFFFFF" uuid="6a264dc0-dc47-449d-853d-adee1f163c52"/>
 					<textElement>
 						<font size="15" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Perpustakaan SMA Negeri 1 Ciranjang]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="10" y="55" width="379" height="16" forecolor="#FFFFFF" uuid="24ade382-a390-4f18-818b-b247f29bbb41"/>
+					<reportElement x="98" y="55" width="379" height="16" forecolor="#FFFFFF" uuid="24ade382-a390-4f18-818b-b247f29bbb41"/>
 					<textElement>
 						<font size="10" isBold="false"/>
 					</textElement>
 					<text><![CDATA[JL Jati Pasirsanta Kec.Ciranjang Kab.Cianjur]]></text>
 				</staticText>
+				<image>
+					<reportElement x="19" y="11" width="72" height="69" uuid="378c2082-1cdb-4980-8937-bd83462fef0d"/>
+					<imageExpression><![CDATA["/media/phi314/Data/Java Development/nidoran/report/ic_launcher_m.png"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</title>
@@ -128,7 +133,7 @@ ORDER BY buku.judul ASC]]>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[tahun]]></text>
+				<text><![CDATA[sumber]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="457" y="0" width="96" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ffe9e62a-929b-4e26-8561-1e46e3c2bc15"/>
@@ -184,7 +189,7 @@ ORDER BY buku.judul ASC]]>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tahun}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="457" y="0" width="96" height="20" uuid="b7213539-2a5d-4f1f-bf90-07d59892bd6e"/>
