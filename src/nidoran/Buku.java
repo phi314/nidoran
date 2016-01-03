@@ -135,7 +135,7 @@ public class Buku extends javax.swing.JFrame {
             String kode = split[0];
             _kodeKategori.setText(kode);
             
-            String q = "SELECT kode_buku FROM buku WHERE kode_buku like '" + kode + "%' ORDER BY kode_buku DESC LIMIT 1";
+            String q = "SELECT kode_buku FROM buku WHERE kode_buku like 'B" + kode + "%' ORDER BY kode_buku DESC LIMIT 1";
             ResultSet r = s.executeQuery(q);
             
             if (r.next()) {
@@ -641,7 +641,7 @@ public class Buku extends javax.swing.JFrame {
             cancelUpdateButton.setVisible(true);
             updateButton.setVisible(true);
             
-            getNewNomorBuku();
+            // getNewNomorBuku();
             
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Buku belum dipilih", "Kesalahan", JOptionPane.WARNING_MESSAGE);

@@ -71,7 +71,7 @@ ORDER BY peminjaman.kode ASC;]]>
 				</staticText>
 				<image>
 					<reportElement x="19" y="9" width="72" height="69" uuid="7b6724a2-33b6-45c2-a171-5372a82d60b0"/>
-					<imageExpression><![CDATA["/media/phi314/Data/Java Development/nidoran/report/ic_launcher_m.png"]]></imageExpression>
+					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
 			</frame>
 		</band>

@@ -133,7 +133,7 @@
 			</line>
 			<image>
 				<reportElement x="12" y="6" width="33" height="46" uuid="b1ce2955-5804-464b-9326-48453c859954"/>
-				<imageExpression><![CDATA["/media/phi314/Data/Java Development/nidoran/report/ic_launcher_m.png"]]></imageExpression>
+				<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

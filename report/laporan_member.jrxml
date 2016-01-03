@@ -86,7 +86,7 @@
 				</textField>
 				<image>
 					<reportElement x="22" y="10" width="72" height="69" uuid="7bb42588-6ba0-4fa8-9a48-a9a97c0948b3"/>
-					<imageExpression><![CDATA["/media/phi314/Data/Java Development/nidoran/report/ic_launcher_m.png"]]></imageExpression>
+					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
 			</frame>
 		</band>
