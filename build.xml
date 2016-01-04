@@ -70,4 +70,14 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <target name="-post-jar" description="Copying Report">
+        <property name="report.dir" value="${dist.dir}/report" />
+
+        <copy todir="${report.dir}">
+            <fileset dir="./report" />
+        </copy>
+        <echo level="info" message="Report folder content was copied."/>
+
+    </target>
 </project>

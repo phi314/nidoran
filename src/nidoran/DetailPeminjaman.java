@@ -33,7 +33,12 @@ public class DetailPeminjaman extends javax.swing.JFrame {
      */
     public DetailPeminjaman() {
         initComponents();
-        setLocationRelativeTo(null);  
+        setLocationRelativeTo(null); 
+        
+        if(Perpustakaan.is_pengembalian == true)
+        {
+            header.setText("DETAIL PENGEMBALIAN");
+        }
         
         /**
          * Table Buku
@@ -145,7 +150,7 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixDenda1 = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        header = new javax.swing.JLabel();
         fixKode = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         fixNomor = new javax.swing.JLabel();
@@ -219,9 +224,9 @@ public class DetailPeminjaman extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("DETAIL PEMINJAMAN");
+        header.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        header.setForeground(new java.awt.Color(255, 255, 255));
+        header.setText("DETAIL PEMINJAMAN");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -229,14 +234,14 @@ public class DetailPeminjaman extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(header)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(header)
                 .addContainerGap())
         );
 
@@ -411,8 +416,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel fixTanggalKembali;
     private javax.swing.JLabel fixTanggalPinjam;
     private javax.swing.JLabel fixTelepon;
+    private javax.swing.JLabel header;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

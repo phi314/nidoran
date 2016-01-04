@@ -5,11 +5,23 @@
  */
 package nidoran;
 
+import java.io.File;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -542,20 +554,16 @@ public class HomeBack extends javax.swing.JFrame {
         
         // TODO add your handling code here:
         Connection c = DbConnection.getConnection();
-        java.io.File namaFile = new java.io.File("./report/laporan_buku.jasper");
+        File file = new File("./report/laporan_buku.jasper");
         try {
-            net.sf.jasperreports.engine.JasperReport jasper;
-            jasper=(net.sf.jasperreports.engine.JasperReport)
-                    net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
-            net.sf.jasperreports.engine.JasperPrint jp;
-           
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, c);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
 
-            jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, null, c);
-                        
-            net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
-        } catch (Exception ex) {
+        } catch (JRException ex) {
             javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
+
     }//GEN-LAST:event_cetakBukuButtonActionPerformed
 
     private void buttonKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKategoriActionPerformed

@@ -882,6 +882,7 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
+            Perpustakaan.is_pengembalian = false;
             int x = tablePeminjaman.getSelectedRow();
             Object id_peminjaman = modelPeminjaman.getValueAt(x, 0);
             
@@ -948,6 +949,7 @@ public class HomeFront extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
+            Perpustakaan.is_pengembalian = true;
             int x = tablePengembalian.getSelectedRow();
             Object id_peminjaman = modelPengembalian.getValueAt(x, 0);
             

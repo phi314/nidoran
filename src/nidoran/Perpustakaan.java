@@ -22,6 +22,7 @@ public class Perpustakaan {
     public static String id_member;
     
     public static String id_cetak_laporan;
+    public static Boolean is_pengembalian;
 
     /**
      * @param args the command line arguments
