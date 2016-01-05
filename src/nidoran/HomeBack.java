@@ -488,13 +488,14 @@ public class HomeBack extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[7];
                 o[0] = r.getString("id");
-                o[1] = r.getString("isbn");
-                o[2] = r.getString("judul");
-                o[3] = r.getString("penerbit");
-                o[4] = r.getString("penulis");
-                o[5] = r.getString("tahun");
+                o[1] = r.getString("kode_buku");
+                o[2] = r.getString("isbn");
+                o[3] = r.getString("judul");
+                o[4] = r.getString("penerbit");
+                o[5] = r.getString("penulis");
+                o[6] = r.getString("tahun");
                 
                 modelBuku.addRow(o);
             }

@@ -273,24 +273,24 @@ public class HomeFront extends javax.swing.JFrame {
         fieldBukuComboBox = new javax.swing.JComboBox<>();
         resetBukuButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        fieldBukuComboBox1 = new javax.swing.JComboBox<>();
-        searchBukuInput1 = new javax.swing.JTextField();
+        fieldPeminjaman = new javax.swing.JComboBox<>();
+        searchPeminjaman = new javax.swing.JTextField();
         refreshPeminjamanButton = new javax.swing.JButton();
-        searchBukuButton1 = new javax.swing.JButton();
+        searchPeminjamanButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablePeminjaman = new javax.swing.JTable();
         detailPeminjamanButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        fieldBukuComboBox3 = new javax.swing.JComboBox<>();
-        searchBukuInput3 = new javax.swing.JTextField();
+        fieldPengembalian = new javax.swing.JComboBox<>();
+        searchPengembalian = new javax.swing.JTextField();
         resetBukuButton3 = new javax.swing.JButton();
-        searchBukuButton5 = new javax.swing.JButton();
+        searchPengembalianButton = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablePengembalian = new javax.swing.JTable();
         detailPengembalianButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        fieldBukuComboBox2 = new javax.swing.JComboBox<>();
-        searchBukuInput2 = new javax.swing.JTextField();
+        fieldMember = new javax.swing.JComboBox<>();
+        searchMember = new javax.swing.JTextField();
         resetMemberButton = new javax.swing.JButton();
         searchBukuButton3 = new javax.swing.JButton();
         detailMember = new javax.swing.JButton();
@@ -344,7 +344,7 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode", "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "isbn", "penerbit", "penulis", "tahun" }));
         fieldBukuComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBoxActionPerformed(evt);
@@ -395,10 +395,10 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Buku", jPanel1);
 
-        fieldBukuComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
-        fieldBukuComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        fieldPeminjaman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
+        fieldPeminjaman.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldBukuComboBox1ActionPerformed(evt);
+                fieldPeminjamanActionPerformed(evt);
             }
         });
 
@@ -409,10 +409,10 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        searchBukuButton1.setText("Cari Peminjaman");
-        searchBukuButton1.addActionListener(new java.awt.event.ActionListener() {
+        searchPeminjamanButton.setText("Cari Peminjaman");
+        searchPeminjamanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBukuButton1ActionPerformed(evt);
+                searchPeminjamanButtonActionPerformed(evt);
             }
         });
 
@@ -443,12 +443,12 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(refreshPeminjamanButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchBukuButton1)))
+                                .addComponent(searchPeminjamanButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(detailPeminjamanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -457,12 +457,12 @@ public class HomeFront extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fieldBukuComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchBukuInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchBukuButton1)
+                    .addComponent(searchPeminjamanButton)
                     .addComponent(refreshPeminjamanButton)
                     .addComponent(detailPeminjamanButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -472,10 +472,10 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Peminjaman", jPanel2);
 
-        fieldBukuComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
-        fieldBukuComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        fieldPengembalian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "kode" }));
+        fieldPengembalian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldBukuComboBox3ActionPerformed(evt);
+                fieldPengembalianActionPerformed(evt);
             }
         });
 
@@ -486,10 +486,10 @@ public class HomeFront extends javax.swing.JFrame {
             }
         });
 
-        searchBukuButton5.setText("Cari Pengembalian");
-        searchBukuButton5.addActionListener(new java.awt.event.ActionListener() {
+        searchPengembalianButton.setText("Cari Pengembalian");
+        searchPengembalianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBukuButton5ActionPerformed(evt);
+                searchPengembalianButtonActionPerformed(evt);
             }
         });
 
@@ -520,12 +520,12 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchBukuInput3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldBukuComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(resetBukuButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchBukuButton5)))
+                                .addComponent(searchPengembalianButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(detailPengembalianButton)))
                 .addContainerGap())
@@ -534,12 +534,12 @@ public class HomeFront extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fieldBukuComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchBukuInput3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchBukuButton5)
+                    .addComponent(searchPengembalianButton)
                     .addComponent(resetBukuButton3)
                     .addComponent(detailPengembalianButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -549,10 +549,10 @@ public class HomeFront extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pengembalian", jPanel4);
 
-        fieldBukuComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nama", "kelas", "telepon" }));
-        fieldBukuComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        fieldMember.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nama", "kelas", "telepon" }));
+        fieldMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldBukuComboBox2ActionPerformed(evt);
+                fieldMemberActionPerformed(evt);
             }
         });
 
@@ -597,8 +597,8 @@ public class HomeFront extends javax.swing.JFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchBukuInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldBukuComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchMember, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldMember, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(resetMemberButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -611,9 +611,9 @@ public class HomeFront extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fieldBukuComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchBukuInput2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton3)
@@ -848,13 +848,21 @@ public class HomeFront extends javax.swing.JFrame {
 
             while(r.next())
             {
-                Object[] o = new Object[6];
+                Object[] o = new Object[8];
                 o[0] = r.getString("id");
-                o[1] = r.getString("isbn");
-                o[2] = r.getString("judul");
-                o[3] = r.getString("penerbit");
-                o[4] = r.getString("penulis");
-                o[5] = r.getString("tahun");
+                o[1] = r.getString("kode_buku");
+                o[2] = r.getString("isbn");
+                o[3] = r.getString("judul");
+                o[4] = r.getString("penerbit");
+                o[5] = r.getString("penulis");
+                o[6] = r.getString("tahun");
+                
+                String status = "Tersedia";
+                if(r.getInt("is_tersedia") == 0){
+                    status = "Dipinjam";
+                }
+                
+                o[7] = status;
 
                 modelBuku.addRow(o);
             }
@@ -864,9 +872,9 @@ public class HomeFront extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchBukuButtonActionPerformed
 
-    private void fieldBukuComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox1ActionPerformed
+    private void fieldPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPeminjamanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fieldBukuComboBox1ActionPerformed
+    }//GEN-LAST:event_fieldPeminjamanActionPerformed
 
     private void refreshPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshPeminjamanButtonActionPerformed
         // TODO add your handling code here:
@@ -874,9 +882,40 @@ public class HomeFront extends javax.swing.JFrame {
         loadDataPeminjaman();
     }//GEN-LAST:event_refreshPeminjamanButtonActionPerformed
 
-    private void searchBukuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton1ActionPerformed
+    private void searchPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPeminjamanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBukuButton1ActionPerformed
+        
+        modelPeminjaman.getDataVector().removeAllElements();
+        modelPeminjaman.fireTableDataChanged();
+        
+        
+        Object field = fieldPeminjaman.getSelectedItem();
+        String search = searchPeminjaman.getText();
+        
+        try
+        {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            String sql = "SELECT peminjaman.*, member.nama as nama_member FROM peminjaman JOIN member ON member.id=peminjaman.id_member WHERE status='pinjam' AND " + field.toString() + " LIKE '%"+ search +"%' ORDER BY peminjaman.tanggal DESC";
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next())
+            {
+                Object[] o = new Object[7];
+                o[0] = r.getString("id");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("nama_member");
+                o[3] = r.getString("tanggal");
+                o[4] = r.getString("tanggal_kembali");
+                o[5] = r.getString("denda");
+                
+                modelPeminjaman.addRow(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_searchPeminjamanButtonActionPerformed
 
     private void detailPeminjamanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailPeminjamanButtonActionPerformed
         // TODO add your handling code here:
@@ -895,9 +934,9 @@ public class HomeFront extends javax.swing.JFrame {
 
     }//GEN-LAST:event_detailPeminjamanButtonActionPerformed
 
-    private void fieldBukuComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox2ActionPerformed
+    private void fieldMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldMemberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fieldBukuComboBox2ActionPerformed
+    }//GEN-LAST:event_fieldMemberActionPerformed
 
     private void resetMemberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMemberButtonActionPerformed
         // TODO add your handling code here:
@@ -906,6 +945,41 @@ public class HomeFront extends javax.swing.JFrame {
 
     private void searchBukuButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton3ActionPerformed
         // TODO add your handling code here:
+        modelMember.getDataVector().removeAllElements();
+        modelMember.fireTableDataChanged();
+        
+        Object field = fieldMember.getSelectedItem();
+        String search = searchMember.getText();
+        
+        try
+        {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            String sql = "SELECT * FROM member WHERE " + field.toString() + " LIKE '%"+ search +"%'";
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next())
+            {
+                Object[] o = new Object[8];
+                
+                String tempat_lahir = r.getString("tempat_lahir");
+                String tanggal_lahir = r.getString("tanggal_lahir");
+                
+                o[0] = r.getString("id");
+                o[1] = r.getString("nomor");
+                o[2] = r.getString("nis");
+                o[3] = r.getString("nama");
+                o[4] = r.getString("jk");
+                o[5] = tempat_lahir + ", " + tanggal_lahir;
+                o[6] = r.getString("kelas");
+                o[7] = r.getString("telepon");
+                
+                modelMember.addRow(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_searchBukuButton3ActionPerformed
 
     private void detailMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailMemberActionPerformed
@@ -925,9 +999,9 @@ public class HomeFront extends javax.swing.JFrame {
         
     }//GEN-LAST:event_detailMemberActionPerformed
 
-    private void fieldBukuComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBukuComboBox3ActionPerformed
+    private void fieldPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPengembalianActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fieldBukuComboBox3ActionPerformed
+    }//GEN-LAST:event_fieldPengembalianActionPerformed
 
     private void resetBukuButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBukuButton3ActionPerformed
         // TODO add your handling code here:
@@ -935,9 +1009,39 @@ public class HomeFront extends javax.swing.JFrame {
         loadDataPengembalian();
     }//GEN-LAST:event_resetBukuButton3ActionPerformed
 
-    private void searchBukuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBukuButton5ActionPerformed
+    private void searchPengembalianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPengembalianButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBukuButton5ActionPerformed
+        
+        modelPengembalian.getDataVector().removeAllElements();
+        modelPengembalian.fireTableDataChanged();
+        
+        Object field = fieldPengembalian.getSelectedItem();
+        String search = searchPengembalian.getText();
+        
+        try
+        {
+            Connection c = DbConnection.getConnection();
+            Statement s = c.createStatement();
+            
+            String sql = "SELECT peminjaman.*, member.nama as nama_member FROM peminjaman JOIN member ON member.id=peminjaman.id_member WHERE status='kembali' AND " + field.toString() + " LIKE '%"+ search +"%' ORDER BY peminjaman.tanggal DESC";
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next())
+            {
+                Object[] o = new Object[7];
+                o[0] = r.getString("id");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("nama_member");
+                o[3] = r.getString("tanggal");
+                o[4] = r.getString("tanggal_kembali");
+                o[5] = r.getString("denda");
+                
+                modelPengembalian.addRow(o);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_searchPengembalianButtonActionPerformed
 
     private void insertPeminjamanButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertPeminjamanButton1ActionPerformed
         // TODO add your handling code here:
@@ -1174,9 +1278,9 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton detailPeminjamanButton;
     private javax.swing.JButton detailPengembalianButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
-    private javax.swing.JComboBox<String> fieldBukuComboBox1;
-    private javax.swing.JComboBox<String> fieldBukuComboBox2;
-    private javax.swing.JComboBox<String> fieldBukuComboBox3;
+    private javax.swing.JComboBox<String> fieldMember;
+    private javax.swing.JComboBox<String> fieldPeminjaman;
+    private javax.swing.JComboBox<String> fieldPengembalian;
     private javax.swing.JButton insertMemberButton;
     private javax.swing.JButton insertPeminjamanButton1;
     private javax.swing.JButton insertPeminjamanButton2;
@@ -1212,13 +1316,13 @@ public class HomeFront extends javax.swing.JFrame {
     private javax.swing.JButton resetBukuButton3;
     private javax.swing.JButton resetMemberButton;
     private javax.swing.JButton searchBukuButton;
-    private javax.swing.JButton searchBukuButton1;
     private javax.swing.JButton searchBukuButton3;
-    private javax.swing.JButton searchBukuButton5;
     private javax.swing.JTextField searchBukuInput;
-    private javax.swing.JTextField searchBukuInput1;
-    private javax.swing.JTextField searchBukuInput2;
-    private javax.swing.JTextField searchBukuInput3;
+    private javax.swing.JTextField searchMember;
+    private javax.swing.JTextField searchPeminjaman;
+    private javax.swing.JButton searchPeminjamanButton;
+    private javax.swing.JTextField searchPengembalian;
+    private javax.swing.JButton searchPengembalianButton;
     private javax.swing.JTable tableBuku;
     private javax.swing.JTable tableMember;
     private javax.swing.JTable tablePeminjaman;
