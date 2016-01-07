@@ -60,11 +60,14 @@ public class HomeBack extends javax.swing.JFrame {
         tableBuku.setModel(modelBuku);
         modelBuku.addColumn("_id");
         modelBuku.addColumn("Kode Buku");
-        modelBuku.addColumn("ISBN");
         modelBuku.addColumn("Judul");
         modelBuku.addColumn("Penerbit");
         modelBuku.addColumn("Penulis");
         modelBuku.addColumn("Tahun");
+        modelBuku.addColumn("Jenis");
+        modelBuku.addColumn("Rak");
+        modelBuku.addColumn("Sumber");
+        modelBuku.addColumn("Jumlah");
         
         /**
          * Table Petugas
@@ -214,7 +217,7 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
-        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "isbn", "penerbit", "penulis", "tahun" }));
+        fieldBukuComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "judul", "kode_buku", "penerbit", "penulis", "tahun", "jenis", "kategori", "sumber", "rak" }));
         fieldBukuComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldBukuComboBoxActionPerformed(evt);

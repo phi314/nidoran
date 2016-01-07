@@ -18,6 +18,8 @@ public class Perpustakaan {
     public static String id_petugas;
     public static String nama;
     
+    public static String id_buku;
+    
     public static String id_peminjaman;
     public static String id_member;
     
