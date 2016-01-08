@@ -69,11 +69,14 @@ public class DetailMember extends javax.swing.JFrame {
          */
         tablePeminjaman.setModel(modelPeminjaman);
         modelPeminjaman.addColumn("_id");
+        modelPeminjaman.addColumn("Kode");
         modelPeminjaman.addColumn("Tanggal Pinjam");
         modelPeminjaman.addColumn("Tanggal Kembali");
         modelPeminjaman.addColumn("Denda");
         
         loadDataPeminjaman();
+        
+        tablePeminjaman.removeColumn(tablePeminjaman.getColumnModel().getColumn(0));
     }
     
     public void loadDataPeminjaman(){
@@ -93,9 +96,10 @@ public class DetailMember extends javax.swing.JFrame {
             {
                 Object[] o = new Object[6];
                 o[0] = r.getString("id");
-                o[1] = r.getString("tanggal");
-                o[2] = r.getString("tanggal_kembali");
-                o[3] = r.getString("denda");
+                o[1] = r.getString("kode");
+                o[2] = r.getString("tanggal");
+                o[3] = r.getString("tanggal_kembali");
+                o[4] = r.getString("denda");
                 
                 modelPeminjaman.addRow(o);
             }
@@ -428,8 +432,7 @@ public class DetailMember extends javax.swing.JFrame {
 
         try {
             int x = tablePeminjaman.getSelectedRow();
-            Object id_peminjaman = tablePeminjaman.getValueAt(x, 0);
-
+            Object id_peminjaman = modelPeminjaman.getValueAt(x, 0);
             Perpustakaan.id_peminjaman = id_peminjaman.toString();
             new DetailPeminjaman().setVisible(true);
 

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="99c7287e-ec1c-4d8c-9e7d-fdf66e9f7cdd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="1085973e-749c-4b8a-bbad-7eba46cb737c"/>
+	<parameter name="id_peminjaman" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT peminjaman.kode, peminjaman.tanggal, peminjaman.jangka_waktu, peminjaman.tanggal_kembali, peminjaman.denda, peminjaman.total_bayar, peminjaman.kembali, member.nama, member.nis 
+FROM peminjaman 
+JOIN member ON member.id=peminjaman.id_member 
+WHERE peminjaman.id=$P{id_peminjaman}]]>
+	</queryString>
+	<field name="kode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jangka_waktu" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_kembali" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="denda" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_bayar" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kembali" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nis" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#99000B" uuid="c5582eaf-7dc0-4bc6-8507-8f07db09b64a"/>
+				<staticText>
+					<reportElement x="89" y="37" width="379" height="27" forecolor="#FFFFFF" uuid="2b15c222-8aad-4562-9661-1a9391f9174b"/>
+					<textElement>
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Perpustakaan SMA Negeri 1 Ciranjang]]></text>
+				</staticText>
+				<image>
+					<reportElement x="10" y="10" width="72" height="69" uuid="df3aeb20-aa2b-43ca-b74b-e2f97bbd2417"/>
+					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="89" y="54" width="379" height="16" forecolor="#FFFFFF" uuid="1338ab38-8dfa-4938-aff4-289752ebdd96"/>
+					<textElement>
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[JL Jati Pasirsanta Kec.Ciranjang Kab.Cianjur]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="89" y="18" width="234" height="43" forecolor="#FFFFFF" uuid="9c8eea80-df73-4a19-9723-d6f73bdb9294"/>
+					<textElement>
+						<font size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Denda Siswa]]></text>
+				</staticText>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="454" y="46" width="93" height="24" forecolor="#FFFFFF" uuid="04a71e33-1366-4fdd-ab85-c8c93fe1b056"/>
+					<textElement>
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80">
+			<staticText>
+				<reportElement x="12" y="10" width="100" height="20" uuid="92d274a9-9f47-42dd-8b95-abaed49afefa"/>
+				<text><![CDATA[Kode Pengembalian]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="127" y="10" width="100" height="20" uuid="2d8f3821-03f8-4c9e-aed4-04bd2c565aa5"/>
+				<textFieldExpression><![CDATA[$F{kode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="30" width="100" height="20" uuid="c8bb7f90-96be-4e48-8933-3dc1f74f1ad0"/>
+				<textFieldExpression><![CDATA[$F{nis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="30" width="100" height="20" uuid="d4e10474-0571-4327-8c1e-bfb9b0811f3e"/>
+				<text><![CDATA[NIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="50" width="100" height="20" uuid="e22f90fd-26eb-4176-a061-11e6deae138b"/>
+				<text><![CDATA[Nama Siswa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="127" y="50" width="100" height="20" uuid="0bdb6c12-f070-46be-8774-74c64ec19f56"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="10" width="100" height="20" uuid="0d8d0df2-6eb6-485d-9ae3-246be684e35e"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{tanggal})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="10" width="100" height="20" uuid="c5e6d643-0960-4e43-b603-5bedcaf5af63"/>
+				<text><![CDATA[Tanggal Pinjam]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="30" width="100" height="20" uuid="8c7a83da-42fe-4471-b2ab-a8398526e318"/>
+				<text><![CDATA[Jangka Waktu]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="427" y="30" width="148" height="20" uuid="4326e47c-52b1-420f-b5b4-ae620ba8a692"/>
+				<textFieldExpression><![CDATA[$F{jangka_waktu} + " Hari"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="50" width="100" height="20" uuid="6e0d5018-3d5f-477d-b801-947218f56f82"/>
+				<text><![CDATA[Tanggal Kembali]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="427" y="50" width="148" height="20" uuid="acfce628-359a-4a4c-bd5e-c029a8f423ec"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{tanggal_kembali})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="ce3ad042-fd88-41e6-a007-6f34b6eba315"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="cbe45d19-4958-4eec-aeea-ff3b6437f15b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Denda]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="92">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="2fe55229-5367-4d8b-995e-3bbff1a60955"/>
+			</line>
+			<staticText>
+				<reportElement x="165" y="28" width="100" height="20" uuid="19207a76-abcd-4677-81d7-38fc42a14638"/>
+				<text><![CDATA[Total Denda]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="28" width="100" height="20" uuid="be8fab1e-704c-49a9-b3ad-e2bb1da8ec54"/>
+				<textFieldExpression><![CDATA[$F{denda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="48" width="100" height="20" uuid="504040b7-3c49-44e3-9f9e-444a8f82cb39"/>
+				<textFieldExpression><![CDATA[$F{total_bayar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="165" y="48" width="100" height="20" uuid="db8851f4-f2f9-4a21-9c12-9fc361f5372c"/>
+				<text><![CDATA[Total Bayar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="68" width="100" height="20" uuid="8842347f-c66f-4073-a19f-0439a2164416"/>
+				<textFieldExpression><![CDATA[$F{kembali}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="165" y="68" width="100" height="20" uuid="f12b197c-94e1-4469-b95d-7308cebcc44c"/>
+				<text><![CDATA[Kembali]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="a7a8866e-c4e9-4cf2-872c-fc9ef6c01c60"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="67fd96fd-309e-4a69-875a-c814863ffd82"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="a2aaf9c6-191d-4e17-945f-ca160f9b94e3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

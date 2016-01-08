@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/phi314/Data/Java%20Development/nidoran/src/nidoran/Buku.java</file>
+            <file>file:/media/phi314/Data/Java%20Development/nidoran/src/nidoran/Perpustakaan.java</file>
+            <file>file:/media/phi314/Data/Java%20Development/nidoran/src/nidoran/Pengembalian.java</file>
+            <file>file:/media/phi314/Data/Java%20Development/nidoran/src/nidoran/Peminjaman.java</file>
         </group>
     </open-files>
 </project-private>

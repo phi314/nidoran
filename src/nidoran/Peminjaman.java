@@ -5,14 +5,24 @@
  */
 package nidoran;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -44,7 +54,7 @@ public class Peminjaman extends javax.swing.JFrame {
          */
         tableDetailPeminjaman.setModel(modelDetailPeminjaman);
         modelDetailPeminjaman.addColumn("_id");
-        modelDetailPeminjaman.addColumn("ISBN");
+        modelDetailPeminjaman.addColumn("Kode Buku");
         modelDetailPeminjaman.addColumn("Judul");
         modelDetailPeminjaman.addColumn("Penerbit");
         modelDetailPeminjaman.addColumn("Penulis");
@@ -52,7 +62,6 @@ public class Peminjaman extends javax.swing.JFrame {
 
         String dateFormat = "yyyy-MM-dd";
         _tanggal_pinjam.setFormats(dateFormat);
-        _tanggal_kembali.setFormats(dateFormat);
         
         setKodePeminjaman();
         
@@ -76,12 +85,27 @@ public class Peminjaman extends javax.swing.JFrame {
             Statement s = c.createStatement();
 
             String typePeminjaman = "PS";
+            String bulan = new SimpleDateFormat("MM").format(new java.util.Date());
+            String tahun = new SimpleDateFormat("YY").format(new java.util.Date());
 
-            if(checkboxPeminjamanKelas.isSelected()) {
+            if(_tipe_peminjaman.getSelectedItem()== "kelas") {
                 typePeminjaman = "PK";
             }
+            
+            if(_tanggal_pinjam.getDate() != null)
+            {
+                bulan = new SimpleDateFormat("MM").format(_tanggal_pinjam.getDate());               
+            }
+            
+            if(_tanggal_pinjam.getDate() != null)
+            {
+                tahun = new SimpleDateFormat("YY").format(_tanggal_pinjam.getDate());
+            }
+            
+            typePeminjaman = typePeminjaman + bulan + tahun;
+            
 
-            String q = "SELECT kode FROM peminjaman WHERE SUBSTRING(kode, 1, 2)='"+typePeminjaman+"' ORDER BY kode DESC";
+            String q = "SELECT kode FROM peminjaman WHERE SUBSTRING(kode, 3, 4)='"+bulan+tahun+"' ORDER BY kode DESC";
             ResultSet r = s.executeQuery(q);
             
             if(r.next()){
@@ -100,6 +124,30 @@ public class Peminjaman extends javax.swing.JFrame {
             System.out.println(e);
         }
 
+    }
+    
+    public void setTanggalKembali(){
+        if(_jangka_waktu.getText() != "")
+        {
+            Calendar c = Calendar.getInstance();
+            Date tanggal_kembali;
+            Date tanggal_pinjam = _tanggal_pinjam.getDate();
+            int jangka_waktu = Integer.parseInt(_jangka_waktu.getText());
+            String tanggal_kembali_string;
+            
+            
+            c.setTime(tanggal_pinjam);
+            c.add(Calendar.DATE, jangka_waktu);
+
+            tanggal_kembali = c.getTime();   
+            tanggal_kembali_string = new SimpleDateFormat("yyyy-MM-dd").format(tanggal_kembali);
+
+            _tanggal_kembali.setText(tanggal_kembali_string);
+     
+        } else {
+            JOptionPane.showMessageDialog(this, "Jangka Waktu tidak Boleh kosong.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }
     
     public int totalBukuDipinjamSebelumnya(){
@@ -149,6 +197,18 @@ public class Peminjaman extends javax.swing.JFrame {
         fixJumlahBuku = new javax.swing.JLabel();
         fixStatusBuku = new javax.swing.JLabel();
         panelPeminjaman = new javax.swing.JTabbedPane();
+        panelPeminjam = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        _nomor = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        fixTelepon = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        checkNisButton = new javax.swing.JButton();
+        fixNama = new javax.swing.JLabel();
+        fixKelas = new javax.swing.JLabel();
+        fixNis = new javax.swing.JLabel();
         panelBuku = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         _kodeBuku = new javax.swing.JTextField();
@@ -164,31 +224,23 @@ public class Peminjaman extends javax.swing.JFrame {
         fixTahun = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        fixBukuPaket = new javax.swing.JLabel();
+        fixKeteranganBuku = new javax.swing.JLabel();
         fixTersedia = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        fixIsbn = new javax.swing.JLabel();
+        fixKode = new javax.swing.JLabel();
         fixIdBuku = new javax.swing.JLabel();
         panelDataPeminjaman = new javax.swing.JPanel();
-        checkboxPeminjamanKelas = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         _tanggal_pinjam = new org.jdesktop.swingx.JXDatePicker();
-        _tanggal_kembali = new org.jdesktop.swingx.JXDatePicker();
         jLabel20 = new javax.swing.JLabel();
         fixKodePeminjaman = new javax.swing.JLabel();
-        panelPeminjam = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        _nomor = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        fixTelepon = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        checkNisButton = new javax.swing.JButton();
-        fixNama = new javax.swing.JLabel();
-        fixKelas = new javax.swing.JLabel();
-        fixNis = new javax.swing.JLabel();
+        _tipe_peminjaman = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        _jangka_waktu = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        _tanggal_kembali = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -205,6 +257,11 @@ public class Peminjaman extends javax.swing.JFrame {
 
             }
         ));
+        tableDetailPeminjaman.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                _jangka_waktu_keyRelease(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableDetailPeminjaman);
 
         checkOutButton.setText("Simpan");
@@ -223,217 +280,6 @@ public class Peminjaman extends javax.swing.JFrame {
 
         fixJumlahBuku.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         fixJumlahBuku.setText("0");
-
-        jLabel1.setText("Kode Buku");
-
-        _kodeBuku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _kodeBukuActionPerformed(evt);
-            }
-        });
-
-        addToDetailButton.setText("Tambahkan");
-        addToDetailButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addToDetailButtonActionPerformed(evt);
-            }
-        });
-
-        cekBukuButton.setText("Cek");
-        cekBukuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cekBukuButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel11.setText("Judul");
-
-        fixJudul.setText("-");
-
-        jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel13.setText("Penerbit");
-
-        fixPenerbit.setText("-");
-
-        jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel14.setText("Penulis");
-
-        fixPenulis.setText("-");
-
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel15.setText("Tahun");
-
-        fixTahun.setText("-");
-
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel16.setText("Buku Paket");
-
-        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel17.setText("Tersedia");
-
-        fixBukuPaket.setText("-");
-
-        fixTersedia.setText("-");
-
-        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel19.setText("ISBN");
-
-        fixIsbn.setText("-");
-
-        fixIdBuku.setText("-");
-
-        javax.swing.GroupLayout panelBukuLayout = new javax.swing.GroupLayout(panelBuku);
-        panelBuku.setLayout(panelBukuLayout);
-        panelBukuLayout.setHorizontalGroup(
-            panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBukuLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(_kodeBuku)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cekBukuButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
-                        .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(fixJudul)
-                            .addComponent(jLabel13)
-                            .addComponent(fixPenerbit)
-                            .addComponent(jLabel14)
-                            .addComponent(fixPenulis)
-                            .addComponent(jLabel15)
-                            .addComponent(fixTahun))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
-                        .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(138, 138, 138))
-                            .addComponent(jLabel17)
-                            .addComponent(fixBukuPaket)
-                            .addComponent(fixTersedia)
-                            .addComponent(jLabel19)
-                            .addComponent(fixIsbn)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(fixIdBuku)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addToDetailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        panelBukuLayout.setVerticalGroup(
-            panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBukuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(_kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cekBukuButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBukuLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(4, 4, 4)
-                        .addComponent(fixJudul))
-                    .addGroup(panelBukuLayout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(4, 4, 4)
-                        .addComponent(fixIsbn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addGap(4, 4, 4)
-                .addComponent(fixPenerbit)
-                .addGap(6, 6, 6)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel16))
-                .addGap(6, 6, 6)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fixPenulis)
-                    .addComponent(fixBukuPaket))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fixTersedia)
-                    .addComponent(fixTahun))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addToDetailButton)
-                    .addComponent(fixIdBuku))
-                .addContainerGap())
-        );
-
-        panelPeminjaman.addTab("Buku", panelBuku);
-
-        checkboxPeminjamanKelas.setText("Peminjaman Kelas");
-        checkboxPeminjamanKelas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxPeminjamanKelasActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Tanggal Pinjam");
-
-        jLabel4.setText("Tanggal Kembali");
-
-        _tanggal_pinjam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                _tanggal_pinjamActionPerformed(evt);
-            }
-        });
-
-        jLabel20.setText("Kode Peminjaman");
-
-        fixKodePeminjaman.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        fixKodePeminjaman.setText("-");
-
-        javax.swing.GroupLayout panelDataPeminjamanLayout = new javax.swing.GroupLayout(panelDataPeminjaman);
-        panelDataPeminjaman.setLayout(panelDataPeminjamanLayout);
-        panelDataPeminjamanLayout.setHorizontalGroup(
-            panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
-                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(checkboxPeminjamanKelas)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel4)
-                                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                .addComponent(_tanggal_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(fixKodePeminjaman)))
-                .addContainerGap(361, Short.MAX_VALUE))
-        );
-        panelDataPeminjamanLayout.setVerticalGroup(
-            panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDataPeminjamanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_tanggal_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(checkboxPeminjamanKelas)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fixKodePeminjaman)
-                .addContainerGap(85, Short.MAX_VALUE))
-        );
-
-        panelPeminjaman.addTab("Peminjaman", panelDataPeminjaman);
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel9.setText("Kelas");
@@ -520,6 +366,247 @@ public class Peminjaman extends javax.swing.JFrame {
 
         panelPeminjaman.addTab("Data Peminjam", panelPeminjam);
 
+        jLabel1.setText("Kode Buku");
+
+        _kodeBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _kodeBukuActionPerformed(evt);
+            }
+        });
+
+        addToDetailButton.setText("Tambahkan");
+        addToDetailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToDetailButtonActionPerformed(evt);
+            }
+        });
+
+        cekBukuButton.setText("Cek");
+        cekBukuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cekBukuButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel11.setText("Judul");
+
+        fixJudul.setText("-");
+
+        jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel13.setText("Penerbit");
+
+        fixPenerbit.setText("-");
+
+        jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel14.setText("Penulis");
+
+        fixPenulis.setText("-");
+
+        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel15.setText("Tahun");
+
+        fixTahun.setText("-");
+
+        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel16.setText("Keterangan Buku");
+
+        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel17.setText("Tersedia");
+
+        fixKeteranganBuku.setText("-");
+
+        fixTersedia.setText("-");
+
+        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel19.setText("Kode Buku");
+
+        fixKode.setText("-");
+
+        fixIdBuku.setText("-");
+
+        javax.swing.GroupLayout panelBukuLayout = new javax.swing.GroupLayout(panelBuku);
+        panelBuku.setLayout(panelBukuLayout);
+        panelBukuLayout.setHorizontalGroup(
+            panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBukuLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_kodeBuku)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cekBukuButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
+                        .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(fixJudul)
+                            .addComponent(jLabel13)
+                            .addComponent(fixPenerbit)
+                            .addComponent(jLabel14)
+                            .addComponent(fixPenulis)
+                            .addComponent(jLabel15)
+                            .addComponent(fixTahun))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(138, 138, 138))
+                            .addComponent(jLabel17)
+                            .addComponent(fixKeteranganBuku)
+                            .addComponent(fixTersedia)
+                            .addComponent(jLabel19)
+                            .addComponent(fixKode)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBukuLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(fixIdBuku)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addToDetailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panelBukuLayout.setVerticalGroup(
+            panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBukuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(_kodeBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cekBukuButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBukuLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(4, 4, 4)
+                        .addComponent(fixJudul))
+                    .addGroup(panelBukuLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(4, 4, 4)
+                        .addComponent(fixKode)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addGap(4, 4, 4)
+                .addComponent(fixPenerbit)
+                .addGap(6, 6, 6)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16))
+                .addGap(6, 6, 6)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fixPenulis)
+                    .addComponent(fixKeteranganBuku))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fixTersedia)
+                    .addComponent(fixTahun))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(panelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addToDetailButton)
+                    .addComponent(fixIdBuku))
+                .addContainerGap())
+        );
+
+        panelPeminjaman.addTab("Buku", panelBuku);
+
+        jLabel2.setText("Tanggal Pinjam");
+
+        jLabel4.setText("Tipe peminjaman");
+
+        _tanggal_pinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _tanggal_pinjamActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Kode Peminjaman");
+
+        fixKodePeminjaman.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        fixKodePeminjaman.setText("-");
+
+        _tipe_peminjaman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Siswa", "Kelas", " " }));
+
+        jLabel5.setText("Jangka Waktu");
+
+        _jangka_waktu.setText("7");
+        _jangka_waktu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _jangka_waktuActionPerformed(evt);
+            }
+        });
+        _jangka_waktu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                _jangka_waktuKeyReleased(evt);
+            }
+        });
+
+        jLabel18.setText("Hari");
+
+        jLabel21.setText("Tanggal Kembali");
+
+        _tanggal_kembali.setText("-");
+
+        javax.swing.GroupLayout panelDataPeminjamanLayout = new javax.swing.GroupLayout(panelDataPeminjaman);
+        panelDataPeminjaman.setLayout(panelDataPeminjamanLayout);
+        panelDataPeminjamanLayout.setHorizontalGroup(
+            panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(fixKodePeminjaman))
+                    .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel20)
+                                .addComponent(jLabel2)
+                                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                .addComponent(_tipe_peminjaman, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(panelDataPeminjamanLayout.createSequentialGroup()
+                                    .addComponent(_jangka_waktu, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel18))
+                                .addComponent(jLabel4)))
+                        .addGap(43, 43, 43)
+                        .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(_tanggal_kembali)
+                            .addComponent(jLabel21))))
+                .addContainerGap(204, Short.MAX_VALUE))
+        );
+        panelDataPeminjamanLayout.setVerticalGroup(
+            panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDataPeminjamanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_tanggal_pinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDataPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(_jangka_waktu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(_tanggal_kembali))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(1, 1, 1)
+                .addComponent(_tipe_peminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fixKodePeminjaman)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
+        panelPeminjaman.addTab("Peminjaman", panelDataPeminjaman);
+
         jPanel4.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
@@ -601,7 +688,7 @@ public class Peminjaman extends javax.swing.JFrame {
        try {
             Object[] o = new Object[6];
             o[0] = fixIdBuku.getText();
-            o[1] = fixIsbn.getText();
+            o[1] = fixKode.getText();
             o[2] = fixJudul.getText();
             o[3] = fixPenulis.getText();
             o[4] = fixPenerbit.getText();
@@ -727,10 +814,10 @@ public class Peminjaman extends javax.swing.JFrame {
                 _tanggal_pinjam.setFocusable(true);
             }
             else
-            if(_tanggal_kembali.getDate() == null){
+            if(_jangka_waktu.getText().equals("")) {
                 insert = false;
-                message = "Tanggal kembali belum diisi.";
-                _tanggal_kembali.setFocusable(true);
+                message = "Jangka waktu belum diisi.";
+                _jangka_waktu.setFocusable(true);
             }
             else
             if(totalBukuDipinjamSebelumnya() >= 2)
@@ -746,18 +833,16 @@ public class Peminjaman extends javax.swing.JFrame {
             }
             
             if(insert.equals(true)) {
-                
-                boolean is_peminjaman_kelas_bool = checkboxPeminjamanKelas.isSelected();
-                int is_peminjaman_kelas = is_peminjaman_kelas_bool == true ? 1 : 0;
-                
+                                
                 String tanggal_pinjam = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_tanggal_pinjam.getDate());
-                String tanggal_kembali = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_tanggal_kembali.getDate());
+                String tanggal_kembali = _tanggal_kembali.getText();
+               
                                               
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
-                String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, subtotal, status, is_peminjaman_kelas, tanggal, tanggal_kembali)"
-                        + " VALUES('"+ fixKodePeminjaman.getText() +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '0', 'pinjam', '"+ is_peminjaman_kelas +"', '"+ tanggal_pinjam +"', '"+tanggal_kembali+"')";
+                String qInsertPeminjaman = "INSERT INTO peminjaman(kode, id_petugas, id_member, jumlah_buku, subtotal, status, tipe_peminjaman, tanggal, jangka_waktu, tanggal_kembali_temp)"
+                        + " VALUES('"+ fixKodePeminjaman.getText() +"', '"+Perpustakaan.id_petugas+"', '"+ fixIdMember.getText() +"', '"+ fixJumlahBuku.getText() +"', '0', 'pinjam', '"+ _tipe_peminjaman.getSelectedItem().toString() +"', '"+ tanggal_pinjam +"', '"+ _jangka_waktu.getText() +"', '"+_tanggal_kembali.getText()+"')";
                 
                 int id = 0;
                 s.executeUpdate(qInsertPeminjaman, Statement.RETURN_GENERATED_KEYS);
@@ -791,8 +876,21 @@ public class Peminjaman extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Berhasil Tambah Peminjaman.", "Kesalahan", JOptionPane.WARNING_MESSAGE);
                 setVisible(false);
                 dispose();
-                
                 new HomeFront().setVisible(true);
+                
+                // TODO add your handling code here:
+                File file = new File("./report/detailPeminjaman.jasper");
+                try {
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
+                    Map parametersMap = new HashMap();  
+                    parametersMap.put("id_peminjaman", id);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametersMap, c);
+                    net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+
+                } catch (JRException ex) {
+                    javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                }
+                
                 
             }
             else {
@@ -823,20 +921,16 @@ public class Peminjaman extends javax.swing.JFrame {
             if(r.next())
             {
                 String is_tersedia = "Tidak";
-                String is_buku_paket = "Tidak";
                 
                 fixIdBuku.setText(r.getString("id"));
-                fixIsbn.setText(r.getString("isbn"));
+                fixKode.setText(r.getString("kode_buku"));
                 fixJudul.setText(r.getString("judul"));
                 fixPenerbit.setText(r.getString("penerbit"));
                 fixPenulis.setText(r.getString("penulis"));
                 fixTahun.setText(r.getString("tahun"));
-                fixBukuPaket.setText(is_buku_paket);
+                fixKeteranganBuku.setText(r.getString("keterangan"));
                 fixTersedia.setText(is_tersedia);
                 
-               if(r.getString("is_buku_paket").equals("1")){
-                    fixBukuPaket.setText("Ya");
-                }
                 
                 if(r.getString("is_tersedia").equals("1")){
                     fixTersedia.setText("Ya");
@@ -860,15 +954,26 @@ public class Peminjaman extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
-    private void checkboxPeminjamanKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPeminjamanKelasActionPerformed
+    private void _tanggal_pinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__tanggal_pinjamActionPerformed
         // TODO add your handling code here:
         
         setKodePeminjaman();
-    }//GEN-LAST:event_checkboxPeminjamanKelasActionPerformed
-
-    private void _tanggal_pinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__tanggal_pinjamActionPerformed
-        // TODO add your handling code here:
+        setTanggalKembali();
     }//GEN-LAST:event__tanggal_pinjamActionPerformed
+
+    private void _jangka_waktu_keyRelease(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__jangka_waktu_keyRelease
+        // TODO add your handling code here:
+        setKodePeminjaman();
+    }//GEN-LAST:event__jangka_waktu_keyRelease
+
+    private void _jangka_waktuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__jangka_waktuKeyReleased
+        // TODO add your handling code here:
+        setTanggalKembali();
+    }//GEN-LAST:event__jangka_waktuKeyReleased
+
+    private void _jangka_waktuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__jangka_waktuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event__jangka_waktuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -907,23 +1012,24 @@ public class Peminjaman extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField _jangka_waktu;
     private javax.swing.JTextField _kodeBuku;
     private javax.swing.JTextField _nomor;
-    private org.jdesktop.swingx.JXDatePicker _tanggal_kembali;
+    private javax.swing.JLabel _tanggal_kembali;
     private org.jdesktop.swingx.JXDatePicker _tanggal_pinjam;
+    private javax.swing.JComboBox<String> _tipe_peminjaman;
     private javax.swing.JButton addToDetailButton;
     private javax.swing.JButton cekBukuButton;
     private javax.swing.JButton checkNisButton;
     private javax.swing.JButton checkOutButton;
-    private javax.swing.JCheckBox checkboxPeminjamanKelas;
     private javax.swing.JButton closeButton;
-    private javax.swing.JLabel fixBukuPaket;
     private javax.swing.JLabel fixIdBuku;
     private javax.swing.JLabel fixIdMember;
-    private javax.swing.JLabel fixIsbn;
     private javax.swing.JLabel fixJudul;
     private javax.swing.JLabel fixJumlahBuku;
     private javax.swing.JLabel fixKelas;
+    private javax.swing.JLabel fixKeteranganBuku;
+    private javax.swing.JLabel fixKode;
     private javax.swing.JLabel fixKodePeminjaman;
     private javax.swing.JLabel fixNama;
     private javax.swing.JLabel fixNis;
@@ -943,11 +1049,14 @@ public class Peminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

@@ -5,6 +5,7 @@
  */
 package nidoran;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -84,6 +92,11 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         loadDataBuku();
         
         tableBuku.removeColumn(tableBuku.getColumnModel().getColumn(0));
+                
+        if(Integer.parseInt(fixDenda.getText()) == 0)
+        {
+            cetakDenda.setVisible(false);
+        }
         
         
 
@@ -154,6 +167,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixKode = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         fixNomor = new javax.swing.JLabel();
+        cetakDenda = new javax.swing.JButton();
+        cetakPeminjaman = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -254,6 +269,20 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         fixNomor.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         fixNomor.setText("-");
 
+        cetakDenda.setText("Cetak Denda");
+        cetakDenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakDendaActionPerformed(evt);
+            }
+        });
+
+        cetakPeminjaman.setText("Cetak");
+        cetakPeminjaman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakPeminjamanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,6 +296,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fixDenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cetakPeminjaman)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(closeButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +308,10 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(fixTanggalPinjam)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
+                                        .addComponent(cetakDenda)))
                                 .addGap(60, 60, 60)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(fixTanggalKembali)
@@ -354,7 +388,9 @@ public class DetailPeminjaman extends javax.swing.JFrame {
                     .addComponent(fixDenda)
                     .addComponent(fixDenda1)
                     .addComponent(closeButton)
-                    .addComponent(fixKode))
+                    .addComponent(fixKode)
+                    .addComponent(cetakDenda)
+                    .addComponent(cetakPeminjaman))
                 .addGap(15, 15, 15))
         );
 
@@ -366,6 +402,40 @@ public class DetailPeminjaman extends javax.swing.JFrame {
         
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void cetakDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakDendaActionPerformed
+
+        // TODO add your handling code here:
+        File file = new File("./report/detailDenda.jasper");
+        try {
+            Connection c = DbConnection.getConnection();
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
+            Map parametersMap = new HashMap();  
+            parametersMap.put("id_peminjaman", Perpustakaan.id_peminjaman);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametersMap, c);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException ex) {
+            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_cetakDendaActionPerformed
+
+    private void cetakPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakPeminjamanActionPerformed
+
+        // TODO add your handling code here:
+        File file = new File("./report/detailPeminjaman.jasper");
+        try {
+            Connection c = DbConnection.getConnection();
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
+            Map parametersMap = new HashMap();  
+            parametersMap.put("id_peminjaman", Perpustakaan.id_peminjaman);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametersMap, c);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (JRException ex) {
+            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_cetakPeminjamanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,6 +473,8 @@ public class DetailPeminjaman extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cetakDenda;
+    private javax.swing.JButton cetakPeminjaman;
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel fixDenda;
     private javax.swing.JLabel fixDenda1;

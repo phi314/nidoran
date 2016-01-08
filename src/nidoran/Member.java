@@ -11,11 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.plaf.basic.CalendarHeaderHandler;
+import org.jdesktop.swingx.plaf.basic.SpinningCalendarHeaderHandler;
 
 /**
  *
@@ -63,6 +67,8 @@ public class Member extends javax.swing.JFrame {
         
         tableMember.removeColumn(tableMember.getColumnModel().getColumn(0));
         
+        String dateFormat = "yyyy-MM-dd";
+        _tanggallahir.setFormats(dateFormat);        
     }
     
     public void loadData(){
@@ -120,12 +126,20 @@ public class Member extends javax.swing.JFrame {
             Statement s = c.createStatement();
             
             int count = 1;
-            int number_to_count = 0;
+            int number_to_count = 1;
             String number = "";
+            
+            Date now = new Date();
+            
+            
+            
+            String bulan = new SimpleDateFormat("MM").format(now);                           
+            String tahun = new SimpleDateFormat("YY").format(now);
+            String jk = _jk.getSelectedItem().equals("Laki-laki") ? "L" : "P";
             
             
 
-            String q = "SELECT nomor FROM member ORDER BY nomor DESC LIMIT 1";
+            String q = "SELECT nomor FROM member WHERE SUBSTRING(nomor, 4, 4)='"+bulan+tahun+"' ORDER BY nomor DESC LIMIT 1";
             ResultSet r = s.executeQuery(q);
             
             if(r.next()){
@@ -135,7 +149,9 @@ public class Member extends javax.swing.JFrame {
                 number_to_count = Integer.parseInt(number) + 1;
             }
             
-            String number_format = "AP" + String.format("%03d", number_to_count);
+            
+            
+            String number_format = "AP" + jk + bulan + tahun + String.format("%03d", number_to_count);
             
             _nomor.setText(number_format);
             
@@ -191,6 +207,7 @@ public class Member extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         cetakMemberButton = new javax.swing.JButton();
         _tanggallahir = new org.jdesktop.swingx.JXDatePicker();
+        jLabel6 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,6 +310,11 @@ public class Member extends javax.swing.JFrame {
         });
 
         _jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        _jk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _jkActionPerformed(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -336,6 +358,8 @@ public class Member extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("(yyyy-mm-dd)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -359,12 +383,14 @@ public class Member extends javax.swing.JFrame {
                                 .addComponent(_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(_nama)
                                 .addComponent(_nis)
-                                .addGroup(layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel9)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(_jk, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(_nomor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -438,9 +464,6 @@ public class Member extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel9)
-                                .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(_id)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,13 +474,19 @@ public class Member extends javax.swing.JFrame {
                                         .addGap(13, 13, 13)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cancelUpdateButton)
-                                            .addComponent(updateButton)))))))
+                                            .addComponent(updateButton)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6))))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(_tempatlahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,7 +494,7 @@ public class Member extends javax.swing.JFrame {
                         .addComponent(deleteButton)
                         .addComponent(cetakMemberButton))
                     .addComponent(cancelUpdateButton1))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -675,6 +704,12 @@ public class Member extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cetakMemberButtonActionPerformed
 
+    private void _jkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__jkActionPerformed
+        // TODO add your handling code here:
+        
+        getNewNomorMember();
+    }//GEN-LAST:event__jkActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -737,6 +772,7 @@ public class Member extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

@@ -64,6 +64,7 @@ public class HomeBack extends javax.swing.JFrame {
         modelBuku.addColumn("Penerbit");
         modelBuku.addColumn("Penulis");
         modelBuku.addColumn("Tahun");
+        modelBuku.addColumn("Kategori");
         modelBuku.addColumn("Jenis");
         modelBuku.addColumn("Rak");
         modelBuku.addColumn("Sumber");
@@ -102,14 +103,19 @@ public class HomeBack extends javax.swing.JFrame {
             
             while(r.next())
             {
-                Object[] o = new Object[7];
+                Object[] o = new Object[13];
                 o[0] = r.getString("id");
                 o[1] = r.getString("kode_buku");
-                o[2] = r.getString("isbn");
-                o[3] = r.getString("judul");
-                o[4] = r.getString("penerbit");
-                o[5] = r.getString("penulis");
-                o[6] = r.getString("tahun");
+                o[2] = r.getString("judul");
+                o[3] = r.getString("penerbit");
+                o[4] = r.getString("penulis");
+                o[5] = r.getString("tahun");
+                o[6] = r.getString("keterangan");
+                o[7] = r.getString("kategori");
+                o[8] = r.getString("jenis");
+                o[9] = r.getString("lokasi");
+                o[10] = r.getString("sumber");
+                o[11] = r.getString("jumlah");
                 
                 modelBuku.addRow(o);
             }
@@ -171,7 +177,6 @@ public class HomeBack extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         resetBukuButton = new javax.swing.JButton();
         cetakBukuButton = new javax.swing.JButton();
-        buttonKategori = new javax.swing.JButton();
         bukuButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -241,13 +246,6 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
-        buttonKategori.setText("Kategori");
-        buttonKategori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonKategoriActionPerformed(evt);
-            }
-        });
-
         bukuButton.setText("Tambah Buku");
         bukuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,7 +274,6 @@ public class HomeBack extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cetakBukuButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bukuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -293,9 +290,7 @@ public class HomeBack extends javax.swing.JFrame {
                         .addComponent(searchBukuInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(bukuButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonKategori)))
+                        .addComponent(bukuButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton)
@@ -570,12 +565,6 @@ public class HomeBack extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cetakBukuButtonActionPerformed
 
-    private void buttonKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKategoriActionPerformed
-        // TODO add your handling code here:
-        new Kategori().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_buttonKategoriActionPerformed
-
     private void bukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukuButtonActionPerformed
         // TODO add your handling code here:
         new Buku().setVisible(true);
@@ -633,7 +622,6 @@ public class HomeBack extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bukuButton;
     private javax.swing.JButton bukuButton1;
-    private javax.swing.JButton buttonKategori;
     private javax.swing.JButton cetakBukuButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldPetugasComboBox;

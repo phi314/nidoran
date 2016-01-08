@@ -8,6 +8,7 @@ package nidoran;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Perpustakaan {
     public static String id_member;
     
     public static String id_cetak_laporan;
-    public static Boolean is_pengembalian;
+    public static Boolean is_pengembalian = false;
 
     /**
      * @param args the command line arguments
@@ -38,8 +39,8 @@ public class Perpustakaan {
     }
     
     public static int countDenda(String tanggal){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         
         Date d1 = null;
         Date d2 = null;
@@ -68,8 +69,7 @@ public class Perpustakaan {
             else
             {
                 denda = 0;
-            }
-            
+            }         
             
         } catch (Exception e) {
             e.printStackTrace();

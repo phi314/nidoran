@@ -93,8 +93,7 @@ public class HomeFront extends javax.swing.JFrame {
         modelPeminjaman.addColumn("Kode");
         modelPeminjaman.addColumn("Nama Peminjam");
         modelPeminjaman.addColumn("Tanggal Pinjam");
-        modelPeminjaman.addColumn("Tanggal Kembali");
-        modelPeminjaman.addColumn("Denda");
+        modelPeminjaman.addColumn("Jangka Waktu (Hari)");
         
         /**
          * Table Pengembalian
@@ -212,8 +211,7 @@ public class HomeFront extends javax.swing.JFrame {
                 o[1] = r.getString("kode");
                 o[2] = r.getString("nama_member");
                 o[3] = r.getString("tanggal");
-                o[4] = r.getString("tanggal_kembali");
-                o[5] = r.getString("denda");
+                o[4] = r.getString("jangka_waktu");
                 
                 modelPeminjaman.addRow(o);
             }

@@ -5,6 +5,7 @@
  */
 package nidoran;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +14,18 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -131,11 +139,8 @@ public class Pengembalian extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
-        fixKembali = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
         _total = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         panelPeminjam = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -210,13 +215,13 @@ public class Pengembalian extends javax.swing.JFrame {
             }
         });
 
-        fixKembali.setEnabled(false);
-
-        jLabel21.setText("Kembali");
+        _total.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                _totalKeyTyped(evt);
+            }
+        });
 
         jLabel22.setText("Total Bayar");
-
-        jLabel23.setText("Rp.");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel9.setText("Kelas");
@@ -419,11 +424,6 @@ public class Pengembalian extends javax.swing.JFrame {
                         .addComponent(jLabel26)
                         .addGap(12, 12, 12)
                         .addComponent(_total, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel21)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addGap(12, 12, 12)
-                        .addComponent(fixKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,14 +458,7 @@ public class Pengembalian extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel26))
                             .addComponent(_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel21)
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel23))
-                            .addComponent(fixKembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
@@ -514,7 +507,6 @@ public class Pengembalian extends javax.swing.JFrame {
                     fixKelas.setText(r.getString("kelas"));
                     fixTanggalPinjam.setText(r.getString("tanggal"));
                     fixSubtotal.setText(r.getString("subtotal"));
-                    fixKembali.setText("0");
                     
                     int subtotal = r.getInt("subtotal") + Perpustakaan.countDenda(r.getString("tanggal"));
                     String string_subtotal = Integer.toString(subtotal);
@@ -571,11 +563,16 @@ public class Pengembalian extends javax.swing.JFrame {
                 _total.setFocusable(true);
             }
             
+            int denda = Integer.parseInt(fixDenda.getText());
+            int bayar = Integer.parseInt(_total.getText());
+
+            int kembali = bayar - denda;
+            
             if(update) {
                  // insert into peminjaman
                 Connection c = DbConnection.getConnection();
                 Statement s = c.createStatement();
-                String qInsertPeminjaman = "UPDATE peminjaman SET tanggal_kembali='"+_tanggal_kembali.getText()+"', denda='"+fixDenda.getText()+"', total_bayar='"+_total.getText()+"', kembali='"+fixKembali.getText()+"', status='kembali' WHERE id='"+ Perpustakaan.id_peminjaman +"'";               
+                String qInsertPeminjaman = "UPDATE peminjaman SET tanggal_kembali='"+_tanggal_kembali.getText()+"', denda='"+fixDenda.getText()+"', total_bayar='"+_total.getText()+"', kembali='"+kembali+"', status='kembali' WHERE id='"+ Perpustakaan.id_peminjaman +"'";               
                 
                 s.executeUpdate(qInsertPeminjaman);
                
@@ -599,6 +596,24 @@ public class Pengembalian extends javax.swing.JFrame {
                 
                 new HomeFront().setVisible(true);
                 
+                if(Integer.parseInt(_total.getText()) > 0)
+                {
+                     // TODO add your handling code here:
+                    File file = new File("./report/detailDenda.jasper");
+                    try {
+                        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
+                        Map parametersMap = new HashMap();  
+                        parametersMap.put("id_peminjaman", Perpustakaan.id_peminjaman);
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametersMap, c);
+                        net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+
+                    } catch (JRException ex) {
+                        javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+                    }
+                }
+                
+                
+                
             }
             else {
                 JOptionPane.showMessageDialog(this, message, "Kesalahan", JOptionPane.WARNING_MESSAGE);
@@ -614,6 +629,12 @@ public class Pengembalian extends javax.swing.JFrame {
         new HomeFront().setVisible(true);
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void _totalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event__totalKeyTyped
+        // TODO add your handling code here:
+        
+       
+    }//GEN-LAST:event__totalKeyTyped
 
     /**
      * @param args the command line arguments
@@ -664,7 +685,6 @@ public class Pengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel fixIdMember;
     private javax.swing.JLabel fixJumlahBuku;
     private javax.swing.JLabel fixKelas;
-    private javax.swing.JTextField fixKembali;
     private javax.swing.JLabel fixNama;
     private javax.swing.JLabel fixNis;
     private javax.swing.JLabel fixNomor;
@@ -678,9 +698,7 @@ public class Pengembalian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
