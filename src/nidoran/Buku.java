@@ -51,6 +51,7 @@ public class Buku extends javax.swing.JFrame {
         model.addColumn("Penerbit");
         model.addColumn("Penulis");
         model.addColumn("Tahun");
+        model.addColumn("Keterangan");
         model.addColumn("Kategori");
         model.addColumn("Jenis");
         model.addColumn("Rak");

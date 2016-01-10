@@ -88,7 +88,7 @@ public class Peminjaman extends javax.swing.JFrame {
             String bulan = new SimpleDateFormat("MM").format(new java.util.Date());
             String tahun = new SimpleDateFormat("YY").format(new java.util.Date());
 
-            if(_tipe_peminjaman.getSelectedItem()== "kelas") {
+            if(_tipe_peminjaman.getSelectedItem()== "Kelas") {
                 typePeminjaman = "PK";
             }
             
@@ -528,6 +528,11 @@ public class Peminjaman extends javax.swing.JFrame {
         fixKodePeminjaman.setText("-");
 
         _tipe_peminjaman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Siswa", "Kelas", " " }));
+        _tipe_peminjaman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _tipe_peminjamanActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Jangka Waktu");
 
@@ -974,6 +979,11 @@ public class Peminjaman extends javax.swing.JFrame {
     private void _jangka_waktuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__jangka_waktuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event__jangka_waktuActionPerformed
+
+    private void _tipe_peminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__tipe_peminjamanActionPerformed
+        // TODO add your handling code here:
+        setKodePeminjaman();
+    }//GEN-LAST:event__tipe_peminjamanActionPerformed
 
     /**
      * @param args the command line arguments

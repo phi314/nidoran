@@ -184,7 +184,6 @@ public class HomeBack extends javax.swing.JFrame {
         fieldBukuComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         resetBukuButton = new javax.swing.JButton();
-        cetakBukuButton = new javax.swing.JButton();
         bukuButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -254,13 +253,6 @@ public class HomeBack extends javax.swing.JFrame {
             }
         });
 
-        cetakBukuButton.setText("Cetak");
-        cetakBukuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cetakBukuButtonActionPerformed(evt);
-            }
-        });
-
         bukuButton.setText("Tambah Buku");
         bukuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,9 +279,7 @@ public class HomeBack extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBukuButton)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cetakBukuButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bukuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(bukuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -309,8 +299,7 @@ public class HomeBack extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBukuButton)
-                    .addComponent(resetBukuButton)
-                    .addComponent(cetakBukuButton))
+                    .addComponent(resetBukuButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -453,7 +442,7 @@ public class HomeBack extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel6)
                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                     .addComponent(_tanggalFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(208, 208, 208)))
         );
@@ -473,7 +462,7 @@ public class HomeBack extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(279, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -606,23 +595,6 @@ public class HomeBack extends javax.swing.JFrame {
         loadDataPetugas();
     }//GEN-LAST:event_resetPetugasButtonActionPerformed
 
-    private void cetakBukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakBukuButtonActionPerformed
-        // TODO add your handling code here:
-        
-        // TODO add your handling code here:
-        Connection c = DbConnection.getConnection();
-        File file = new File("./report/laporan_buku.jasper");
-        try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(file);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, c);
-            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
-
-        } catch (JRException ex) {
-            javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-
-    }//GEN-LAST:event_cetakBukuButtonActionPerformed
-
     private void bukuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukuButtonActionPerformed
         // TODO add your handling code here:
         new Buku().setVisible(true);
@@ -717,7 +689,6 @@ public class HomeBack extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker _tanggalUntil;
     private javax.swing.JButton bukuButton;
     private javax.swing.JButton bukuButton1;
-    private javax.swing.JButton cetakBukuButton;
     private javax.swing.JComboBox<String> fieldBukuComboBox;
     private javax.swing.JComboBox<String> fieldPetugasComboBox;
     private javax.swing.JLabel jLabel1;
