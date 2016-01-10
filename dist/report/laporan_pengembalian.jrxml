@@ -3,16 +3,15 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="bulan" class="java.lang.String"/>
-	<parameter name="tahun" class="java.lang.String"/>
+	<parameter name="from" class="java.lang.String"/>
+	<parameter name="until" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT peminjaman.*, member.nama, member.kelas
+		<![CDATA[SELECT peminjaman.*, member.nama, member.kelas, DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal_pinjam
 FROM peminjaman
 JOIN member ON member.id=peminjaman.id_member
-WHERE MONTH(peminjaman.updated_at) = $P{bulan}
-AND YEAR(peminjaman.updated_at) = $P{tahun}
-AND status='kembali'
-ORDER BY peminjaman.kode ASC;]]>
+WHERE peminjaman.tanggal_kembali >= $P{from} AND peminjaman.tanggal_kembali <= $P{until}
+AND peminjaman.status='kembali'
+ORDER BY peminjaman.tanggal_kembali ASC;]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -30,6 +29,12 @@ ORDER BY peminjaman.kode ASC;]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="tanggal_kembali" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_kembali_temp" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jangka_waktu" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="subtotal" class="java.lang.Integer">
@@ -50,7 +55,7 @@ ORDER BY peminjaman.kode ASC;]]>
 	<field name="status" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="is_peminjaman_kelas" class="java.lang.Boolean">
+	<field name="tipe_peminjaman" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="created_at" class="java.sql.Timestamp">
@@ -65,6 +70,7 @@ ORDER BY peminjaman.kode ASC;]]>
 	<field name="kelas" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="tanggal_pinjam" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -79,13 +85,6 @@ ORDER BY peminjaman.kode ASC;]]>
 					</textElement>
 					<text><![CDATA[Laporan Pengembalian]]></text>
 				</staticText>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="494" y="52" width="93" height="24" forecolor="#FFFFFF" uuid="3bfa8b2e-34c1-41aa-9cd2-8936a6cc1dc3"/>
-					<textElement>
-						<font size="13"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{bulan} +"."+$P{tahun}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="94" y="39" width="379" height="27" forecolor="#FFFFFF" uuid="2ceb706f-446f-4d75-bb0a-8bd91855ff37"/>
 					<textElement>
@@ -104,6 +103,13 @@ ORDER BY peminjaman.kode ASC;]]>
 					<reportElement x="18" y="11" width="72" height="69" uuid="a52ef5e2-ef7d-4607-bb73-d56ccae76d93"/>
 					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="502" y="56" width="93" height="24" forecolor="#FFFFFF" uuid="4b61f61a-c020-4ab6-a90c-efa3e399ab98"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{from} +" / "+$P{until}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
@@ -148,7 +154,7 @@ ORDER BY peminjaman.kode ASC;]]>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Stauts]]></text>
+				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="395" y="0" width="50" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="97d7757f-bcbb-4d52-90da-dc725742717d"/>
@@ -183,7 +189,7 @@ ORDER BY peminjaman.kode ASC;]]>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tanggal_pinjam}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="158" y="0" width="79" height="20" uuid="785cb051-21b8-4c76-baba-7ccb302cc321"/>

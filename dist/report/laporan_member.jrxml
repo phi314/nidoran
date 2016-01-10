@@ -3,12 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="bulan" class="java.lang.String">
+	<parameter name="from" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="tahun" class="java.lang.String"/>
+	<parameter name="until" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM member WHERE MONTH(created_at)=$P{bulan} AND YEAR(created_at)=$P{tahun} ORDER BY created_at ASC;]]>
+		<![CDATA[SELECT * FROM member WHERE created_at >= $P{from} AND created_at <= $P{until} ORDER BY created_at ASC;]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -61,7 +61,7 @@
 					<textElement>
 						<font size="18" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Laporan Member]]></text>
+					<text><![CDATA[Laporan Anggota]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="101" y="41" width="379" height="27" forecolor="#FFFFFF" uuid="7ea44655-b5f3-4baa-a2df-7e91bff401f9"/>
@@ -77,17 +77,17 @@
 					</textElement>
 					<text><![CDATA[JL Jati Pasirsanta Kec.Ciranjang Kab.Cianjur]]></text>
 				</staticText>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="482" y="50" width="93" height="24" forecolor="#FFFFFF" uuid="e81d3597-f528-441d-8682-2dfbd73494e3"/>
-					<textElement>
-						<font size="13"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{bulan} +"."+$P{tahun}]]></textFieldExpression>
-				</textField>
 				<image>
 					<reportElement x="22" y="10" width="72" height="69" uuid="7bb42588-6ba0-4fa8-9a48-a9a97c0948b3"/>
 					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="482" y="44" width="93" height="24" forecolor="#FFFFFF" uuid="6bf79bf4-7a07-4c8f-9428-55be76107ae1"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{from} +" / "+$P{until}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
@@ -104,21 +104,21 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nomor]]></text>
+				<text><![CDATA[Nomor]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="18f5fe06-cdc0-4d4e-a524-4316b4ab3349"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nis]]></text>
+				<text><![CDATA[NIS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c0a60a58-2cae-46e1-b223-15dc48a0d193"/>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nama]]></text>
+				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="cadd3af1-534c-45c7-94a5-b6969a82c1db"/>
@@ -132,7 +132,7 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[telepon]]></text>
+				<text><![CDATA[Tanggal Daftar]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

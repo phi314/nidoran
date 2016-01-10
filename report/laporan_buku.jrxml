@@ -3,8 +3,11 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="from" class="java.lang.String"/>
+	<parameter name="until" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT buku.* FROM buku
+WHERE created_at >= $P{from} AND created_at <= $P{until}
 ORDER BY buku.judul ASC]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
@@ -28,6 +31,15 @@ ORDER BY buku.judul ASC]]>
 	<field name="tahun" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="kategori" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jenis" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sumber" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="is_tersedia" class="java.lang.Boolean">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -37,7 +49,10 @@ ORDER BY buku.judul ASC]]>
 	<field name="id_petugas" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="is_buku_paket" class="java.lang.Boolean">
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="lokasi" class="java.lang.String">
@@ -49,7 +64,6 @@ ORDER BY buku.judul ASC]]>
 	<field name="updated_at" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="sumber" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -82,6 +96,13 @@ ORDER BY buku.judul ASC]]>
 					<reportElement x="19" y="11" width="72" height="69" uuid="378c2082-1cdb-4980-8937-bd83462fef0d"/>
 					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="480" y="47" width="93" height="24" forecolor="#FFFFFF" uuid="2251ca17-5648-4b4b-bfe4-c256cd9857af"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{from} +" / "+$P{until}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>

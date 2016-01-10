@@ -11,9 +11,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -87,6 +90,10 @@ public class HomeBack extends javax.swing.JFrame {
                 
         tableBuku.removeColumn(tableBuku.getColumnModel().getColumn(0));
         tablePetugas.removeColumn(tablePetugas.getColumnModel().getColumn(0));
+        
+        String dateFormat = "yyyy-MM-dd";
+        _tanggalFrom.setFormats(dateFormat);
+        _tanggalUntil.setFormats(dateFormat);     
     }
     
     public void loadDataBuku(){
@@ -187,6 +194,12 @@ public class HomeBack extends javax.swing.JFrame {
         tablePetugas = new javax.swing.JTable();
         resetPetugasButton = new javax.swing.JButton();
         bukuButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        _tanggalFrom = new org.jdesktop.swingx.JXDatePicker();
+        _tanggalUntil = new org.jdesktop.swingx.JXDatePicker();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -204,6 +217,7 @@ public class HomeBack extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perpustakaan (Back Office)");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableBuku.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -391,6 +405,62 @@ public class HomeBack extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Petugas", jPanel2);
 
+        jLabel6.setText("Sampai");
+
+        jLabel5.setText("Dari");
+
+        jToggleButton2.setText("Laporan Buku");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(_tanggalUntil, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(162, 162, 162))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(314, 314, 314)
+                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(323, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(156, 156, 156)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(_tanggalFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addGap(64, 64, 64)
+                    .addComponent(jLabel6)
+                    .addContainerGap(316, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(124, Short.MAX_VALUE)
+                .addComponent(_tanggalUntil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(94, 94, 94)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(_tanggalFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(208, 208, 208)))
+        );
+
+        jTabbedPane1.addTab("Laporan", jPanel3);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, -1, -1));
+
         jPanel5.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
@@ -414,6 +484,8 @@ public class HomeBack extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 801, -1));
+
         jMenu3.setText("File");
 
         jMenuItem3.setText("Logout");
@@ -435,21 +507,6 @@ public class HomeBack extends javax.swing.JFrame {
         jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 24, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -583,6 +640,41 @@ public class HomeBack extends javax.swing.JFrame {
         new Login().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
+
+        String from = new SimpleDateFormat("yyyy-MM-dd").format(_tanggalFrom.getDate());
+        String until = new SimpleDateFormat("yyyy-MM-dd").format(_tanggalUntil.getDate());
+
+        if(from.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Silahkan masukan tanggal Dari", "Kesalahan", JOptionPane.WARNING_MESSAGE);
+        }
+        else
+        {
+            // TODO add your handling code here:
+            Connection c = DbConnection.getConnection();
+            java.io.File namaFile = new java.io.File("./report/laporan_buku.jasper");
+            try {
+                net.sf.jasperreports.engine.JasperReport jasper;
+                jasper=(net.sf.jasperreports.engine.JasperReport)
+                net.sf.jasperreports.engine.util.JRLoader.loadObject(namaFile.getPath());
+                net.sf.jasperreports.engine.JasperPrint jp;
+
+                Map parametersMap = new HashMap();
+                parametersMap.put("from", from);
+                parametersMap.put("until", until);
+
+                jp=net.sf.jasperreports.engine.JasperFillManager.fillReport(jasper, parametersMap, c);
+
+                net.sf.jasperreports.view.JasperViewer.viewReport(jp,false);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -620,6 +712,8 @@ public class HomeBack extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker _tanggalFrom;
+    private org.jdesktop.swingx.JXDatePicker _tanggalUntil;
     private javax.swing.JButton bukuButton;
     private javax.swing.JButton bukuButton1;
     private javax.swing.JButton cetakBukuButton;
@@ -628,6 +722,8 @@ public class HomeBack extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -638,10 +734,12 @@ public class HomeBack extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JButton resetBukuButton;
     private javax.swing.JButton resetPetugasButton;
     private javax.swing.JButton searchBukuButton;

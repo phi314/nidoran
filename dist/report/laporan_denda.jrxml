@@ -3,12 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="bulan" class="java.lang.String"/>
-	<parameter name="tahun" class="java.lang.String"/>
+	<parameter name="from" class="java.lang.String"/>
+	<parameter name="until" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT peminjaman.*, member.nama as nama_member FROM peminjaman JOIN member ON member.id=peminjaman.id_member WHERE peminjaman.denda > 0 
-AND MONTH(peminjaman.updated_at) = $P{bulan}
-AND YEAR(peminjaman.updated_at) = $P{tahun}
+AND peminjaman.tanggal_kembali >= $P{from}
+AND peminjaman.tanggal_kembali <= $P{until}
 ORDER BY peminjaman.kode ASC;]]>
 	</queryString>
 	<field name="kode" class="java.lang.String">
@@ -38,13 +38,6 @@ ORDER BY peminjaman.kode ASC;]]>
 					</textElement>
 					<text><![CDATA[Laporan Denda]]></text>
 				</staticText>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="444" y="48" width="93" height="24" forecolor="#FFFFFF" uuid="889a2a6c-518a-4531-9801-0f3ddddb537c"/>
-					<textElement>
-						<font size="13"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{bulan} +"."+$P{tahun}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement x="79" y="33" width="379" height="27" forecolor="#FFFFFF" uuid="5f7bdc48-cadb-46cf-90ed-d8f53ee7c6c8"/>
 					<textElement>
@@ -63,6 +56,13 @@ ORDER BY peminjaman.kode ASC;]]>
 					<reportElement x="7" y="3" width="72" height="69" uuid="072fda4b-2dbb-4da9-9a92-5777ff807be6"/>
 					<imageExpression><![CDATA["./report/ic_launcher_m.png"]]></imageExpression>
 				</image>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="444" y="36" width="93" height="24" forecolor="#FFFFFF" uuid="a9a457f2-88a1-4dec-9a07-0fa36fd596bc"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{from} +" / "+$P{until}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
