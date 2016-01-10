@@ -70,6 +70,7 @@ public class HomeFront extends javax.swing.JFrame {
         modelBuku.addColumn("Penerbit");
         modelBuku.addColumn("Penulis");
         modelBuku.addColumn("Tahun");
+        modelBuku.addColumn("Keterangan");
         modelBuku.addColumn("Kategori");
         modelBuku.addColumn("Jenis");
         modelBuku.addColumn("Rak");
